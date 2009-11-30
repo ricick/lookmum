@@ -3,6 +3,7 @@ package com.lookmum
 	import com.lookmum.view.BlurLayer;
 	import com.lookmum.view.LabelButton;
 	import com.lookmum.view.LabelToggleButton;
+	import com.lookmum.view.VolumeSliderMute;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.display.StageScaleMode;
@@ -28,14 +29,6 @@ package com.lookmum
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
-			var lb:LabelToggleButton = new LabelToggleButton(new labelToggleButtonClip());
-			var tf:TextFormat = new TextFormat();
-			tf.align = TextFormatAlign.CENTER;
-			lb.textFormatDisableToggle = tf;
-			lb.textFormatPressToggle = tf;
-			lb.textFormatRollOutToggle = tf;
-			lb.textFormatRollOverToggle = tf;
-			addChild(lb);
 		}
 	}
 	
