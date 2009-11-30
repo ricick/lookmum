@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<toc label="Lookmum4Testbed">
+<toc label="Lookmum">
   <topic label="All Classes" href="class-summary.html">
     <topic label="Button" href="com/lookmum/view/Button.html">
       <topic label="Public Properties" href="com/lookmum/view/Button.html#propertySummary">
@@ -36,6 +36,7 @@
         <topic label="cacheAsBitmap" href="com/lookmum/view/Component.html#cacheAsBitmap" />
         <topic label="contextMenu" href="com/lookmum/view/Component.html#contextMenu" />
         <topic label="currentFrame" href="com/lookmum/view/Component.html#currentFrame" />
+        <topic label="currentFrameLabel" href="com/lookmum/view/Component.html#currentFrameLabel" />
         <topic label="currentLabel" href="com/lookmum/view/Component.html#currentLabel" />
         <topic label="currentLabels" href="com/lookmum/view/Component.html#currentLabels" />
         <topic label="currentScene" href="com/lookmum/view/Component.html#currentScene" />
@@ -242,11 +243,161 @@
         <topic label="InteractiveComponentEvent" href="com/lookmum/events/InteractiveComponentEvent.html#InteractiveComponentEvent()" />
       </topic>
     </topic>
-    <topic label="IToggle" href="com/lookmum/view/IToggle.html">
-      <topic label="Public Properties" href="com/lookmum/view/IToggle.html#propertySummary">
-        <topic label="toggle" href="com/lookmum/view/IToggle.html#toggle" />
+    <topic label="ITextComponent" href="com/lookmum/view/ITextComponent.html">
+      <topic label="Public Properties" href="com/lookmum/view/ITextComponent.html#propertySummary">
+        <topic label="alwaysShowSelection" href="com/lookmum/view/ITextComponent.html#alwaysShowSelection" />
+        <topic label="antiAliasType" href="com/lookmum/view/ITextComponent.html#antiAliasType" />
+        <topic label="autoSize" href="com/lookmum/view/ITextComponent.html#autoSize" />
+        <topic label="background" href="com/lookmum/view/ITextComponent.html#background" />
+        <topic label="backgroundColor" href="com/lookmum/view/ITextComponent.html#backgroundColor" />
+        <topic label="border" href="com/lookmum/view/ITextComponent.html#border" />
+        <topic label="borderColor" href="com/lookmum/view/ITextComponent.html#borderColor" />
+        <topic label="bottomScrollV" href="com/lookmum/view/ITextComponent.html#bottomScrollV" />
+        <topic label="caretIndex" href="com/lookmum/view/ITextComponent.html#caretIndex" />
+        <topic label="condenseWhite" href="com/lookmum/view/ITextComponent.html#condenseWhite" />
+        <topic label="defaultTextFormat" href="com/lookmum/view/ITextComponent.html#defaultTextFormat" />
+        <topic label="displayAsPassword" href="com/lookmum/view/ITextComponent.html#displayAsPassword" />
+        <topic label="embedFonts" href="com/lookmum/view/ITextComponent.html#embedFonts" />
+        <topic label="gridFitType" href="com/lookmum/view/ITextComponent.html#gridFitType" />
+        <topic label="htmlText" href="com/lookmum/view/ITextComponent.html#htmlText" />
+        <topic label="length" href="com/lookmum/view/ITextComponent.html#length" />
+        <topic label="maxChars" href="com/lookmum/view/ITextComponent.html#maxChars" />
+        <topic label="maxScrollH" href="com/lookmum/view/ITextComponent.html#maxScrollH" />
+        <topic label="maxScrollV" href="com/lookmum/view/ITextComponent.html#maxScrollV" />
+        <topic label="mouseWheelEnabled" href="com/lookmum/view/ITextComponent.html#mouseWheelEnabled" />
+        <topic label="multiline" href="com/lookmum/view/ITextComponent.html#multiline" />
+        <topic label="numLines" href="com/lookmum/view/ITextComponent.html#numLines" />
+        <topic label="restrict" href="com/lookmum/view/ITextComponent.html#restrict" />
+        <topic label="scrollH" href="com/lookmum/view/ITextComponent.html#scrollH" />
+        <topic label="scrollV" href="com/lookmum/view/ITextComponent.html#scrollV" />
+        <topic label="selectable" href="com/lookmum/view/ITextComponent.html#selectable" />
+        <topic label="selectedText" href="com/lookmum/view/ITextComponent.html#selectedText" />
+        <topic label="selectionBeginIndex" href="com/lookmum/view/ITextComponent.html#selectionBeginIndex" />
+        <topic label="selectionEndIndex" href="com/lookmum/view/ITextComponent.html#selectionEndIndex" />
+        <topic label="sharpness" href="com/lookmum/view/ITextComponent.html#sharpness" />
+        <topic label="styleSheet" href="com/lookmum/view/ITextComponent.html#styleSheet" />
+        <topic label="text" href="com/lookmum/view/ITextComponent.html#text" />
+        <topic label="textColor" href="com/lookmum/view/ITextComponent.html#textColor" />
+        <topic label="textHeight" href="com/lookmum/view/ITextComponent.html#textHeight" />
+        <topic label="textWidth" href="com/lookmum/view/ITextComponent.html#textWidth" />
+        <topic label="thickness" href="com/lookmum/view/ITextComponent.html#thickness" />
+        <topic label="type" href="com/lookmum/view/ITextComponent.html#type" />
+        <topic label="useRichTextClipboard" href="com/lookmum/view/ITextComponent.html#useRichTextClipboard" />
+        <topic label="wordWrap" href="com/lookmum/view/ITextComponent.html#wordWrap" />
       </topic>
-      <topic label="Public Methods" href="com/lookmum/view/IToggle.html#methodSummary" />
+      <topic label="Public Methods" href="com/lookmum/view/ITextComponent.html#methodSummary">
+        <topic label="appendText" href="com/lookmum/view/ITextComponent.html#appendText()" />
+        <topic label="getCharBoundaries" href="com/lookmum/view/ITextComponent.html#getCharBoundaries()" />
+        <topic label="getCharIndexAtPoint" href="com/lookmum/view/ITextComponent.html#getCharIndexAtPoint()" />
+        <topic label="getFirstCharInParagraph" href="com/lookmum/view/ITextComponent.html#getFirstCharInParagraph()" />
+        <topic label="getImageReference" href="com/lookmum/view/ITextComponent.html#getImageReference()" />
+        <topic label="getLineIndexAtPoint" href="com/lookmum/view/ITextComponent.html#getLineIndexAtPoint()" />
+        <topic label="getLineIndexOfChar" href="com/lookmum/view/ITextComponent.html#getLineIndexOfChar()" />
+        <topic label="getLineLength" href="com/lookmum/view/ITextComponent.html#getLineLength()" />
+        <topic label="getLineMetrics" href="com/lookmum/view/ITextComponent.html#getLineMetrics()" />
+        <topic label="getLineOffset" href="com/lookmum/view/ITextComponent.html#getLineOffset()" />
+        <topic label="getLineText" href="com/lookmum/view/ITextComponent.html#getLineText()" />
+        <topic label="getParagraphLength" href="com/lookmum/view/ITextComponent.html#getParagraphLength()" />
+        <topic label="getRawText" href="com/lookmum/view/ITextComponent.html#getRawText()" />
+        <topic label="getTextFormat" href="com/lookmum/view/ITextComponent.html#getTextFormat()" />
+        <topic label="getTextRuns" href="com/lookmum/view/ITextComponent.html#getTextRuns()" />
+        <topic label="getXMLText" href="com/lookmum/view/ITextComponent.html#getXMLText()" />
+        <topic label="insertXMLText" href="com/lookmum/view/ITextComponent.html#insertXMLText()" />
+        <topic label="replaceSelectedText" href="com/lookmum/view/ITextComponent.html#replaceSelectedText()" />
+        <topic label="replaceText" href="com/lookmum/view/ITextComponent.html#replaceText()" />
+        <topic label="setSelection" href="com/lookmum/view/ITextComponent.html#setSelection()" />
+        <topic label="setTextFormat" href="com/lookmum/view/ITextComponent.html#setTextFormat()" />
+      </topic>
+    </topic>
+    <topic label="LabelButton" href="com/lookmum/view/LabelButton.html">
+      <topic label="Public Properties" href="com/lookmum/view/LabelButton.html#propertySummary">
+        <topic label="alwaysShowSelection" href="com/lookmum/view/LabelButton.html#alwaysShowSelection" />
+        <topic label="antiAliasType" href="com/lookmum/view/LabelButton.html#antiAliasType" />
+        <topic label="autoSize" href="com/lookmum/view/LabelButton.html#autoSize" />
+        <topic label="background" href="com/lookmum/view/LabelButton.html#background" />
+        <topic label="backgroundColor" href="com/lookmum/view/LabelButton.html#backgroundColor" />
+        <topic label="border" href="com/lookmum/view/LabelButton.html#border" />
+        <topic label="borderColor" href="com/lookmum/view/LabelButton.html#borderColor" />
+        <topic label="bottomScrollV" href="com/lookmum/view/LabelButton.html#bottomScrollV" />
+        <topic label="caretIndex" href="com/lookmum/view/LabelButton.html#caretIndex" />
+        <topic label="condenseWhite" href="com/lookmum/view/LabelButton.html#condenseWhite" />
+        <topic label="defaultTextFormat" href="com/lookmum/view/LabelButton.html#defaultTextFormat" />
+        <topic label="displayAsPassword" href="com/lookmum/view/LabelButton.html#displayAsPassword" />
+        <topic label="embedFonts" href="com/lookmum/view/LabelButton.html#embedFonts" />
+        <topic label="gridFitType" href="com/lookmum/view/LabelButton.html#gridFitType" />
+        <topic label="height" href="com/lookmum/view/LabelButton.html#height" />
+        <topic label="htmlText" href="com/lookmum/view/LabelButton.html#htmlText" />
+        <topic label="length" href="com/lookmum/view/LabelButton.html#length" />
+        <topic label="maxChars" href="com/lookmum/view/LabelButton.html#maxChars" />
+        <topic label="maxScrollH" href="com/lookmum/view/LabelButton.html#maxScrollH" />
+        <topic label="maxScrollV" href="com/lookmum/view/LabelButton.html#maxScrollV" />
+        <topic label="mouseWheelEnabled" href="com/lookmum/view/LabelButton.html#mouseWheelEnabled" />
+        <topic label="multiline" href="com/lookmum/view/LabelButton.html#multiline" />
+        <topic label="numLines" href="com/lookmum/view/LabelButton.html#numLines" />
+        <topic label="restrict" href="com/lookmum/view/LabelButton.html#restrict" />
+        <topic label="scrollH" href="com/lookmum/view/LabelButton.html#scrollH" />
+        <topic label="scrollV" href="com/lookmum/view/LabelButton.html#scrollV" />
+        <topic label="selectable" href="com/lookmum/view/LabelButton.html#selectable" />
+        <topic label="selectedText" href="com/lookmum/view/LabelButton.html#selectedText" />
+        <topic label="selectionBeginIndex" href="com/lookmum/view/LabelButton.html#selectionBeginIndex" />
+        <topic label="selectionEndIndex" href="com/lookmum/view/LabelButton.html#selectionEndIndex" />
+        <topic label="sharpness" href="com/lookmum/view/LabelButton.html#sharpness" />
+        <topic label="styleSheet" href="com/lookmum/view/LabelButton.html#styleSheet" />
+        <topic label="text" href="com/lookmum/view/LabelButton.html#text" />
+        <topic label="textColor" href="com/lookmum/view/LabelButton.html#textColor" />
+        <topic label="textFormatDisable" href="com/lookmum/view/LabelButton.html#textFormatDisable" />
+        <topic label="textFormatPress" href="com/lookmum/view/LabelButton.html#textFormatPress" />
+        <topic label="textFormatRollOut" href="com/lookmum/view/LabelButton.html#textFormatRollOut" />
+        <topic label="textFormatRollOver" href="com/lookmum/view/LabelButton.html#textFormatRollOver" />
+        <topic label="textHeight" href="com/lookmum/view/LabelButton.html#textHeight" />
+        <topic label="textWidth" href="com/lookmum/view/LabelButton.html#textWidth" />
+        <topic label="thickness" href="com/lookmum/view/LabelButton.html#thickness" />
+        <topic label="type" href="com/lookmum/view/LabelButton.html#type" />
+        <topic label="useRichTextClipboard" href="com/lookmum/view/LabelButton.html#useRichTextClipboard" />
+        <topic label="width" href="com/lookmum/view/LabelButton.html#width" />
+        <topic label="wordWrap" href="com/lookmum/view/LabelButton.html#wordWrap" />
+      </topic>
+      <topic label="Public Methods" href="com/lookmum/view/LabelButton.html#methodSummary">
+        <topic label="LabelButton" href="com/lookmum/view/LabelButton.html#LabelButton()" />
+        <topic label="appendText" href="com/lookmum/view/LabelButton.html#appendText()" />
+        <topic label="getCharBoundaries" href="com/lookmum/view/LabelButton.html#getCharBoundaries()" />
+        <topic label="getCharIndexAtPoint" href="com/lookmum/view/LabelButton.html#getCharIndexAtPoint()" />
+        <topic label="getFirstCharInParagraph" href="com/lookmum/view/LabelButton.html#getFirstCharInParagraph()" />
+        <topic label="getImageReference" href="com/lookmum/view/LabelButton.html#getImageReference()" />
+        <topic label="getLineIndexAtPoint" href="com/lookmum/view/LabelButton.html#getLineIndexAtPoint()" />
+        <topic label="getLineIndexOfChar" href="com/lookmum/view/LabelButton.html#getLineIndexOfChar()" />
+        <topic label="getLineLength" href="com/lookmum/view/LabelButton.html#getLineLength()" />
+        <topic label="getLineMetrics" href="com/lookmum/view/LabelButton.html#getLineMetrics()" />
+        <topic label="getLineOffset" href="com/lookmum/view/LabelButton.html#getLineOffset()" />
+        <topic label="getLineText" href="com/lookmum/view/LabelButton.html#getLineText()" />
+        <topic label="getParagraphLength" href="com/lookmum/view/LabelButton.html#getParagraphLength()" />
+        <topic label="getRawText" href="com/lookmum/view/LabelButton.html#getRawText()" />
+        <topic label="getTextFormat" href="com/lookmum/view/LabelButton.html#getTextFormat()" />
+        <topic label="getTextRuns" href="com/lookmum/view/LabelButton.html#getTextRuns()" />
+        <topic label="getXMLText" href="com/lookmum/view/LabelButton.html#getXMLText()" />
+        <topic label="insertXMLText" href="com/lookmum/view/LabelButton.html#insertXMLText()" />
+        <topic label="replaceSelectedText" href="com/lookmum/view/LabelButton.html#replaceSelectedText()" />
+        <topic label="replaceText" href="com/lookmum/view/LabelButton.html#replaceText()" />
+        <topic label="setSelection" href="com/lookmum/view/LabelButton.html#setSelection()" />
+        <topic label="setTextFormat" href="com/lookmum/view/LabelButton.html#setTextFormat()" />
+      </topic>
+      <topic label="Protected Methods" href="com/lookmum/view/LabelButton.html#protectedMethodSummary">
+        <topic label="addEventListeners" href="com/lookmum/view/LabelButton.html#addEventListeners()" />
+        <topic label="arrangeComponents" href="com/lookmum/view/LabelButton.html#arrangeComponents()" />
+        <topic label="createChildren" href="com/lookmum/view/LabelButton.html#createChildren()" />
+        <topic label="doDisable" href="com/lookmum/view/LabelButton.html#doDisable()" />
+        <topic label="onMouseDown" href="com/lookmum/view/LabelButton.html#onMouseDown()" />
+        <topic label="onMouseUp" href="com/lookmum/view/LabelButton.html#onMouseUp()" />
+        <topic label="onRollOut" href="com/lookmum/view/LabelButton.html#onRollOut()" />
+        <topic label="onRollOver" href="com/lookmum/view/LabelButton.html#onRollOver()" />
+      </topic>
+      <topic label="Events" href="com/lookmum/view/LabelButton.html#eventSummary">
+        <topic label="change" href="com/lookmum/view/LabelButton.html#event:change" />
+        <topic label="link" href="com/lookmum/view/LabelButton.html#event:link" />
+        <topic label="scroll" href="com/lookmum/view/LabelButton.html#event:scroll" />
+        <topic label="textInput" href="com/lookmum/view/LabelButton.html#event:textInput" />
+      </topic>
+      <topic label="Protected Constants" href="com/lookmum/view/LabelButton.html#protectedConstantSummary" />
     </topic>
     <topic label="Main" href="com/lookmum/Main.html">
       <topic label="Public Methods" href="com/lookmum/Main.html#methodSummary">
@@ -262,78 +413,6 @@
         <topic label="registerComponent" href="com/lookmum/util/ModalManager.html#registerComponent()" />
         <topic label="removeReactivation" href="com/lookmum/util/ModalManager.html#removeReactivation()" />
         <topic label="unregisterComponent" href="com/lookmum/util/ModalManager.html#unregisterComponent()" />
-      </topic>
-    </topic>
-    <topic label="Popup" href="com/lookmum/view/Popup.html">
-      <topic label="Public Properties" href="com/lookmum/view/Popup.html#propertySummary">
-        <topic label="visible" href="com/lookmum/view/Popup.html#visible" />
-      </topic>
-      <topic label="Protected Properties" href="com/lookmum/view/Popup.html#protectedPropertySummary">
-        <topic label="buttonClose" href="com/lookmum/view/Popup.html#buttonClose" />
-        <topic label="_modal" href="com/lookmum/view/Popup.html#_modal" />
-      </topic>
-      <topic label="Public Methods" href="com/lookmum/view/Popup.html#methodSummary">
-        <topic label="Popup" href="com/lookmum/view/Popup.html#Popup()" />
-        <topic label="getModal" href="com/lookmum/view/Popup.html#getModal()" />
-        <topic label="setModal" href="com/lookmum/view/Popup.html#setModal()" />
-      </topic>
-      <topic label="Protected Methods" href="com/lookmum/view/Popup.html#protectedMethodSummary">
-        <topic label="createChildren" href="com/lookmum/view/Popup.html#createChildren()" />
-        <topic label="getButtonClose" href="com/lookmum/view/Popup.html#getButtonClose()" />
-        <topic label="onReleaseButtonClose" href="com/lookmum/view/Popup.html#onReleaseButtonClose()" />
-      </topic>
-      <topic label="Events" href="com/lookmum/view/Popup.html#eventSummary">
-        <topic label="close" href="com/lookmum/view/Popup.html#event:close" />
-      </topic>
-    </topic>
-    <topic label="PopupEvent" href="com/lookmum/events/PopupEvent.html">
-      <topic label="Public Properties" href="com/lookmum/events/PopupEvent.html#propertySummary">
-        <topic label="CLOSE" href="com/lookmum/events/PopupEvent.html#CLOSE" />
-      </topic>
-      <topic label="Public Methods" href="com/lookmum/events/PopupEvent.html#methodSummary">
-        <topic label="PopupEvent" href="com/lookmum/events/PopupEvent.html#PopupEvent()" />
-      </topic>
-    </topic>
-    <topic label="RadioGroupManager" href="com/lookmum/util/RadioGroupManager.html">
-      <topic label="Public Properties" href="com/lookmum/util/RadioGroupManager.html#propertySummary">
-        <topic label="enabled" href="com/lookmum/util/RadioGroupManager.html#enabled" />
-      </topic>
-      <topic label="Public Methods" href="com/lookmum/util/RadioGroupManager.html#methodSummary">
-        <topic label="RadioGroupManager" href="com/lookmum/util/RadioGroupManager.html#RadioGroupManager()" />
-        <topic label="addButton" href="com/lookmum/util/RadioGroupManager.html#addButton()" />
-        <topic label="getSelectedIndex" href="com/lookmum/util/RadioGroupManager.html#getSelectedIndex()" />
-        <topic label="removeButton" href="com/lookmum/util/RadioGroupManager.html#removeButton()" />
-        <topic label="setSelectedIndex" href="com/lookmum/util/RadioGroupManager.html#setSelectedIndex()" />
-      </topic>
-      <topic label="Events" href="com/lookmum/util/RadioGroupManager.html#eventSummary">
-        <topic label="select" href="com/lookmum/util/RadioGroupManager.html#event:select" />
-      </topic>
-    </topic>
-    <topic label="ToggleButton" href="com/lookmum/view/ToggleButton.html">
-      <topic label="Public Properties" href="com/lookmum/view/ToggleButton.html#propertySummary">
-        <topic label="toggle" href="com/lookmum/view/ToggleButton.html#toggle" />
-      </topic>
-      <topic label="Protected Properties" href="com/lookmum/view/ToggleButton.html#protectedPropertySummary">
-        <topic label="_toggle" href="com/lookmum/view/ToggleButton.html#_toggle" />
-      </topic>
-      <topic label="Public Methods" href="com/lookmum/view/ToggleButton.html#methodSummary">
-        <topic label="ToggleButton" href="com/lookmum/view/ToggleButton.html#ToggleButton()" />
-      </topic>
-      <topic label="Protected Methods" href="com/lookmum/view/ToggleButton.html#protectedMethodSummary">
-        <topic label="doDisable" href="com/lookmum/view/ToggleButton.html#doDisable()" />
-        <topic label="doEnable" href="com/lookmum/view/ToggleButton.html#doEnable()" />
-        <topic label="onClick" href="com/lookmum/view/ToggleButton.html#onClick()" />
-        <topic label="onMouseDown" href="com/lookmum/view/ToggleButton.html#onMouseDown()" />
-        <topic label="onMouseUp" href="com/lookmum/view/ToggleButton.html#onMouseUp()" />
-        <topic label="onRollOut" href="com/lookmum/view/ToggleButton.html#onRollOut()" />
-        <topic label="onRollOver" href="com/lookmum/view/ToggleButton.html#onRollOver()" />
-      </topic>
-      <topic label="Events" href="com/lookmum/view/ToggleButton.html#eventSummary" />
-      <topic label="Protected Constants" href="com/lookmum/view/ToggleButton.html#protectedConstantSummary">
-        <topic label="FRAME_DISABLE_TOGGLE" href="com/lookmum/view/ToggleButton.html#FRAME_DISABLE_TOGGLE" />
-        <topic label="FRAME_PRESS_TOGGLE" href="com/lookmum/view/ToggleButton.html#FRAME_PRESS_TOGGLE" />
-        <topic label="FRAME_ROLL_OUT_TOGGLE" href="com/lookmum/view/ToggleButton.html#FRAME_ROLL_OUT_TOGGLE" />
-        <topic label="FRAME_ROLL_OVER_TOGGLE" href="com/lookmum/view/ToggleButton.html#FRAME_ROLL_OVER_TOGGLE" />
       </topic>
     </topic>
   </topic>
@@ -367,14 +446,6 @@
           <topic label="InteractiveComponentEvent" href="com/lookmum/events/InteractiveComponentEvent.html#InteractiveComponentEvent()" />
         </topic>
       </topic>
-      <topic label="PopupEvent" href="com/lookmum/events/PopupEvent.html">
-        <topic label="Public Properties" href="com/lookmum/events/PopupEvent.html#propertySummary">
-          <topic label="CLOSE" href="com/lookmum/events/PopupEvent.html#CLOSE" />
-        </topic>
-        <topic label="Public Methods" href="com/lookmum/events/PopupEvent.html#methodSummary">
-          <topic label="PopupEvent" href="com/lookmum/events/PopupEvent.html#PopupEvent()" />
-        </topic>
-      </topic>
     </topic>
     <topic label="com.lookmum.util" href="com/lookmum/util/package-detail.html">
       <topic label="ModalManager" href="com/lookmum/util/ModalManager.html">
@@ -386,21 +457,6 @@
           <topic label="registerComponent" href="com/lookmum/util/ModalManager.html#registerComponent()" />
           <topic label="removeReactivation" href="com/lookmum/util/ModalManager.html#removeReactivation()" />
           <topic label="unregisterComponent" href="com/lookmum/util/ModalManager.html#unregisterComponent()" />
-        </topic>
-      </topic>
-      <topic label="RadioGroupManager" href="com/lookmum/util/RadioGroupManager.html">
-        <topic label="Public Properties" href="com/lookmum/util/RadioGroupManager.html#propertySummary">
-          <topic label="enabled" href="com/lookmum/util/RadioGroupManager.html#enabled" />
-        </topic>
-        <topic label="Public Methods" href="com/lookmum/util/RadioGroupManager.html#methodSummary">
-          <topic label="RadioGroupManager" href="com/lookmum/util/RadioGroupManager.html#RadioGroupManager()" />
-          <topic label="addButton" href="com/lookmum/util/RadioGroupManager.html#addButton()" />
-          <topic label="getSelectedIndex" href="com/lookmum/util/RadioGroupManager.html#getSelectedIndex()" />
-          <topic label="removeButton" href="com/lookmum/util/RadioGroupManager.html#removeButton()" />
-          <topic label="setSelectedIndex" href="com/lookmum/util/RadioGroupManager.html#setSelectedIndex()" />
-        </topic>
-        <topic label="Events" href="com/lookmum/util/RadioGroupManager.html#eventSummary">
-          <topic label="select" href="com/lookmum/util/RadioGroupManager.html#event:select" />
         </topic>
       </topic>
     </topic>
@@ -496,11 +552,71 @@
           <topic label="toString" href="com/lookmum/view/IComponent.html#toString()" />
         </topic>
       </topic>
-      <topic label="IToggle" href="com/lookmum/view/IToggle.html">
-        <topic label="Public Properties" href="com/lookmum/view/IToggle.html#propertySummary">
-          <topic label="toggle" href="com/lookmum/view/IToggle.html#toggle" />
+      <topic label="ITextComponent" href="com/lookmum/view/ITextComponent.html">
+        <topic label="Public Properties" href="com/lookmum/view/ITextComponent.html#propertySummary">
+          <topic label="alwaysShowSelection" href="com/lookmum/view/ITextComponent.html#alwaysShowSelection" />
+          <topic label="antiAliasType" href="com/lookmum/view/ITextComponent.html#antiAliasType" />
+          <topic label="autoSize" href="com/lookmum/view/ITextComponent.html#autoSize" />
+          <topic label="background" href="com/lookmum/view/ITextComponent.html#background" />
+          <topic label="backgroundColor" href="com/lookmum/view/ITextComponent.html#backgroundColor" />
+          <topic label="border" href="com/lookmum/view/ITextComponent.html#border" />
+          <topic label="borderColor" href="com/lookmum/view/ITextComponent.html#borderColor" />
+          <topic label="bottomScrollV" href="com/lookmum/view/ITextComponent.html#bottomScrollV" />
+          <topic label="caretIndex" href="com/lookmum/view/ITextComponent.html#caretIndex" />
+          <topic label="condenseWhite" href="com/lookmum/view/ITextComponent.html#condenseWhite" />
+          <topic label="defaultTextFormat" href="com/lookmum/view/ITextComponent.html#defaultTextFormat" />
+          <topic label="displayAsPassword" href="com/lookmum/view/ITextComponent.html#displayAsPassword" />
+          <topic label="embedFonts" href="com/lookmum/view/ITextComponent.html#embedFonts" />
+          <topic label="gridFitType" href="com/lookmum/view/ITextComponent.html#gridFitType" />
+          <topic label="htmlText" href="com/lookmum/view/ITextComponent.html#htmlText" />
+          <topic label="length" href="com/lookmum/view/ITextComponent.html#length" />
+          <topic label="maxChars" href="com/lookmum/view/ITextComponent.html#maxChars" />
+          <topic label="maxScrollH" href="com/lookmum/view/ITextComponent.html#maxScrollH" />
+          <topic label="maxScrollV" href="com/lookmum/view/ITextComponent.html#maxScrollV" />
+          <topic label="mouseWheelEnabled" href="com/lookmum/view/ITextComponent.html#mouseWheelEnabled" />
+          <topic label="multiline" href="com/lookmum/view/ITextComponent.html#multiline" />
+          <topic label="numLines" href="com/lookmum/view/ITextComponent.html#numLines" />
+          <topic label="restrict" href="com/lookmum/view/ITextComponent.html#restrict" />
+          <topic label="scrollH" href="com/lookmum/view/ITextComponent.html#scrollH" />
+          <topic label="scrollV" href="com/lookmum/view/ITextComponent.html#scrollV" />
+          <topic label="selectable" href="com/lookmum/view/ITextComponent.html#selectable" />
+          <topic label="selectedText" href="com/lookmum/view/ITextComponent.html#selectedText" />
+          <topic label="selectionBeginIndex" href="com/lookmum/view/ITextComponent.html#selectionBeginIndex" />
+          <topic label="selectionEndIndex" href="com/lookmum/view/ITextComponent.html#selectionEndIndex" />
+          <topic label="sharpness" href="com/lookmum/view/ITextComponent.html#sharpness" />
+          <topic label="styleSheet" href="com/lookmum/view/ITextComponent.html#styleSheet" />
+          <topic label="text" href="com/lookmum/view/ITextComponent.html#text" />
+          <topic label="textColor" href="com/lookmum/view/ITextComponent.html#textColor" />
+          <topic label="textHeight" href="com/lookmum/view/ITextComponent.html#textHeight" />
+          <topic label="textWidth" href="com/lookmum/view/ITextComponent.html#textWidth" />
+          <topic label="thickness" href="com/lookmum/view/ITextComponent.html#thickness" />
+          <topic label="type" href="com/lookmum/view/ITextComponent.html#type" />
+          <topic label="useRichTextClipboard" href="com/lookmum/view/ITextComponent.html#useRichTextClipboard" />
+          <topic label="wordWrap" href="com/lookmum/view/ITextComponent.html#wordWrap" />
         </topic>
-        <topic label="Public Methods" href="com/lookmum/view/IToggle.html#methodSummary" />
+        <topic label="Public Methods" href="com/lookmum/view/ITextComponent.html#methodSummary">
+          <topic label="appendText" href="com/lookmum/view/ITextComponent.html#appendText()" />
+          <topic label="getCharBoundaries" href="com/lookmum/view/ITextComponent.html#getCharBoundaries()" />
+          <topic label="getCharIndexAtPoint" href="com/lookmum/view/ITextComponent.html#getCharIndexAtPoint()" />
+          <topic label="getFirstCharInParagraph" href="com/lookmum/view/ITextComponent.html#getFirstCharInParagraph()" />
+          <topic label="getImageReference" href="com/lookmum/view/ITextComponent.html#getImageReference()" />
+          <topic label="getLineIndexAtPoint" href="com/lookmum/view/ITextComponent.html#getLineIndexAtPoint()" />
+          <topic label="getLineIndexOfChar" href="com/lookmum/view/ITextComponent.html#getLineIndexOfChar()" />
+          <topic label="getLineLength" href="com/lookmum/view/ITextComponent.html#getLineLength()" />
+          <topic label="getLineMetrics" href="com/lookmum/view/ITextComponent.html#getLineMetrics()" />
+          <topic label="getLineOffset" href="com/lookmum/view/ITextComponent.html#getLineOffset()" />
+          <topic label="getLineText" href="com/lookmum/view/ITextComponent.html#getLineText()" />
+          <topic label="getParagraphLength" href="com/lookmum/view/ITextComponent.html#getParagraphLength()" />
+          <topic label="getRawText" href="com/lookmum/view/ITextComponent.html#getRawText()" />
+          <topic label="getTextFormat" href="com/lookmum/view/ITextComponent.html#getTextFormat()" />
+          <topic label="getTextRuns" href="com/lookmum/view/ITextComponent.html#getTextRuns()" />
+          <topic label="getXMLText" href="com/lookmum/view/ITextComponent.html#getXMLText()" />
+          <topic label="insertXMLText" href="com/lookmum/view/ITextComponent.html#insertXMLText()" />
+          <topic label="replaceSelectedText" href="com/lookmum/view/ITextComponent.html#replaceSelectedText()" />
+          <topic label="replaceText" href="com/lookmum/view/ITextComponent.html#replaceText()" />
+          <topic label="setSelection" href="com/lookmum/view/ITextComponent.html#setSelection()" />
+          <topic label="setTextFormat" href="com/lookmum/view/ITextComponent.html#setTextFormat()" />
+        </topic>
       </topic>
       <topic label="Button" href="com/lookmum/view/Button.html">
         <topic label="Public Properties" href="com/lookmum/view/Button.html#propertySummary">
@@ -537,6 +653,7 @@
           <topic label="cacheAsBitmap" href="com/lookmum/view/Component.html#cacheAsBitmap" />
           <topic label="contextMenu" href="com/lookmum/view/Component.html#contextMenu" />
           <topic label="currentFrame" href="com/lookmum/view/Component.html#currentFrame" />
+          <topic label="currentFrameLabel" href="com/lookmum/view/Component.html#currentFrameLabel" />
           <topic label="currentLabel" href="com/lookmum/view/Component.html#currentLabel" />
           <topic label="currentLabels" href="com/lookmum/view/Component.html#currentLabels" />
           <topic label="currentScene" href="com/lookmum/view/Component.html#currentScene" />
@@ -631,54 +748,95 @@
           <topic label="show" href="com/lookmum/view/Component.html#event:show" />
         </topic>
       </topic>
-      <topic label="Popup" href="com/lookmum/view/Popup.html">
-        <topic label="Public Properties" href="com/lookmum/view/Popup.html#propertySummary">
-          <topic label="visible" href="com/lookmum/view/Popup.html#visible" />
+      <topic label="LabelButton" href="com/lookmum/view/LabelButton.html">
+        <topic label="Public Properties" href="com/lookmum/view/LabelButton.html#propertySummary">
+          <topic label="alwaysShowSelection" href="com/lookmum/view/LabelButton.html#alwaysShowSelection" />
+          <topic label="antiAliasType" href="com/lookmum/view/LabelButton.html#antiAliasType" />
+          <topic label="autoSize" href="com/lookmum/view/LabelButton.html#autoSize" />
+          <topic label="background" href="com/lookmum/view/LabelButton.html#background" />
+          <topic label="backgroundColor" href="com/lookmum/view/LabelButton.html#backgroundColor" />
+          <topic label="border" href="com/lookmum/view/LabelButton.html#border" />
+          <topic label="borderColor" href="com/lookmum/view/LabelButton.html#borderColor" />
+          <topic label="bottomScrollV" href="com/lookmum/view/LabelButton.html#bottomScrollV" />
+          <topic label="caretIndex" href="com/lookmum/view/LabelButton.html#caretIndex" />
+          <topic label="condenseWhite" href="com/lookmum/view/LabelButton.html#condenseWhite" />
+          <topic label="defaultTextFormat" href="com/lookmum/view/LabelButton.html#defaultTextFormat" />
+          <topic label="displayAsPassword" href="com/lookmum/view/LabelButton.html#displayAsPassword" />
+          <topic label="embedFonts" href="com/lookmum/view/LabelButton.html#embedFonts" />
+          <topic label="gridFitType" href="com/lookmum/view/LabelButton.html#gridFitType" />
+          <topic label="height" href="com/lookmum/view/LabelButton.html#height" />
+          <topic label="htmlText" href="com/lookmum/view/LabelButton.html#htmlText" />
+          <topic label="length" href="com/lookmum/view/LabelButton.html#length" />
+          <topic label="maxChars" href="com/lookmum/view/LabelButton.html#maxChars" />
+          <topic label="maxScrollH" href="com/lookmum/view/LabelButton.html#maxScrollH" />
+          <topic label="maxScrollV" href="com/lookmum/view/LabelButton.html#maxScrollV" />
+          <topic label="mouseWheelEnabled" href="com/lookmum/view/LabelButton.html#mouseWheelEnabled" />
+          <topic label="multiline" href="com/lookmum/view/LabelButton.html#multiline" />
+          <topic label="numLines" href="com/lookmum/view/LabelButton.html#numLines" />
+          <topic label="restrict" href="com/lookmum/view/LabelButton.html#restrict" />
+          <topic label="scrollH" href="com/lookmum/view/LabelButton.html#scrollH" />
+          <topic label="scrollV" href="com/lookmum/view/LabelButton.html#scrollV" />
+          <topic label="selectable" href="com/lookmum/view/LabelButton.html#selectable" />
+          <topic label="selectedText" href="com/lookmum/view/LabelButton.html#selectedText" />
+          <topic label="selectionBeginIndex" href="com/lookmum/view/LabelButton.html#selectionBeginIndex" />
+          <topic label="selectionEndIndex" href="com/lookmum/view/LabelButton.html#selectionEndIndex" />
+          <topic label="sharpness" href="com/lookmum/view/LabelButton.html#sharpness" />
+          <topic label="styleSheet" href="com/lookmum/view/LabelButton.html#styleSheet" />
+          <topic label="text" href="com/lookmum/view/LabelButton.html#text" />
+          <topic label="textColor" href="com/lookmum/view/LabelButton.html#textColor" />
+          <topic label="textFormatDisable" href="com/lookmum/view/LabelButton.html#textFormatDisable" />
+          <topic label="textFormatPress" href="com/lookmum/view/LabelButton.html#textFormatPress" />
+          <topic label="textFormatRollOut" href="com/lookmum/view/LabelButton.html#textFormatRollOut" />
+          <topic label="textFormatRollOver" href="com/lookmum/view/LabelButton.html#textFormatRollOver" />
+          <topic label="textHeight" href="com/lookmum/view/LabelButton.html#textHeight" />
+          <topic label="textWidth" href="com/lookmum/view/LabelButton.html#textWidth" />
+          <topic label="thickness" href="com/lookmum/view/LabelButton.html#thickness" />
+          <topic label="type" href="com/lookmum/view/LabelButton.html#type" />
+          <topic label="useRichTextClipboard" href="com/lookmum/view/LabelButton.html#useRichTextClipboard" />
+          <topic label="width" href="com/lookmum/view/LabelButton.html#width" />
+          <topic label="wordWrap" href="com/lookmum/view/LabelButton.html#wordWrap" />
         </topic>
-        <topic label="Protected Properties" href="com/lookmum/view/Popup.html#protectedPropertySummary">
-          <topic label="buttonClose" href="com/lookmum/view/Popup.html#buttonClose" />
-          <topic label="_modal" href="com/lookmum/view/Popup.html#_modal" />
+        <topic label="Public Methods" href="com/lookmum/view/LabelButton.html#methodSummary">
+          <topic label="LabelButton" href="com/lookmum/view/LabelButton.html#LabelButton()" />
+          <topic label="appendText" href="com/lookmum/view/LabelButton.html#appendText()" />
+          <topic label="getCharBoundaries" href="com/lookmum/view/LabelButton.html#getCharBoundaries()" />
+          <topic label="getCharIndexAtPoint" href="com/lookmum/view/LabelButton.html#getCharIndexAtPoint()" />
+          <topic label="getFirstCharInParagraph" href="com/lookmum/view/LabelButton.html#getFirstCharInParagraph()" />
+          <topic label="getImageReference" href="com/lookmum/view/LabelButton.html#getImageReference()" />
+          <topic label="getLineIndexAtPoint" href="com/lookmum/view/LabelButton.html#getLineIndexAtPoint()" />
+          <topic label="getLineIndexOfChar" href="com/lookmum/view/LabelButton.html#getLineIndexOfChar()" />
+          <topic label="getLineLength" href="com/lookmum/view/LabelButton.html#getLineLength()" />
+          <topic label="getLineMetrics" href="com/lookmum/view/LabelButton.html#getLineMetrics()" />
+          <topic label="getLineOffset" href="com/lookmum/view/LabelButton.html#getLineOffset()" />
+          <topic label="getLineText" href="com/lookmum/view/LabelButton.html#getLineText()" />
+          <topic label="getParagraphLength" href="com/lookmum/view/LabelButton.html#getParagraphLength()" />
+          <topic label="getRawText" href="com/lookmum/view/LabelButton.html#getRawText()" />
+          <topic label="getTextFormat" href="com/lookmum/view/LabelButton.html#getTextFormat()" />
+          <topic label="getTextRuns" href="com/lookmum/view/LabelButton.html#getTextRuns()" />
+          <topic label="getXMLText" href="com/lookmum/view/LabelButton.html#getXMLText()" />
+          <topic label="insertXMLText" href="com/lookmum/view/LabelButton.html#insertXMLText()" />
+          <topic label="replaceSelectedText" href="com/lookmum/view/LabelButton.html#replaceSelectedText()" />
+          <topic label="replaceText" href="com/lookmum/view/LabelButton.html#replaceText()" />
+          <topic label="setSelection" href="com/lookmum/view/LabelButton.html#setSelection()" />
+          <topic label="setTextFormat" href="com/lookmum/view/LabelButton.html#setTextFormat()" />
         </topic>
-        <topic label="Public Methods" href="com/lookmum/view/Popup.html#methodSummary">
-          <topic label="Popup" href="com/lookmum/view/Popup.html#Popup()" />
-          <topic label="getModal" href="com/lookmum/view/Popup.html#getModal()" />
-          <topic label="setModal" href="com/lookmum/view/Popup.html#setModal()" />
+        <topic label="Protected Methods" href="com/lookmum/view/LabelButton.html#protectedMethodSummary">
+          <topic label="addEventListeners" href="com/lookmum/view/LabelButton.html#addEventListeners()" />
+          <topic label="arrangeComponents" href="com/lookmum/view/LabelButton.html#arrangeComponents()" />
+          <topic label="createChildren" href="com/lookmum/view/LabelButton.html#createChildren()" />
+          <topic label="doDisable" href="com/lookmum/view/LabelButton.html#doDisable()" />
+          <topic label="onMouseDown" href="com/lookmum/view/LabelButton.html#onMouseDown()" />
+          <topic label="onMouseUp" href="com/lookmum/view/LabelButton.html#onMouseUp()" />
+          <topic label="onRollOut" href="com/lookmum/view/LabelButton.html#onRollOut()" />
+          <topic label="onRollOver" href="com/lookmum/view/LabelButton.html#onRollOver()" />
         </topic>
-        <topic label="Protected Methods" href="com/lookmum/view/Popup.html#protectedMethodSummary">
-          <topic label="createChildren" href="com/lookmum/view/Popup.html#createChildren()" />
-          <topic label="getButtonClose" href="com/lookmum/view/Popup.html#getButtonClose()" />
-          <topic label="onReleaseButtonClose" href="com/lookmum/view/Popup.html#onReleaseButtonClose()" />
+        <topic label="Events" href="com/lookmum/view/LabelButton.html#eventSummary">
+          <topic label="change" href="com/lookmum/view/LabelButton.html#event:change" />
+          <topic label="link" href="com/lookmum/view/LabelButton.html#event:link" />
+          <topic label="scroll" href="com/lookmum/view/LabelButton.html#event:scroll" />
+          <topic label="textInput" href="com/lookmum/view/LabelButton.html#event:textInput" />
         </topic>
-        <topic label="Events" href="com/lookmum/view/Popup.html#eventSummary">
-          <topic label="close" href="com/lookmum/view/Popup.html#event:close" />
-        </topic>
-      </topic>
-      <topic label="ToggleButton" href="com/lookmum/view/ToggleButton.html">
-        <topic label="Public Properties" href="com/lookmum/view/ToggleButton.html#propertySummary">
-          <topic label="toggle" href="com/lookmum/view/ToggleButton.html#toggle" />
-        </topic>
-        <topic label="Protected Properties" href="com/lookmum/view/ToggleButton.html#protectedPropertySummary">
-          <topic label="_toggle" href="com/lookmum/view/ToggleButton.html#_toggle" />
-        </topic>
-        <topic label="Public Methods" href="com/lookmum/view/ToggleButton.html#methodSummary">
-          <topic label="ToggleButton" href="com/lookmum/view/ToggleButton.html#ToggleButton()" />
-        </topic>
-        <topic label="Protected Methods" href="com/lookmum/view/ToggleButton.html#protectedMethodSummary">
-          <topic label="doDisable" href="com/lookmum/view/ToggleButton.html#doDisable()" />
-          <topic label="doEnable" href="com/lookmum/view/ToggleButton.html#doEnable()" />
-          <topic label="onClick" href="com/lookmum/view/ToggleButton.html#onClick()" />
-          <topic label="onMouseDown" href="com/lookmum/view/ToggleButton.html#onMouseDown()" />
-          <topic label="onMouseUp" href="com/lookmum/view/ToggleButton.html#onMouseUp()" />
-          <topic label="onRollOut" href="com/lookmum/view/ToggleButton.html#onRollOut()" />
-          <topic label="onRollOver" href="com/lookmum/view/ToggleButton.html#onRollOver()" />
-        </topic>
-        <topic label="Events" href="com/lookmum/view/ToggleButton.html#eventSummary" />
-        <topic label="Protected Constants" href="com/lookmum/view/ToggleButton.html#protectedConstantSummary">
-          <topic label="FRAME_DISABLE_TOGGLE" href="com/lookmum/view/ToggleButton.html#FRAME_DISABLE_TOGGLE" />
-          <topic label="FRAME_PRESS_TOGGLE" href="com/lookmum/view/ToggleButton.html#FRAME_PRESS_TOGGLE" />
-          <topic label="FRAME_ROLL_OUT_TOGGLE" href="com/lookmum/view/ToggleButton.html#FRAME_ROLL_OUT_TOGGLE" />
-          <topic label="FRAME_ROLL_OVER_TOGGLE" href="com/lookmum/view/ToggleButton.html#FRAME_ROLL_OVER_TOGGLE" />
-        </topic>
+        <topic label="Protected Constants" href="com/lookmum/view/LabelButton.html#protectedConstantSummary" />
       </topic>
     </topic>
   </topic>
