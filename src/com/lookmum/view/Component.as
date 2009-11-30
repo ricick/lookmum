@@ -173,6 +173,12 @@ package com.lookmum.view
 		override public function get currentLabel () : String {
 			return target.currentLabel;
 		}
+		/**
+		 * The label at the current frame in the timeline of the MovieClip instance.
+		 */
+		override public function get currentFrameLabel () : String {
+			return target.currentFrameLabel;
+		}
 
 		/**
 		 * Returns an array of FrameLabel objects from the current scene.

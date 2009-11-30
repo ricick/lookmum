@@ -1,6 +1,7 @@
 package com.lookmum.view 
 {
 	import flash.display.DisplayObject;
+	import flash.geom.Rectangle;
 	import flash.text.StyleSheet;
 	import flash.text.TextFormat;
 	import flash.text.TextLineMetrics;
@@ -9,7 +10,7 @@ package com.lookmum.view
 	 * ...
 	 * @author Phil Douglas
 	 */
-	interface ITextComponent 
+	public interface ITextComponent 
 	{
 		/**
 		 * When set to true and the text field is not in focus, Flash Player highlights the selection in the text field in gray.
@@ -304,10 +305,6 @@ package com.lookmum.view
 
 		function insertXMLText (beginIndex:int, endIndex:int, richText:String, pasting:Boolean = false) : void;
 
-		/**
-		 * Returns true if an embedded font is available with the specified fontName and fontStyle where Font.fontType is flash.text.FontType.EMBEDDED.
-		 */
-		static function isFontCompatible (fontName:String, fontStyle:String) : Boolean;
 
 		/**
 		 * Replaces the current selection with the contents of the value parameter.

@@ -1,16 +1,18 @@
 package com.lookmum.view 
 {
-	import com.lookmum.view.Component;
-	import flash.display.MovieClip;
+	import com.lookmum.events.ComponentEvent;
+	import com.lookmum.view.Button;
 	import flash.display.DisplayObject;
+	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.events.TextEvent;
 	import flash.geom.Rectangle;
 	import flash.text.StyleSheet;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.text.TextLineMetrics;
-
+	
 	/**
 	 * Flash Player dispatches the textInput event when a user enters one or more characters of text.
 	 * @eventType flash.events.TextEvent.TEXT_INPUT
@@ -34,22 +36,52 @@ package com.lookmum.view
 	 * @eventType flash.events.Event.CHANGE
 	 */
 	[Event(name="change", type="flash.events.Event")] 
-	
 	/**
 	 * ...
 	 * @author Phil Douglas
 	 */
-	public class TextComponent extends Component implements ITextComponent
+	public class LabelButton extends Button implements ITextComponent
 	{
+		
 		private var textField:TextField;
-		public function TextComponent(target:MovieClip) 
+		private var bg:MovieClip;
+		private var textFieldDimensions:Rectangle;
+		private var bgDimensions:Rectangle;
+		private var _textFormatRollOver:TextFormat;
+		private var _textFormatRollOut:TextFormat;
+		private var _textFormatPress:TextFormat;
+		private var _textFormatDisable:TextFormat;
+		private var currentTextFormat:TextFormat;
+		public function LabelButton(target:MovieClip) 
 		{
 			super(target);
+			
 		}
 		override protected function createChildren():void 
 		{
 			super.createChildren();
 			textField = getTextField();
+			textField.mouseEnabled = false;
+			textFieldDimensions = textField.getBounds(target);
+			currentTextFormat = textField.getTextFormat();
+			_textFormatRollOver = currentTextFormat;
+			_textFormatRollOut = currentTextFormat;
+			_textFormatPress = currentTextFormat;
+			_textFormatDisable = currentTextFormat;
+			if (target.getChildByName('bg')) {
+				bg = target.getChildByName('bg') as MovieClip;
+				bgDimensions = bg.getBounds(target);
+				bg.gotoAndStop(FRAME_ROLL_OUT);
+			}
+		}
+		override protected function arrangeComponents():void 
+		{
+			super.arrangeComponents();
+			if (currentTextFormat) textField.setTextFormat(currentTextFormat);
+			if (!bg) return;
+			bg.height = textField.height + (bgDimensions.height - textFieldDimensions.height);
+			bg.width = textField.width + (bgDimensions.width - textFieldDimensions.width);
+			dispatchEvent(new ComponentEvent(ComponentEvent.RESIZE));
 		}
 		override protected function addEventListeners():void 
 		{
@@ -69,6 +101,114 @@ package com.lookmum.view
 		{
 			return target.textField;
 		}
+		//text format setters
+		
+		
+		public function set textFormatRollOver(value:TextFormat):void 
+		{
+			_textFormatRollOver = value;
+		}
+		
+		public function set textFormatRollOut(value:TextFormat):void 
+		{
+			_textFormatRollOut = value;
+		}
+		
+		public function set textFormatPress(value:TextFormat):void 
+		{
+			_textFormatPress = value;
+		}
+		
+		public function set textFormatDisable(value:TextFormat):void 
+		{
+			_textFormatDisable = value;
+		}
+		
+		
+		
+		//{region animations
+		override protected function doDisable():void {
+			super.doDisable();
+			if (_textFormatDisable) currentTextFormat = (_textFormatDisable);
+			if (bg) {
+				bg.gotoAndStop(FRAME_DISABLE);
+			}
+			arrangeComponents();
+		}
+		
+		override protected function onRollOver(e:MouseEvent):void 
+		{
+			super.onRollOver(e);
+			if (_textFormatRollOver) currentTextFormat = (_textFormatRollOver);
+			if (bg) {
+				bg.gotoAndStop(FRAME_ROLL_OVER);
+			}
+			arrangeComponents();
+		}
+		
+		override protected function onRollOut(e:MouseEvent):void 
+		{
+			super.onRollOut(e);
+			if (_textFormatRollOut) currentTextFormat = (_textFormatRollOut);
+			if (bg) {
+				bg.gotoAndStop(FRAME_ROLL_OUT);
+			}
+			arrangeComponents();
+			
+		}
+		
+		override protected function onMouseDown(e:MouseEvent):void 
+		{
+			super.onMouseDown(e);
+			if (_textFormatPress) currentTextFormat = (_textFormatPress);
+			if (bg) {
+				bg.gotoAndStop(FRAME_PRESS);
+			}
+			arrangeComponents();
+			
+		}
+		
+		override protected function onMouseUp(e:MouseEvent):void 
+		{
+			super.onMouseUp(e);
+			if (_textFormatRollOver) currentTextFormat = (_textFormatRollOver);
+			if (bg) {
+				bg.gotoAndStop(FRAME_ROLL_OVER);
+			}
+			arrangeComponents();
+		}
+		
+		//}
+		
+		//{region overriden DisplayObject properties and methods
+		
+		override public function get width():Number { return super.width; }
+		
+		override public function set width(value:Number):void 
+		{
+			if(bg){
+				bg.width = value;
+				textField.width = bg.width - (bgDimensions.width - textFieldDimensions.width);
+				arrangeComponents();
+			}else {
+				super.width = value;
+			}
+		}
+		override public function get height():Number { return super.height; }
+		
+		override public function set height(value:Number):void 
+		{
+			if(bg){
+				bg.height = value;
+				textField.height = bg.height - (bgDimensions.height - textFieldDimensions.height);
+				arrangeComponents();
+			}else {
+				super.height = value;
+			}
+		}
+		
+		//}
+		
 		//{region TextField methods and properties
 		
 		/**
@@ -89,6 +229,7 @@ package com.lookmum.view
 		}
 		public function set antiAliasType (antiAliasType:String) : void {
 			textField.antiAliasType = antiAliasType;
+			arrangeComponents();
 		}
 
 		/**
@@ -99,6 +240,7 @@ package com.lookmum.view
 		}
 		public function set autoSize (value:String) : void {
 			textField.autoSize = value;
+			arrangeComponents();
 		}
 
 		/**
@@ -213,6 +355,7 @@ package com.lookmum.view
 		}
 		public function set htmlText (value:String) : void {
 			textField.htmlText = value;
+			arrangeComponents();
 		}
 
 		/**
@@ -359,6 +502,7 @@ package com.lookmum.view
 		}
 		public function set text (value:String) : void {
 			textField.text = value;
+			arrangeComponents();
 		}
 
 		/**
@@ -423,13 +567,16 @@ package com.lookmum.view
 		}
 		public function set wordWrap (value:Boolean) : void {
 			textField.wordWrap = value;
+			arrangeComponents();
 		}
 
 		/**
 		 * Appends text to the end of the existing text of the TextField.
 		 */
 		public function appendText (newText:String) : void {
-			return textField.appendText(newText);
+			textField.appendText(newText);
+			arrangeComponents();
+			return;
 		}
 
 		/**
@@ -529,21 +676,27 @@ package com.lookmum.view
 		}
 
 		public function insertXMLText (beginIndex:int, endIndex:int, richText:String, pasting:Boolean = false) : void {
-			return textField.insertXMLText(beginIndex,endIndex,richText,pasting);
+			textField.insertXMLText(beginIndex, endIndex, richText, pasting);
+			arrangeComponents();
+			return;
 		}
 
 		/**
 		 * Replaces the current selection with the contents of the value parameter.
 		 */
 		public function replaceSelectedText (value:String) : void {
-			return textField.replaceSelectedText(value);
+			textField.replaceSelectedText(value);
+			arrangeComponents();
+			return;
 		}
 
 		/**
 		 * Replaces a range of characters.
 		 */
 		public function replaceText (beginIndex:int, endIndex:int, newText:String) : void {
-			return textField.replaceText(beginIndex,endIndex,newText);
+			textField.replaceText(beginIndex,endIndex,newText);
+			arrangeComponents();
+			return;
 		}
 
 		/**
@@ -557,7 +710,14 @@ package com.lookmum.view
 		 * Applies text formatting.
 		 */
 		public function setTextFormat (format:TextFormat, beginIndex:int = -1, endIndex:int = -1) : void {
-			return textField.setTextFormat(format,beginIndex,endIndex);
+			textField.setTextFormat(format, beginIndex, endIndex);
+			currentTextFormat = format;
+			_textFormatRollOver = currentTextFormat;
+			_textFormatRollOut = currentTextFormat;
+			_textFormatPress = currentTextFormat;
+			_textFormatDisable = currentTextFormat;
+			arrangeComponents();
+			return;
 		}
 		
 		//}

@@ -34,8 +34,8 @@ package com.lookmum.view
 			mediaPlayer = getMediaPlayer();
 			mediaPlayer.addEventListener(MediaPlayerEvent.UPDATE, onUpdate);
 			mediaPlayer.addEventListener(MediaPlayerEvent.END, onEnd);
-			if (target.volumeSlider) volumeSlider = new VolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
-			if (target.buttonRewind) {
+			if (target.getChildByName('volumeSlider')) volumeSlider = new VolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
+			if (target.getChildByName('buttonRewind')) {
 				buttonRewind = new Button(target.getChildByName('buttonRewind') as MovieClip);
 				buttonRewind.addEventListener(MouseEvent.CLICK, onRewind);
 			}
