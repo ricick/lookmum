@@ -60,7 +60,7 @@ package com.lookmum.view
 		public function Component(target:MovieClip) 
 		{
 			if (!target) {
-				throw new Error('No MovieClip supplied to Component');
+				throw new Error('No MovieClip supplied to Component ' + getQualifiedClassName(this));
 			}
 			_target = target;
 			createChildren();
