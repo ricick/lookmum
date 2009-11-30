@@ -9,6 +9,7 @@ package com.lookmum
 	import com.lookmum.view.Component;
 	import com.lookmum.view.DragButton;
 	import com.lookmum.view.FadingComponent;
+	import com.lookmum.view.LabelButton;
 	import com.lookmum.view.Popup;
 	import com.lookmum.view.ScrollBar;
 	import com.lookmum.view.Slider;
@@ -22,6 +23,9 @@ package com.lookmum
 	import flash.events.MouseEvent;
 	import flash.media.Video;
 	import flash.text.TextField;
+	import flash.text.TextFieldAutoSize;
+	import flash.text.TextFormat;
+	import flash.text.TextFormatAlign;
 	
 	/**
 	 * ...
@@ -39,10 +43,28 @@ package com.lookmum
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
-			var videoPlayer:VideoPlayer = addChild(new VideoPlayer(new videoPlayerClip())) as VideoPlayer;
-			videoPlayer.load('video/Collaboration.mp4');
-			videoPlayer.x = 200;
-			videoPlayer.y = 200;
+			var lb:LabelButton = new LabelButton(new labelButtonClip());
+			addChild(lb);
+			lb.x = 200;
+			lb.y = 200;
+			//lb.autoSize = TextFieldAutoSize.CENTER;
+			var tf:TextFormat = new TextFormat();
+			lb.width = 200;
+			lb.border = true;
+			//lb.htmlText = 'Button Button Button Button Button Button Button Button Button Button Button Button Button ';
+			tf.align = TextFormatAlign.CENTER;
+			lb.setTextFormat(tf);
+			lb.htmlText = 'Button';
+			var tf2:TextFormat = new TextFormat();
+			tf2.align = TextFormatAlign.RIGHT;
+			lb.textFormatRollOver = tf2;
+			
+		}
+		
+		private function onClick(e:MouseEvent):void 
+		{
+			//trace( "Main.onClick > e : " + e );
+			
 		}
 	}
 	
