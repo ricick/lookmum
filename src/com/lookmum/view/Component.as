@@ -23,6 +23,7 @@ package com.lookmum.view
 	import flash.media.SoundTransform;
 	import flash.text.TextSnapshot;
 	import flash.ui.ContextMenu;
+	import flash.utils.getQualifiedClassName;
 	
 	/**
 	 * Dispatched after a component changes size
@@ -372,8 +373,8 @@ package com.lookmum.view
 			return target.stopDrag();
 		}
 
-		override public function toString () : String{
-			return target.toString();
+		override public function toString () : String {
+			return "[object "+getQualifiedClassName(this)+"]";
 		}
 		
 		//}
