@@ -44,14 +44,14 @@ package com.lookmum.view
 	{
 		
 		private var textField:TextField;
-		private var bg:MovieClip;
+		protected var bg:MovieClip;
 		private var textFieldDimensions:Rectangle;
 		private var bgDimensions:Rectangle;
 		private var _textFormatRollOver:TextFormat;
 		private var _textFormatRollOut:TextFormat;
 		private var _textFormatPress:TextFormat;
 		private var _textFormatDisable:TextFormat;
-		private var currentTextFormat:TextFormat;
+		protected var currentTextFormat:TextFormat;
 		public function LabelButton(target:MovieClip) 
 		{
 			super(target);
