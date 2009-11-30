@@ -2,11 +2,14 @@ package com.lookmum
 {
 	import com.lookmum.view.BlurLayer;
 	import com.lookmum.view.LabelButton;
+	import com.lookmum.view.LabelToggleButton;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.filters.BlurFilter;
+	import flash.text.TextFormat;
+	import flash.text.TextFormatAlign;
 	
 	/**
 	 * ...
@@ -25,16 +28,14 @@ package com.lookmum
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
-			var lb:LabelButton = new LabelButton(new labelButtonClip());
+			var lb:LabelToggleButton = new LabelToggleButton(new labelToggleButtonClip());
+			var tf:TextFormat = new TextFormat();
+			tf.align = TextFormatAlign.CENTER;
+			lb.textFormatDisableToggle = tf;
+			lb.textFormatPressToggle = tf;
+			lb.textFormatRollOutToggle = tf;
+			lb.textFormatRollOverToggle = tf;
 			addChild(lb);
-			lb.x = 200;
-			lb.y = 200;
-			var bl:BlurLayer = new BlurLayer(new MovieClip());
-			bl.width = 500;
-			bl.height = 400;
-			bl.alpha = 0.9
-			addChild(bl);
-			bl.filters = [new BlurFilter(3, 3, 3)];
 		}
 	}
 	
