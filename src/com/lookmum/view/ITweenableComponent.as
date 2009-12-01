@@ -1,13 +1,14 @@
 
 package com.lookmum.view {
+	import com.eclecticdesignstudio.motion.easing.IEasing;
 	public interface ITweenableComponent{
 		function get duration():Number;
 		function set duration(value:Number):void;
 		function widthTo(width:Number):void;
 		function heightTo(height:Number):void;
 		function rotateTo(rotation:Number):void;
-		function get easing():Function;
-		function set easing(easingFunction:Function):void;
+		function get easing():IEasing;
+		function set easing(easingIEasing:IEasing):void;
 		function alphaTo(alpha:Number):void;
 		function moveTo(x:Number, y:Number):void;
 		function scaleTo(scale:Number):void;
@@ -20,12 +21,12 @@ package com.lookmum.view {
 		function set durationRotation(value:Number):void;
 		function set durationPosition(value:Number):void;
 		function set durationScale(value:Number):void;
-		function set easingPosition(easingFunction:Function):void;
-		function set easingWidth(easingFunction:Function):void;
-		function set easingHeight(easingFunction:Function):void;
-		function set easingAlpha(easingFunction:Function):void;
-		function set easingRotation(easingFunction:Function):void;
-		function set easingScale(easingFunction:Function):void
+		function set easingPosition(easingIEasing:IEasing):void;
+		function set easingWidth(easingIEasing:IEasing):void;
+		function set easingHeight(easingIEasing:IEasing):void;
+		function set easingAlpha(easingIEasing:IEasing):void;
+		function set easingRotation(easingIEasing:IEasing):void;
+		function set easingScale(easingIEasing:IEasing):void
 	}
 	
 }

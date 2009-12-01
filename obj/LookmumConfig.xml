@@ -6,7 +6,7 @@
   <compiler>
     <source-path append="true">
       <path-element>C:\projects\flash\lookmum\src</path-element>
-      <path-element>C:\projects\flash\lib_as3</path-element>
+      <path-element>C:\projects\flash\actuate\Source</path-element>
       <path-element>C:\flex_sdk_3.4_AIR2Beta\frameworks\projects\framework\src</path-element>
       <path-element>C:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
