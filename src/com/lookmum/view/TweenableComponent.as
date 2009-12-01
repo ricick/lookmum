@@ -1,8 +1,9 @@
 package com.lookmum.view {
 	
-	import com.greensock.TweenMax;
+	import com.eclecticdesignstudio.motion.Actuate;
+	import com.eclecticdesignstudio.motion.easing.IEasing;
+	import com.eclecticdesignstudio.motion.easing.Linear;
 	import com.lookmum.events.TweenableComponentEvent;
-	import com.lookmum.util.FunctionTweener;
 	import com.lookmum.view.IComponent;
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -20,6 +21,7 @@ package com.lookmum.view {
 	public class TweenableComponent extends Component implements ITweenableComponent {
 		
 		private static const DEFAULT_DURATION:Number = 1000;
+		private static const DEFAULT_EASING:IEasing = Linear.easeNone;
 		
 		//durations
 		private var _duration:Number;
@@ -32,30 +34,22 @@ package com.lookmum.view {
 		private var _scaleXDuration:Number;
 		private var _scaleYDuration:Number;
 		//easing functions
-		private var _easing:Function;
-		private var _positionEasing:Function;
-		private var _widthEasing:Function;
-		private var _heightEasing:Function;
-		private var _alphaEasing:Function;
-		private var _rotationEasing:Function;
-		private var _scaleEasing:Function;			
-		private var _scaleXEasing:Function;			
-		private var _scaleYEasing:Function;
-		//tweens
-		private var _positionTween:TweenMax;
-		private var _widthTween:TweenMax;
-		private var _heightTween:TweenMax;
-		private var _alphaTween:TweenMax;
-		private var _rotationTween:TweenMax;
-		private var _scaleTween:TweenMax;
-		private var _scaleXTween:TweenMax;
-		private var _scaleYTween:TweenMax;
+		private var _easing:IEasing;
+		private var _positionEasing:IEasing;
+		private var _widthEasing:IEasing;
+		private var _heightEasing:IEasing;
+		private var _alphaEasing:IEasing;
+		private var _rotationEasing:IEasing;
+		private var _scaleEasing:IEasing;			
+		private var _scaleXEasing:IEasing;			
+		private var _scaleYEasing:IEasing;
 		//delays
 		private var _delay:Number = 0;
 		
 		public function TweenableComponent(target:MovieClip) {
 			super(target);
 			duration = DEFAULT_DURATION;
+			easing = DEFAULT_EASING
 		}
 		//*/
 		/*
@@ -109,12 +103,12 @@ package com.lookmum.view {
 		{
 			return _delay;
 		}
-		public function get easing():Function {
+		public function get easing():IEasing {
 			return _easing;
 		}
 		
-		public function set easing(easingFunction:Function):void {
-			_easing = easingFunction;
+		public function set easing(easingIEasing:IEasing):void {
+			_easing = easingIEasing;
 			_positionEasing = _easing;
 			_widthEasing = _easing;
 			_heightEasing = _easing;
@@ -124,98 +118,92 @@ package com.lookmum.view {
 			_scaleXEasing = _easing;			
 			_scaleYEasing = _easing;
 		}
-		public function set easingPosition(easingFunction:Function):void {
-			_positionEasing = easingFunction;
+		public function set easingPosition(easingIEasing:IEasing):void {
+			_positionEasing = easingIEasing;
 		}
 		
-		public function set easingWidth(easingFunction:Function):void {
-			_widthEasing = easingFunction;
+		public function set easingWidth(easingIEasing:IEasing):void {
+			_widthEasing = easingIEasing;
 		}
 		
-		public function set easingHeight(easingFunction:Function):void {
-			_heightEasing = easingFunction;
+		public function set easingHeight(easingIEasing:IEasing):void {
+			_heightEasing = easingIEasing;
 		}
 		
-		public function set easingAlpha(easingFunction:Function):void {
-			_alphaEasing = easingFunction;
+		public function set easingAlpha(easingIEasing:IEasing):void {
+			_alphaEasing = easingIEasing;
 		}
 		
-		public function set easingRotation(easingFunction:Function):void {
-			_rotationEasing = easingFunction;
+		public function set easingRotation(easingIEasing:IEasing):void {
+			_rotationEasing = easingIEasing;
 		}
 		
-		public function set easingScale(easingFunction:Function):void {
-			_scaleEasing = easingFunction;		
+		public function set easingScale(easingIEasing:IEasing):void {
+			_scaleEasing = easingIEasing;		
 		}
 		
-		public function set easingXScale(easingFunction:Function):void {
-			_scaleXEasing = easingFunction;		
+		public function set easingXScale(easingIEasing:IEasing):void {
+			_scaleXEasing = easingIEasing;		
 		}
 		
-		public function set easingYScale(easingFunction:Function):void {
-			_scaleYEasing = easingFunction;		
+		public function set easingYScale(easingIEasing:IEasing):void {
+			_scaleYEasing = easingIEasing;		
 		}
 		/*
 		 * Public Methods
 		 */
 		
 		public function widthTo(newWidth:Number):void {
-			if (_widthTween)_widthTween.kill();
-			_widthTween = TweenMax.to(this, _widthDuration, { width:newWidth, onUpdate:onUpdate, onStart:onStart, onComplete:onCompleteWidthTween, ease:_widthEasing, delay:delay } );
+			Actuate.tween (this, _widthDuration, { width:newWidth } ).onChange(onUpdate).onComplete(onCompleteWidthTween).ease(_widthEasing).delay(_delay);
+			onStart();
 		}
 		
 		
 		public function heightTo(newHeight:Number):void {
-			if (_heightTween)_heightTween.kill();
-			_heightTween = TweenMax.to(this, _heightDuration, { height:newHeight, onUpdate:onUpdate, onStart:onStart, onComplete:onCompleteHeightTween, ease:_heightEasing, delay:delay } );
+			Actuate.tween (this, _heightDuration, { height:newHeight } ).onChange(onUpdate).onComplete(onCompleteHeightTween).ease(_heightEasing).delay(_delay);
+			onStart();
 		}
 		
 		public function rotateTo(newRotation:Number):void {
-			if (_rotationTween)_rotationTween.kill();
-			_rotationTween = TweenMax.to(this, _rotationDuration, { rotation:newRotation, onUpdate:onUpdate, onStart:onStart, onComplete:onCompleteRotationTween, ease:_rotationEasing, delay:delay } );
+			Actuate.tween (this, _rotationDuration, { rotation:newRotation } ).onChange(onUpdate).onComplete(onCompleteRotationTween).ease(_rotationEasing).delay(_delay);
+			onStart();
 		}
 		
 		public function alphaTo(newAlpha:Number):void {
-			if (_alphaTween)_alphaTween.kill();
-			_alphaTween = TweenMax.to(this, _alphaDuration, { alpha:newAlpha, onUpdate:onUpdate, onStart:onStart, onComplete:onCompleteAlphaTween, ease:_alphaEasing, delay:delay } );
+			Actuate.tween (this, _alphaDuration, { alpha:newAlpha } ).onChange(onUpdate).onComplete(onCompleteAlphaTween).ease(_alphaEasing).delay(_delay);
+			onStart();
 		}
 		
 		public function moveTo(newX:Number, newY:Number):void {
-			if (_positionTween)_positionTween.kill();
-			_positionTween = TweenMax.to(this, _positionDuration, { x:newX, y:newY, onUpdate:onUpdate, onStart:onStart, onComplete:onCompletePositionTween, ease:_positionEasing, delay:delay } );
+			Actuate.tween (this, _positionDuration, { x:newX, y:newY } ).onChange(onUpdate).onComplete(onCompletePositionTween).ease(_positionEasing).delay(_delay);
+			onStart();
 		}
 		
 		public function scaleTo(newScale:Number):void {
-			if (_scaleTween)_scaleTween.kill();
-			_scaleTween = TweenMax.to(this, _scaleDuration, { scaleX:newScale, scaleY:newScale, onUpdate:onUpdate, onStart:onStart, onComplete:onCompleteScaleTween, ease:_scaleEasing, delay:delay } );
+			Actuate.tween (this, _scaleDuration, { scaleX:newScale, scaleY:newScale } ).onChange(onUpdate).onComplete(onCompleteScaleTween).ease(_scaleEasing).delay(_delay);
+			onStart();
 		}
 		
 		public function scaleXTo(newScale:Number):void {
-			if (_scaleTween)_scaleTween.kill();
-			_scaleTween = TweenMax.to(this, _scaleXDuration, { scaleX:newScale, onUpdate:onUpdate, onStart:onStart, onComplete:onCompleteScaleTween, ease:_scaleXEasing, delay:delay } );
+			Actuate.tween (this, _scaleXDuration, { scaleX:newScale } ).onChange(onUpdate).onComplete(onCompleteScaleTween).ease(_scaleEasing).delay(_delay);
+			onStart();
 		}
 		
 		public function scaleYTo(newScale:Number):void {
-			if (_scaleTween)_scaleTween.kill();
-			_scaleTween = TweenMax.to(this, _scaleYDuration, { scaleY:newScale, onUpdate:onUpdate, onStart:onStart, onComplete:onCompleteScaleTween, ease:_scaleYEasing, delay:delay } );
+			Actuate.tween (this, _scaleYDuration, { scaleY:newScale } ).onChange(onUpdate).onComplete(onCompleteScaleTween).ease(_scaleEasing).delay(_delay);
+			onStart();
 		}
 		
 		public function stopTween():void {
-			for each(var tween:TweenMax in TweenMax.getTweensOf(this)) {
-				tween.pause();
-			}
+			Actuate.stop(this);
 		}
 		
 		public function pauseTween():void {
-			for each(var tween:TweenMax in TweenMax.getTweensOf(this)) {
-				tween.pause();
-			}
+			Actuate.pause(this);
 		}
 		
 		public function resumeTween():void {
-			for each(var tween:TweenMax in TweenMax.getTweensOf(this)) {
-				tween.resume();
-			}
+			Actuate.resume(this);
 		}
 	
 		

@@ -14,7 +14,7 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
-    <class path="..\lib_as3" />
+    <class path="..\actuate\Source" />
   </classpaths>
   <!-- Build options -->
   <build>
