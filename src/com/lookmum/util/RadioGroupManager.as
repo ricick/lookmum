@@ -14,7 +14,7 @@ package com.lookmum.util{
 	public class RadioGroupManager extends EventDispatcher {
 
 		private var buttons:Array;
-		private var selectedIndex:int = -1;
+		private var _selectedIndex:int = -1;
 		private var selectedButton:IToggle;
 		public function RadioGroupManager() {
 			buttons = new Array();
@@ -57,7 +57,7 @@ package com.lookmum.util{
 					break;
 				}
 			}
-			selectedIndex = index;
+			_selectedIndex = index;
 			if(selectedButton){
 				selectedButton.toggle = (false);
 				selectedButton.enabled = true;
@@ -67,10 +67,10 @@ package com.lookmum.util{
 			selectedButton.toggle = (true);
 			dispatchEvent(new Event(Event.SELECT));
 		}
-		public function setSelectedIndex(index:Number):void {
+		public function set selectedIndex(index:Number):void {
 			//set to -1 if you want nothing selected
 			if(index>buttons.length-1)index = buttons.length-1;
-			selectedIndex = index;
+			_selectedIndex = index;
 			if(selectedButton){
 				selectedButton.toggle = (false);
 				selectedButton.enabled = true;
@@ -86,8 +86,8 @@ package com.lookmum.util{
 			}
 			return;
 		}
-		public function getSelectedIndex():Number{
-			return selectedIndex;
+		public function get selectedIndex():Number{
+			return _selectedIndex;
 		}
 		private var _enabled:Boolean
 		public function get enabled():Boolean { return _enabled; }
