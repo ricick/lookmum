@@ -16,6 +16,7 @@ package com.lookmum.view {
 		protected var _modal:Boolean = true;
 		public function Popup(target:MovieClip){
 			super(target);
+			visible = false;
 		}
 		override protected function createChildren():void 
 		{
