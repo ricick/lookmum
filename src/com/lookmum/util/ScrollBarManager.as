@@ -1,5 +1,6 @@
 
 package com.lookmum.util {
+	import com.lookmum.events.ComponentEvent;
 	import com.lookmum.view.IComponent;
 	import com.lookmum.view.IScrollBar;
 	import flash.display.DisplayObject;
@@ -7,11 +8,13 @@ package com.lookmum.util {
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	public class ScrollBarManager{
+		private static const DEFAULT_DISPLAY_OBJECT_WHEEL_SPEED:int = 10;
 		private var _scrollBar:IScrollBar;
 		private var _component:IComponent;
 		private var _textField:TextField;
 		private var _displayObject:DisplayObject;
-		private var _wheelSpeed:Number = 5;
+		private var _mask:DisplayObject;
+		private var _wheelSpeed:Number = DEFAULT_DISPLAY_OBJECT_WHEEL_SPEED;
 		public function ScrollBarManager(scrollBar:IScrollBar) {
 			_scrollBar = scrollBar;
 		}
@@ -28,8 +31,13 @@ package com.lookmum.util {
 		}
 		public function calculateScroll():void 
 		{
-			_scrollBar.maxScroll = _textField.maxScrollV;
-			_scrollBar.scrollSize = _textField.bottomScrollV;
+			if(_textField){
+				_scrollBar.maxScroll = _textField.maxScrollV;
+				_scrollBar.scrollSize = _textField.bottomScrollV;
+			}else if (_displayObject) {
+				if (_mask)_scrollBar.maxScroll = _displayObject.height - _mask.height;
+				_scrollBar.scrollSize = _displayObject.height;
+			}
 		}
 		private function onScrollTextField(event:Event):void {
 			_textField.removeEventListener(Event.SCROLL, onScrollInsideTextField);
@@ -41,10 +49,20 @@ package com.lookmum.util {
 			_scrollBar.level = _textField.scrollV;
 			//trace( "_textField.scrollV : " + _textField.scrollV );
 		}
-		public function associateDisplayObjectY(displayObject:DisplayObject):void{
+		public function associateDisplayObjectY(displayObject:DisplayObject, mask:DisplayObject = null):void{
 			_displayObject = displayObject;
+			_mask = mask;
 			_scrollBar.addEventListener(Event.SCROLL, onScrollDisplayObject);
 			_displayObject.addEventListener(MouseEvent.MOUSE_WHEEL, onScrollInsideDisplayObject);
+			_displayObject.addEventListener(ComponentEvent.RESIZE,onResize);
+			if (_mask)_mask.addEventListener(ComponentEvent.RESIZE, onResize);
+			_scrollBar.wheelSpeed = _wheelSpeed;
+			calculateScroll();
+		}
+		
+		private function onResize(e:ComponentEvent):void 
+		{
+			calculateScroll();
 		}
 		
 		private function onScrollInsideDisplayObject(e:MouseEvent):void 
@@ -63,6 +81,7 @@ package com.lookmum.util {
 		public function set wheelSpeed(value:Number):void 
 		{
 			_wheelSpeed = value;
+			_scrollBar.wheelSpeed = value;
 		}
 	}
 	
