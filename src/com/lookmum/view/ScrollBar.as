@@ -31,7 +31,6 @@ package  com.lookmum.view {
 		protected var _minimumTabSize:Number;
 		public function ScrollBar (target:MovieClip)
 		{
-			//trace("ScrollBar.ScrollBar >> " + target);
 			super (target);
 			this.track = this.getScrollTrack();
 			this.track.addEventListener(MouseEvent.CLICK,onClickTrack);
@@ -111,10 +110,12 @@ package  com.lookmum.view {
 		 * if movieclip set the y value to -((content height - mask height) * getLevel())
 		 * if textfield scroll = Math.round(maxScroll * getLevel())
 		 */
-		public function get level():Number{
+		public function get level():Number {
+			//trace( "level : " + _scroll );
 			return this._scroll;
 		}
-		public function set level(val:Number):void{
+		public function set level(val:Number):void {
+			//trace( "level : " + val );
 			if (val < this._minScroll) val = this._minScroll;
 			if (val > this._maxScroll) val = this._maxScroll;
 			var scrollSpace:Number = this.scrollHeight-this.tab.height;
@@ -147,8 +148,6 @@ package  com.lookmum.view {
 			}
 			if (tab.height < minimumTabSize) tab.height = (minimumTabSize);
 			this.tab.dragBounds = (new Rectangle(0, this.track.y, 0, this.getScrollLimit()));
-			
-			
 		}
 
 		protected function getScrollHeight():Number{
