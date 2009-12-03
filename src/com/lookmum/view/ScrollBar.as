@@ -23,6 +23,7 @@ package  com.lookmum.view {
 		protected var _maxScroll:Number = 0;
 		protected var _scrollSize:Number;
 		protected var _scroll:Number = 0;
+		protected var _wheelSpeed:int = 1;
 		protected var scrollRatio:Number;
 		public var hideOnSelfDisable:Boolean;
 		public static var SCROLL:String = 'scroll';
@@ -43,7 +44,7 @@ package  com.lookmum.view {
 		
 		private function onMouseWheel(e:MouseEvent):void 
 		{
-			level -= e.delta;
+			level -= e.delta * wheelSpeed;
 		}
 		
 		private function onClickTrack(e:MouseEvent):void 
@@ -167,6 +168,8 @@ package  com.lookmum.view {
 			var outEvent:Event = new Event(Event.SCROLL);
 			this.dispatchEvent(outEvent);
 		}
+		
+		
 		override public function get enabled():Boolean { return super.enabled; }
 		
 		override public function set enabled(value:Boolean):void 
@@ -221,6 +224,15 @@ package  com.lookmum.view {
 			_maxScroll = value;
 			this.setScroll();
 			this.resetScroll();
+		}
+		/**
+		 * Scroll amount per mouse wheel click.
+		 */
+		public function get wheelSpeed():int { return _wheelSpeed; }
+		
+		public function set wheelSpeed(value:int):void 
+		{
+			_wheelSpeed = value;
 		}
 		override public function setFocus():void{
 			this.tab.setFocus();

@@ -43,9 +43,7 @@ package
 			addChild(scrollBar2);
 			clip.mask = maskClip;
 			var sbm2:ScrollBarManager = new ScrollBarManager(scrollBar2);
-			scrollBar2.maxScroll = clip.height - maskClip.height;
-			scrollBar2.scrollSize = clip.height;
-			sbm2.associateDisplayObjectY(clip);
+			sbm2.associateDisplayObjectY(clip, maskClip);
 		}
 		
 	}

@@ -28,6 +28,11 @@ package com.lookmum.view
 		 */
 		function set scrollSize(num:Number):void
 		function get scrollSize():Number
+		/**
+		 * Scroll amount per mouse wheel click.
+		 */
+		function get wheelSpeed():int;
+		function set wheelSpeed(value:int):void;
 	}
 	
 }
