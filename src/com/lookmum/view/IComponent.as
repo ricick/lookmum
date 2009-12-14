@@ -275,9 +275,10 @@ package com.lookmum.view
 		/**
 		 * Specifies the context menu associated with this object.
 		 */
+		/*
 		function get contextMenu () : ContextMenu;
 		function set contextMenu (cm:ContextMenu) : void;
-
+		*/
 		/**
 		 * Specifies whether the object receives doubleClick events.
 		 */
