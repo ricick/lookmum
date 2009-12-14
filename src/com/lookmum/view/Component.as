@@ -177,10 +177,11 @@ package com.lookmum.view
 		/**
 		 * The label at the current frame in the timeline of the MovieClip instance.
 		 */
+		/*
 		override public function get currentFrameLabel () : String {
 			return target.currentFrameLabel;
 		}
-
+		*/
 		/**
 		 * Returns an array of FrameLabel objects from the current scene.
 		 */
@@ -520,13 +521,14 @@ package com.lookmum.view
 		/**
 		 * Specifies the context menu associated with this object.
 		 */
+		/*
 		override public function get contextMenu () : ContextMenu {
 			return target.contextMenu;
 		}
 		override public function set contextMenu (cm:ContextMenu) : void {
 			target.contextMenu = cm;
 		}
-
+		*/
 		/**
 		 * Specifies whether the object receives doubleClick events.
 		 */
