@@ -169,6 +169,21 @@ package com.lookmum.view {
 			onStart();
 		}
 		
+		public function rotateXTo(newRotation:Number):void {
+			Actuate.tween (this, _rotationDuration, { rotationX:newRotation } ).onChange(onUpdate).onComplete(onCompleteRotationTween).ease(_rotationEasing).delay(_delay);
+			onStart();
+		}
+		
+		public function rotateYTo(newRotation:Number):void {
+			Actuate.tween (this, _rotationDuration, { rotationY:newRotation } ).onChange(onUpdate).onComplete(onCompleteRotationTween).ease(_rotationEasing).delay(_delay);
+			onStart();
+		}
+		
+		public function rotateZTo(newRotation:Number):void {
+			Actuate.tween (this, _rotationDuration, { rotationZ:newRotation } ).onChange(onUpdate).onComplete(onCompleteRotationTween).ease(_rotationEasing).delay(_delay);
+			onStart();
+		}
+		
 		public function alphaTo(newAlpha:Number):void {
 			Actuate.tween (this, _alphaDuration, { alpha:newAlpha } ).onChange(onUpdate).onComplete(onCompleteAlphaTween).ease(_alphaEasing).delay(_delay);
 			onStart();
