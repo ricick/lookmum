@@ -521,14 +521,12 @@ package com.lookmum.view
 		/**
 		 * Specifies the context menu associated with this object.
 		 */
-		/*
 		override public function get contextMenu () : ContextMenu {
 			return target.contextMenu;
 		}
 		override public function set contextMenu (cm:ContextMenu) : void {
 			target.contextMenu = cm;
 		}
-		*/
 		/**
 		 * Specifies whether the object receives doubleClick events.
 		 */
@@ -673,7 +671,7 @@ package com.lookmum.view
 		 * Indicates the y coordinate of the mouse position, in pixels.
 		 */
 		override public function get mouseY () : Number{
-			return target.mouseX;
+			return target.mouseY;
 		}
 
 		/**
@@ -718,6 +716,29 @@ package com.lookmum.view
 		}
 		override public function set rotation (value:Number) : void{
 			target.rotation = value;
+		}
+		/// Indicates the x-axis rotation of the DisplayObject instance, in degrees, from its original orientation relative to the 3D parent container.
+		override public function get rotationX () : Number{
+			return target.rotationX;
+		}
+		override public function set rotationX (value:Number) : void{
+			target.rotationX = value;
+		}
+
+		/// Indicates the y-axis rotation of the DisplayObject instance, in degrees, from its original orientation relative to the 3D parent container.
+		override public function get rotationY () : Number{
+			return target.rotationY;
+		}
+		override public function set rotationY (value:Number) : void{
+			target.rotationY = value;
+		}
+
+		/// Indicates the z-axis rotation of the DisplayObject instance, in degrees, from its original orientation relative to the 3D parent container.
+		override public function get rotationZ () : Number{
+			return target.rotationZ;
+		}
+		override public function set rotationZ (value:Number) : void{
+			target.rotationZ = value;
 		}
 
 		/**
