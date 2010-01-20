@@ -24,27 +24,27 @@ package com.lookmum.view {
 		private static const DEFAULT_EASING:IEasing = Linear.easeNone;
 		
 		//durations
-		private var _duration:Number;
-		private var _positionDuration:Number;
-		private var _widthDuration:Number;
-		private var _heightDuration:Number;
-		private var _alphaDuration:Number;
-		private var _rotationDuration:Number;
-		private var _scaleDuration:Number;
-		private var _scaleXDuration:Number;
-		private var _scaleYDuration:Number;
+		protected var _duration:Number;
+		protected var _positionDuration:Number;
+		protected var _widthDuration:Number;
+		protected var _heightDuration:Number;
+		protected var _alphaDuration:Number;
+		protected var _rotationDuration:Number;
+		protected var _scaleDuration:Number;
+		protected var _scaleXDuration:Number;
+		protected var _scaleYDuration:Number;
 		//easing functions
-		private var _easing:IEasing;
-		private var _positionEasing:IEasing;
-		private var _widthEasing:IEasing;
-		private var _heightEasing:IEasing;
-		private var _alphaEasing:IEasing;
-		private var _rotationEasing:IEasing;
-		private var _scaleEasing:IEasing;			
-		private var _scaleXEasing:IEasing;			
-		private var _scaleYEasing:IEasing;
+		protected var _easing:IEasing;
+		protected var _positionEasing:IEasing;
+		protected var _widthEasing:IEasing;
+		protected var _heightEasing:IEasing;
+		protected var _alphaEasing:IEasing;
+		protected var _rotationEasing:IEasing;
+		protected var _scaleEasing:IEasing;			
+		protected var _scaleXEasing:IEasing;			
+		protected var _scaleYEasing:IEasing;
 		//delays
-		private var _delay:Number = 0;
+		protected var _delay:Number = 0;
 		
 		public function TweenableComponent(target:MovieClip) {
 			super(target);
@@ -208,12 +208,12 @@ package com.lookmum.view {
 	
 		
 		
-		private function onStart():void
+		protected function onStart():void
 		{
 			dispatchEvent(new TweenableComponentEvent(TweenableComponentEvent.START));
 		}
 		
-		private function onUpdate():void
+		protected function onUpdate():void
 		{
 			dispatchEvent(new TweenableComponentEvent(TweenableComponentEvent.UPDATE));
 		}
@@ -226,7 +226,7 @@ package com.lookmum.view {
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
-		private function onCompleteRotationTween():void 
+		protected function onCompleteRotationTween():void 
 		{
 			dispatchEvent(new TweenableComponentEvent(TweenableComponentEvent.ROTATE_TO));
 			dispatchEvent(new Event(Event.COMPLETE));
