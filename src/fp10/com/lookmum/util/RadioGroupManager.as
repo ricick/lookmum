@@ -57,7 +57,7 @@ package com.lookmum.util{
 					break;
 				}
 			}
-			_selectedIndex = index;
+			selectedIndex = index;
 			if(selectedButton){
 				selectedButton.toggle = (false);
 				selectedButton.enabled = true;
@@ -71,7 +71,7 @@ package com.lookmum.util{
 			//set to -1 if you want nothing selected
 			if(index>buttons.length-1)index = buttons.length-1;
 			_selectedIndex = index;
-			if(selectedButton){
+			if (selectedButton) {
 				selectedButton.toggle = (false);
 				selectedButton.enabled = true;
 			}
