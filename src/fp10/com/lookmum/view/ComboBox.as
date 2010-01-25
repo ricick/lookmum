@@ -19,7 +19,7 @@
 	public class ComboBox  extends Component {
 
 		private var _selectedIndex:Number;
-		private var buttonOpen:LabelButton;
+		protected var buttonOpen:LabelButton;
 		private var _items:Array;
 		private var mouseMoveListener:Function;
 		private var mouseDownListener:Function;
@@ -29,7 +29,7 @@
 		private var _isOpen:Boolean = false;
 		private var itemRenderer:Class;
 		private var holder:MovieClip;
-		private var itemButtons:Array;
+		protected var itemButtons:Array;
 		
 		public function ComboBox(target:MovieClip) {
 			super(target);
