@@ -89,11 +89,13 @@ package com.lookmum.view
 		protected function doEnable():void {
 			ModalManager.getInstance().registerComponent(this, this.doDisable);
 			target.gotoAndStop(FRAME_ROLL_OUT);
+			buttonMode = true;
 			mouseEnabled = true;
 			super.enabled = true;
 			this.dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.ENABLE));
 		}
 		protected function doDisable():void {
+			buttonMode = false;
 			mouseEnabled = false;
 			super.enabled = false;
 			target.gotoAndStop(FRAME_DISABLE);
