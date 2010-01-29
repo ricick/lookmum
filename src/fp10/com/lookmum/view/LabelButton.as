@@ -127,6 +127,15 @@ package com.lookmum.view
 		
 		
 		//{region animations
+		override protected function doEnable():void {
+			super.doEnable();
+			if (_textFormatDisable) currentTextFormat = (_textFormatRollOut);
+			if (bg) {
+				bg.gotoAndStop(FRAME_ROLL_OUT);
+			}
+			arrangeComponents();
+		}
+		
 		override protected function doDisable():void {
 			super.doDisable();
 			if (_textFormatDisable) currentTextFormat = (_textFormatDisable);
@@ -139,7 +148,11 @@ package com.lookmum.view
 		override protected function onRollOver(e:MouseEvent):void 
 		{
 			super.onRollOver(e);
-			if (_textFormatRollOver) currentTextFormat = (_textFormatRollOver);
+			
+			if (enabled) {
+				if (_textFormatRollOver) currentTextFormat = (_textFormatRollOver);
+			}
+			
 			if (bg) {
 				bg.gotoAndStop(FRAME_ROLL_OVER);
 			}
@@ -149,7 +162,11 @@ package com.lookmum.view
 		override protected function onRollOut(e:MouseEvent):void 
 		{
 			super.onRollOut(e);
-			if (_textFormatRollOut) currentTextFormat = (_textFormatRollOut);
+			
+			if (enabled) {
+				if (_textFormatRollOut) currentTextFormat = (_textFormatRollOut);
+			}
+
 			if (bg) {
 				bg.gotoAndStop(FRAME_ROLL_OUT);
 			}
@@ -160,7 +177,11 @@ package com.lookmum.view
 		override protected function onMouseDown(e:MouseEvent):void 
 		{
 			super.onMouseDown(e);
-			if (_textFormatPress) currentTextFormat = (_textFormatPress);
+			
+			if (enabled) {
+				if (_textFormatPress) currentTextFormat = (_textFormatPress);
+			}
+			
 			if (bg) {
 				bg.gotoAndStop(FRAME_PRESS);
 			}
@@ -171,7 +192,11 @@ package com.lookmum.view
 		override protected function onMouseUp(e:MouseEvent):void 
 		{
 			super.onMouseUp(e);
-			if (_textFormatRollOver) currentTextFormat = (_textFormatRollOver);
+			
+			if (enabled) {
+				if (_textFormatRollOver) currentTextFormat = (_textFormatRollOver);
+			}
+
 			if (bg) {
 				bg.gotoAndStop(FRAME_ROLL_OVER);
 			}
