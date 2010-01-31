@@ -47,7 +47,7 @@ package  com.lookmum.view {
 			level -= e.delta * wheelSpeed;
 		}
 		
-		private function onClickTrack(e:MouseEvent):void 
+		protected function onClickTrack(e:MouseEvent):void 
 		{
 			if (e.localY < tab.y) {
 				level -= scrollSize;

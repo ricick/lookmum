@@ -521,12 +521,14 @@ package com.lookmum.view
 		/**
 		 * Specifies the context menu associated with this object.
 		 */
-		override public function get contextMenu () : ContextMenu {
-			return target.contextMenu;
+		/*
+		override public function get contextMenu():ContextMenu { return target.contextMenu; }
+		
+		override public function set contextMenu(value:ContextMenu):void 
+		{
+			target.contextMenu = value;
 		}
-		override public function set contextMenu (cm:ContextMenu) : void {
-			target.contextMenu = cm;
-		}
+		*/
 		/**
 		 * Specifies whether the object receives doubleClick events.
 		 */
