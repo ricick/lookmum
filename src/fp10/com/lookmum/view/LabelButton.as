@@ -147,11 +147,14 @@ package com.lookmum.view
 		
 		override protected function onRollOver(e:MouseEvent):void 
 		{
+			
+			if (!enabled) {
+				return;
+			}
+			
 			super.onRollOver(e);
 			
-			if (enabled) {
-				if (_textFormatRollOver) currentTextFormat = (_textFormatRollOver);
-			}
+			if (_textFormatRollOver) currentTextFormat = (_textFormatRollOver);
 			
 			if (bg) {
 				bg.gotoAndStop(FRAME_ROLL_OVER);
@@ -161,11 +164,13 @@ package com.lookmum.view
 		
 		override protected function onRollOut(e:MouseEvent):void 
 		{
+			if (!enabled) {
+				return;
+			}
+			
 			super.onRollOut(e);
 			
-			if (enabled) {
-				if (_textFormatRollOut) currentTextFormat = (_textFormatRollOut);
-			}
+			if (_textFormatRollOut) currentTextFormat = (_textFormatRollOut);
 
 			if (bg) {
 				bg.gotoAndStop(FRAME_ROLL_OUT);
@@ -176,12 +181,14 @@ package com.lookmum.view
 		
 		override protected function onMouseDown(e:MouseEvent):void 
 		{
-			super.onMouseDown(e);
-			
-			if (enabled) {
-				if (_textFormatPress) currentTextFormat = (_textFormatPress);
+			if (!enabled) {
+				return;
 			}
 			
+			super.onMouseDown(e);
+			
+			if (_textFormatPress) currentTextFormat = (_textFormatPress);
+
 			if (bg) {
 				bg.gotoAndStop(FRAME_PRESS);
 			}
@@ -191,11 +198,13 @@ package com.lookmum.view
 		
 		override protected function onMouseUp(e:MouseEvent):void 
 		{
+			if (!enabled) {
+				return;
+			}
+			
 			super.onMouseUp(e);
 			
-			if (enabled) {
-				if (_textFormatRollOver) currentTextFormat = (_textFormatRollOver);
-			}
+			if (_textFormatRollOver) currentTextFormat = (_textFormatRollOver);
 
 			if (bg) {
 				bg.gotoAndStop(FRAME_ROLL_OVER);
