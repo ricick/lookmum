@@ -92,12 +92,14 @@ package com.lookmum.view
 			buttonMode = true;
 			mouseEnabled = true;
 			super.enabled = true;
+			mouseChildren = true;
 			this.dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.ENABLE));
 		}
 		protected function doDisable():void {
 			buttonMode = false;
 			mouseEnabled = false;
 			super.enabled = false;
+			mouseChildren = false;
 			target.gotoAndStop(FRAME_DISABLE);
 			this.dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.DISABLE));
 		}
