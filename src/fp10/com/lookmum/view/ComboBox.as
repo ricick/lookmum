@@ -20,7 +20,7 @@
 
 		private var _selectedIndex:Number;
 		protected var buttonOpen:LabelButton;
-		private var _items:Array;
+		protected var _items:Array;
 		private var mouseMoveListener:Function;
 		private var mouseDownListener:Function;
 		private var closeInt:Number;
@@ -160,7 +160,7 @@
 			this.close();
 			this.updateView();
 		}
-		private function updateView():void{
+		protected function updateView():void{
 			this.buttonOpen.text = (this._items[this._selectedIndex]);
 		}
 		/*override protected function getInteractiveComponent():IInteractiveComponent
