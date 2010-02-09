@@ -19,6 +19,11 @@ package com.lookmum.util{
 		public function RadioGroupManager() {
 			buttons = new Array();
 		}
+		public function clear():void{
+			buttons = new Array();
+			_selectedIndex = -1;
+			selectedButton = null;
+		}
 		public function addButton(button:IToggle):void{
 			for (var i:int = 0; i < buttons.length; i++) {
 				var compareButton:IToggle = buttons[i];
