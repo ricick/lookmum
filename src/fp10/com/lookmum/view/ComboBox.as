@@ -71,8 +71,10 @@
 		}
 		private function doHitTest():Boolean {
 			// changed target.stage to root
-			var hitThis:Boolean = this.target.hitTestPoint(target.root.mouseX,target.root.mouseY,true);
-			var hitHolder:Boolean = this.holder.hitTestPoint(target.root.mouseX,target.root.mouseY,true);
+			var hitThis:Boolean = this.target.hitTestPoint(target.stage.mouseX, target.stage.mouseY, true);
+			trace("hitThis : " + hitThis);
+			var hitHolder:Boolean = this.holder.hitTestPoint(holder.stage.mouseX, holder.stage.mouseY, true);
+			trace("hitHolder : " + hitHolder);
 			var hit:Boolean = (hitThis||hitHolder);
 			return hit;
 		}
@@ -106,8 +108,8 @@
 			this.holder.x = this.buttonOpen.x;
 			
 			// changed target.stage to root
-			target.root.addEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
-			target.root.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
+			target.stage.addEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
+			target.stage.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
 			this.itemButtons = new Array();
 			var space:Number = 0;
 			for (var i:Number = 0; i < this._items.length; i++) {
@@ -135,8 +137,8 @@
 			this._isOpen = false;
 			
 			// changed target.stage to root
-			target.root.removeEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
-			target.root.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
+			target.stage.removeEventListener(MouseEvent.MOUSE_MOVE,onMouseMove);
+			target.stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
 			timer.stop();
 			for (var i:Number = 0; i < this.itemButtons.length; i++) {
 				var button:LabelButton = this.itemButtons[i];
