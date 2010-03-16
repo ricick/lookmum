@@ -51,6 +51,7 @@ package com.lookmum.view
 			super.createChildren();
 			textField = getTextField();
 		}
+		/*
 		override protected function addEventListeners():void 
 		{
 			super.addEventListeners();
@@ -66,6 +67,7 @@ package com.lookmum.view
 				textField.addEventListener(eventType, onEvent, false, 0, true);
 			}
 		}
+		*/
 		override public function get tabEnabled():Boolean { return textField.tabEnabled; }
 		
 		override public function set tabEnabled(value:Boolean):void 
