@@ -15,6 +15,7 @@ package com.lookmum.view
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.FocusEvent;
+	import flash.events.IEventDispatcher;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
@@ -64,8 +65,8 @@ package com.lookmum.view
 			}
 			_target = target;
 			createChildren();
-			addEventListeners();
-			addEventListener(Event.ADDED, onAdded);
+			//addEventListeners();
+			super.addEventListener(Event.ADDED, onAdded);
 			arrangeComponents();
 		}
 		/**
@@ -85,50 +86,34 @@ package com.lookmum.view
 		 * Return the MovieClip being controlled by the component.
 		 */
 		public function get target():MovieClip { return _target; }
-		/**
-		 * Listen for events fired by target and forward them on
-		 */
-		protected function addEventListeners():void {
-			var eventList:Array = [
-				Event.TAB_INDEX_CHANGE,
-				Event.TAB_ENABLED_CHANGE,
-				Event.TAB_CHILDREN_CHANGE,
-				KeyboardEvent.KEY_UP,
-				KeyboardEvent.KEY_DOWN,
-				MouseEvent.ROLL_OVER,
-				MouseEvent.ROLL_OUT,
-				MouseEvent.MOUSE_WHEEL,
-				MouseEvent.MOUSE_UP,
-				MouseEvent.MOUSE_OVER,
-				MouseEvent.MOUSE_OUT,
-				MouseEvent.MOUSE_MOVE,
-				MouseEvent.MOUSE_DOWN,
-				MouseEvent.DOUBLE_CLICK,
-				MouseEvent.CLICK,
-				FocusEvent.MOUSE_FOCUS_CHANGE,
-				FocusEvent.KEY_FOCUS_CHANGE,
-				FocusEvent.FOCUS_OUT,
-				FocusEvent.FOCUS_IN,
-				Event.RENDER,
-				Event.REMOVED_FROM_STAGE,
-				Event.REMOVED,
-				Event.ENTER_FRAME,
-				Event.ADDED_TO_STAGE,
-				Event.ADDED,
-			]
-			for each(var eventType:String in eventList) 
-			{
-				target.addEventListener(eventType, onEvent, false, 0, true);
-			}
+		
+		
+		//{region event listeners
+		override public function addEventListener (type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false) : void {
+			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+			target.addEventListener(type, onEvent, useCapture, priority, useWeakReference);
 		}
-		/**
-		 * Forward events recieved from target.
-		 * @param	e
-		 */
-		protected function onEvent(e:Event):void 
-		{
-			dispatchEvent(e);
+		
+		protected function onEvent(e:Event):void {
+			dispatchEvent(e.clone());
 		}
+
+		/// Checks whether the EventDispatcher object has any listeners registered for a specific type of event.
+		override public function hasEventListener (type:String) : Boolean{
+			return target.hasEventListener(type);
+		}
+
+		/// Removes a listener from the EventDispatcher object.
+		override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void {
+			super.removeEventListener(type, listener, useCapture);
+			target.removeEventListener(type, listener, useCapture);
+		}
+
+		/// Checks whether an event listener is registered with this EventDispatcher object or any of its ancestors for the specified event type.
+		override public function willTrigger (type:String) : Boolean{
+			return target.willTrigger(type);
+		}
+		//}
 		/**
 		 * Create any child components
 		 */
