@@ -34,13 +34,8 @@ package com.lookmum.view
 			target.addChild(bitmap);
 			filters = [new BlurFilter(blurAmount, blurAmount, 3)];
 			refresh();
-		}
-		override protected function addEventListeners():void 
-		{
-			super.addEventListeners();
 			addEventListener(Event.ADDED, onAdded);
-		}
-		
+		}		
 		private function onAdded(e:Event):void 
 		{
 			if (visible) refresh();

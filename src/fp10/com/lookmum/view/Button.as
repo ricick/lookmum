@@ -37,6 +37,7 @@ package com.lookmum.view
 			//if (target.getChildByName("hitspot")) return target.getChildByName("hitspot") as MovieClip;
 			return target;
 		}
+		/*
 		override protected function addEventListeners():void 
 		{
 			var eventList:Array = [
@@ -71,6 +72,7 @@ package com.lookmum.view
 				getHitspot().addEventListener(eventType, onEvent, false, 0, true);
 			}
 		}
+		*/
 		/**
 		 * A Boolean value that indicates whether a movie clip is enabled.
 		 */

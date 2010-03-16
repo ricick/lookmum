@@ -83,6 +83,7 @@ package com.lookmum.view
 			bg.width = textField.width + (bgDimensions.width - textFieldDimensions.width);
 			dispatchEvent(new ComponentEvent(ComponentEvent.RESIZE));
 		}
+		/*
 		override protected function addEventListeners():void 
 		{
 			super.addEventListeners();
@@ -97,6 +98,7 @@ package com.lookmum.view
 				textField.addEventListener(eventType, onEvent, false, 0, true);
 			}
 		}
+		*/
 		private function getTextField():TextField
 		{
 			return target.textField;
