@@ -118,7 +118,7 @@ package com.lookmum.view
 		{
 			if (!enabled) return;
 			target.gotoAndStop(FRAME_PRESS);
-			getHitspot().stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+			if (getHitspot().stage) getHitspot().stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 		}
 		
 		protected function onMouseUp(e:MouseEvent):void 

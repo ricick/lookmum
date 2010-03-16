@@ -15,16 +15,16 @@ package com.lookmum.util{
 
 		private var buttons:Array;
 		private var _selectedIndex:int = -1;
-		private var selectedButton:IToggle;
+		private var _selectedButton:IToggle;
 		public function RadioGroupManager() {
 			buttons = new Array();
 		}
-		public function clear():void{
+		public function clear():void {
 			buttons = new Array();
 			_selectedIndex = -1;
 			selectedButton = null;
 		}
-		public function addButton(button:IToggle):void{
+		public function addButton(button:IToggle):void {
 			for (var i:int = 0; i < buttons.length; i++) {
 				var compareButton:IToggle = buttons[i];
 				if(compareButton==button){
@@ -41,7 +41,7 @@ package com.lookmum.util{
 				if (compareButton == button) {
 					button.removeEventListener(MouseEvent.CLICK, onReleaseButton);
 					buttons.splice(i, 1);
-					if (i == selectedIndex ){
+					if (i == selectedIndex ) {
 						selectedButton = null;
 						selectedIndex = -1;
 					}
@@ -63,12 +63,14 @@ package com.lookmum.util{
 				}
 			}
 			selectedIndex = index;
-			if(selectedButton){
+			if (selectedButton) {
 				selectedButton.toggle = (false);
 				selectedButton.enabled = true;
+				selectedButton.tabEnabled = true;
 			}
 			selectedButton = event.target as IToggle;
 			selectedButton.enabled = false;
+			selectedButton.tabEnabled = false;
 			selectedButton.toggle = (true);
 			dispatchEvent(new Event(Event.SELECT));
 		}
@@ -79,12 +81,14 @@ package com.lookmum.util{
 			if (selectedButton) {
 				selectedButton.toggle = (false);
 				selectedButton.enabled = true;
+				selectedButton.tabEnabled = true;
 			}
 			if (index != -1)
 			{
 				selectedButton = buttons[index];
 				selectedButton.toggle = (true);
 				selectedButton.enabled = false;
+				selectedButton.tabEnabled = false;
 			}
 			else {
 				selectedButton = null;
@@ -105,13 +109,23 @@ package com.lookmum.util{
 				for each(child in buttons) 
 				{
 					child.enabled = true;
+					child.tabEnabled = true;
 				}
 			}else {
 				for each(child in buttons) 
 				{
 					child.enabled = false;
+					child.tabEnabled = false;
 				}
 			}
+		}
+		
+		public function get selectedButton():IToggle { return _selectedButton; }
+		
+		public function set selectedButton(value:IToggle):void 
+		{
+			if (_selectedButton)_selectedButton.toggle = false;
+			_selectedButton = value;
 		}
 	}
 }

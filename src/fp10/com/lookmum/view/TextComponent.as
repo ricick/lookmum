@@ -54,6 +54,7 @@ package com.lookmum.view
 		override protected function addEventListeners():void 
 		{
 			super.addEventListeners();
+			return;
 			var eventList:Array = [
 				TextEvent.TEXT_INPUT,
 				TextEvent.LINK,
@@ -64,6 +65,24 @@ package com.lookmum.view
 			{
 				textField.addEventListener(eventType, onEvent, false, 0, true);
 			}
+		}
+		override public function get tabEnabled():Boolean { return textField.tabEnabled; }
+		
+		override public function set tabEnabled(value:Boolean):void 
+		{
+			textField.tabEnabled = value;
+		}
+		override public function get tabIndex():int { return textField.tabIndex; }
+		
+		override public function set tabIndex(value:int):void 
+		{
+			textField.tabIndex = value;
+		}
+		override public function setFocus():void 
+		{
+			trace( "TextComponent.setFocus" );
+			//textField.setFocus();
+			if (stage) stage.focus = textField;
 		}
 		private function getTextField():TextField
 		{
