@@ -47,7 +47,7 @@ package com.lookmum.view
 		}
 		public function refresh():void {
 			if (!visible) return;
-			if (!target.parent) {
+			if (!target.parent || !target.stage) {
 				//cant refresh as not in display list
 				return;
 			}

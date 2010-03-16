@@ -10,15 +10,33 @@ package com.lookmum.util{
 			if(! items){
 				items = new Array();
 			}
+			if (items.lastIndexOf(item)!=-1) {
+				items.splice(items.lastIndexOf(item), 1);
+			}
 			items.push(item);
+			/*
 			for(var i:int = 0; i < items.length; i++){
 				if(items[i] == item){
 					item.tabIndex = i;
 				}
 			}
+			*/
 			resetIndexes();
 		}
-		
+		public static function removeItem(item:InteractiveObject):void{
+			if (!items) return;
+			if (items.lastIndexOf(item)!=-1) {
+				items.splice(items.lastIndexOf(item), 1);
+			}
+			/*
+			for(var i:int = 0; i < items.length; i++){
+				if(items[i] == item){
+					item.tabIndex = i;
+				}
+			}
+			*/
+			resetIndexes();
+		}
 		private static function resetIndexes():void{
 			for(var k:int = 0; k < items.length; k++){
 				items[k].tabIndex = k
@@ -169,6 +187,26 @@ package com.lookmum.util{
 				//move down ++
 				setTabIndex(putAfter, (itemIndex));
 			}
+		}
+		private static var disabledItems:Array;
+		public static function disableTabs():void {
+			if (!items) return;
+			disabledItems = new Array();
+			for each(var item:InteractiveObject in items) {
+				if (item.tabEnabled) {
+					disabledItems.push(item);
+					item.tabEnabled = false;
+				}
+			}
+		}
+		public static function enableTabs():void{
+			if (!disabledItems) return;
+			for each(var item:InteractiveObject in disabledItems) {
+				if (!item.tabEnabled) {
+					item.tabEnabled = true;
+				}
+			}
+			disabledItems = new Array();
 		}
 	}	
 }

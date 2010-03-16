@@ -34,7 +34,7 @@ package com.lookmum.view
 		}
 		protected function getHitspot():MovieClip
 		{
-			if (target.getChildByName("hitspot")) return target.getChildByName("hitspot") as MovieClip;
+			//if (target.getChildByName("hitspot")) return target.getChildByName("hitspot") as MovieClip;
 			return target;
 		}
 		override protected function addEventListeners():void 
@@ -90,6 +90,7 @@ package com.lookmum.view
 			ModalManager.getInstance().registerComponent(this, this.doDisable);
 			target.gotoAndStop(FRAME_ROLL_OUT);
 			buttonMode = true;
+			tabEnabled = true;
 			mouseEnabled = true;
 			super.enabled = true;
 			mouseChildren = true;
@@ -97,6 +98,7 @@ package com.lookmum.view
 		}
 		protected function doDisable():void {
 			buttonMode = false;
+			tabEnabled = false;
 			mouseEnabled = false;
 			super.enabled = false;
 			mouseChildren = false;
