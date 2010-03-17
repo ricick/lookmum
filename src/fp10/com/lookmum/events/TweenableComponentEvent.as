@@ -19,6 +19,16 @@ package com.lookmum.events {
 			
 		}
 		
+		public override function clone():Event 
+		{ 
+			return new TweenableComponentEvent(type, bubbles, cancelable);
+		} 
+		
+		public override function toString():String 
+		{ 
+			return formatToString("TweenableComponentEvent", "type", "bubbles", "cancelable", "eventPhase"); 
+		}
+		
 		
 		
 	}
