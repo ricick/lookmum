@@ -1,4 +1,4 @@
-﻿
+
 package com.lookmum.events {
 
 	import flash.events.Event;
@@ -11,6 +11,16 @@ package com.lookmum.events {
 		public function ComponentEvent(type:String, bubbles:Boolean =  false, cancelable:Boolean =  false) {
 			super(type, bubbles, cancelable);
 			
+		}
+		
+		public override function clone():Event 
+		{ 
+			return new ComponentEvent(type, bubbles, cancelable);
+		} 
+		
+		public override function toString():String 
+		{ 
+			return formatToString("ComponentEvent", "type", "bubbles", "cancelable", "eventPhase"); 
 		}
 	}
 	
