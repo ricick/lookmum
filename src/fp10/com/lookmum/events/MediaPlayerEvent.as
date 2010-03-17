@@ -39,6 +39,24 @@ package com.lookmum.events {
 			super(type, bubbles, cancelable);
 			
 		}
+		
+		public override function clone():Event 
+		{ 
+			var event:MediaPlayerEvent =  new MediaPlayerEvent(type, bubbles, cancelable);
+			event.bufferLength = bufferLength;
+			event.bufferTime = bufferTime;
+			event.bytesLoaded = bytesLoaded;
+			event.bytesTotal = bytesTotal;
+			event.currentFPS = currentFPS;
+			event.liveDelay = liveDelay;
+			event.time = time;
+			return event;
+		} 
+		
+		public override function toString():String 
+		{ 
+			return formatToString("MediaPlayerEvent", "type", "bubbles", "cancelable", "eventPhase"); 
+		}
 
 	}
 	
