@@ -154,43 +154,43 @@ package com.lookmum.view {
 		 */
 		
 		public function widthTo(newWidth:Number):void {
-			Actuate.tween (this, _widthDuration, { width:newWidth } ).onChange(onUpdate).onComplete(onCompleteWidthTween).ease(_widthEasing).delay(_delay);
+			Actuate.tween (this, _widthDuration, { width:newWidth } ).onUpdate(onUpdate).onComplete(onCompleteWidthTween).ease(_widthEasing).delay(_delay);
 			onStart();
 		}
 		
 		
 		public function heightTo(newHeight:Number):void {
-			Actuate.tween (this, _heightDuration, { height:newHeight } ).onChange(onUpdate).onComplete(onCompleteHeightTween).ease(_heightEasing).delay(_delay);
+			Actuate.tween (this, _heightDuration, { height:newHeight } ).onUpdate(onUpdate).onComplete(onCompleteHeightTween).ease(_heightEasing).delay(_delay);
 			onStart();
 		}
 		
 		public function rotateTo(newRotation:Number):void {
-			Actuate.tween (this, _rotationDuration, { rotation:newRotation } ).onChange(onUpdate).onComplete(onCompleteRotationTween).ease(_rotationEasing).delay(_delay);
+			Actuate.tween (this, _rotationDuration, { rotation:newRotation } ).onUpdate(onUpdate).onComplete(onCompleteRotationTween).ease(_rotationEasing).delay(_delay);
 			onStart();
 		}
 		
 		public function alphaTo(newAlpha:Number):void {
-			Actuate.tween (this, _alphaDuration, { alpha:newAlpha } ).onChange(onUpdate).onComplete(onCompleteAlphaTween).ease(_alphaEasing).delay(_delay);
+			Actuate.tween (this, _alphaDuration, { alpha:newAlpha } ).onUpdate(onUpdate).onComplete(onCompleteAlphaTween).ease(_alphaEasing).delay(_delay);
 			onStart();
 		}
 		
 		public function moveTo(newX:Number, newY:Number):void {
-			Actuate.tween (this, _positionDuration, { x:newX, y:newY } ).onChange(onUpdate).onComplete(onCompletePositionTween).ease(_positionEasing).delay(_delay);
+			Actuate.tween (this, _positionDuration, { x:newX, y:newY } ).onUpdate(onUpdate).onComplete(onCompletePositionTween).ease(_positionEasing).delay(_delay);
 			onStart();
 		}
 		
 		public function scaleTo(newScale:Number):void {
-			Actuate.tween (this, _scaleDuration, { scaleX:newScale, scaleY:newScale } ).onChange(onUpdate).onComplete(onCompleteScaleTween).ease(_scaleEasing).delay(_delay);
+			Actuate.tween (this, _scaleDuration, { scaleX:newScale, scaleY:newScale } ).onUpdate(onUpdate).onComplete(onCompleteScaleTween).ease(_scaleEasing).delay(_delay);
 			onStart();
 		}
 		
 		public function scaleXTo(newScale:Number):void {
-			Actuate.tween (this, _scaleXDuration, { scaleX:newScale } ).onChange(onUpdate).onComplete(onCompleteScaleTween).ease(_scaleEasing).delay(_delay);
+			Actuate.tween (this, _scaleXDuration, { scaleX:newScale } ).onUpdate(onUpdate).onComplete(onCompleteScaleTween).ease(_scaleEasing).delay(_delay);
 			onStart();
 		}
 		
 		public function scaleYTo(newScale:Number):void {
-			Actuate.tween (this, _scaleYDuration, { scaleY:newScale } ).onChange(onUpdate).onComplete(onCompleteScaleTween).ease(_scaleEasing).delay(_delay);
+			Actuate.tween (this, _scaleYDuration, { scaleY:newScale } ).onUpdate(onUpdate).onComplete(onCompleteScaleTween).ease(_scaleEasing).delay(_delay);
 			onStart();
 		}
 		
