@@ -673,7 +673,7 @@ package com.lookmum.view
 		 * Indicates the y coordinate of the mouse position, in pixels.
 		 */
 		override public function get mouseY () : Number{
-			return target.mouseX;
+			return target.mouseY;
 		}
 
 		/**
