@@ -1,5 +1,6 @@
 package com.lookmum.events {
 
+	import com.lookmum.events.MediaPlayerEvent;
 	import com.lookmum.vo.VideoMetaData;
 	import flash.events.Event;
 	
@@ -38,6 +39,17 @@ package com.lookmum.events {
 		public function MediaPlayerEvent(type:String, bubbles:Boolean =  false, cancelable:Boolean =  false) {
 			super(type, bubbles, cancelable);
 			
+		}
+		override public function clone():Event{
+			var event:MediaPlayerEvent = new MediaPlayerEvent(type,bubbles,cancelable);
+			event.bufferLength = bufferLength;
+			event.bufferTime = bufferTime;
+			event.bytesLoaded = bytesLoaded;
+			event.bytesTotal = bytesTotal;
+			event.currentFPS = currentFPS;
+			event.liveDelay = liveDelay;
+			event.time = time;
+			return event;
 		}
 
 	}
