@@ -41,7 +41,7 @@ package com.lookmum.view
 	 */
 	public class TextComponent extends Component implements ITextComponent
 	{
-		private var textField:TextField;
+		protected var textField:TextField;
 		public function TextComponent(target:MovieClip) 
 		{
 			super(target);
