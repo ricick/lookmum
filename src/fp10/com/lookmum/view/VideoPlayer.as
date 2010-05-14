@@ -120,6 +120,7 @@ package com.lookmum.view
 			var level:Number = mediaPlayer.time / mediaPlayer.duration;
 			if (level > 1 || isNaN(level)) return;
 			videoSlider.level = (level);
+			dispatchEvent(e.clone());
 		}
 		public function load(url:String, autoPlay:Boolean = true):void
 		{

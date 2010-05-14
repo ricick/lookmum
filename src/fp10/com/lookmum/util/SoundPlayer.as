@@ -187,6 +187,7 @@ package com.lookmum.util {
 			this._time = time;
 
 			if (this._playing) {
+				soundChannelObject.stop();
 				soundChannelObject = this._sound.play(this._time, 0);
 			}
 			

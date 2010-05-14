@@ -37,6 +37,7 @@ package com.lookmum.view
 			if (target.getChildByName("hitspot")) return target.getChildByName("hitspot") as MovieClip;
 			return target;
 		}
+		/*
 		override protected function addEventListeners():void 
 		{
 			var eventList:Array = [
@@ -71,6 +72,7 @@ package com.lookmum.view
 				getHitspot().addEventListener(eventType, onEvent, false, 0, true);
 			}
 		}
+		*/
 		/**
 		 * A Boolean value that indicates whether a movie clip is enabled.
 		 */
@@ -89,13 +91,19 @@ package com.lookmum.view
 		protected function doEnable():void {
 			ModalManager.getInstance().registerComponent(this, this.doDisable);
 			target.gotoAndStop(FRAME_ROLL_OUT);
+			buttonMode = true;
+			tabEnabled = true;
 			mouseEnabled = true;
 			super.enabled = true;
+			mouseChildren = true;
 			this.dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.ENABLE));
 		}
 		protected function doDisable():void {
+			buttonMode = false;
+			tabEnabled = false;
 			mouseEnabled = false;
 			super.enabled = false;
+			mouseChildren = false;
 			target.gotoAndStop(FRAME_DISABLE);
 			this.dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.DISABLE));
 		}

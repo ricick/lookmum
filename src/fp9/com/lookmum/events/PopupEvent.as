@@ -10,6 +10,16 @@
 			
 		}
 		
+		public override function clone():Event 
+		{ 
+			return new PopupEvent(type,caption , bubbles, cancelable);
+		} 
+		
+		public override function toString():String 
+		{ 
+			return formatToString("PopupEvent", "type", "bubbles", "cancelable", "eventPhase"); 
+		}
+		
 	}
 	
 }

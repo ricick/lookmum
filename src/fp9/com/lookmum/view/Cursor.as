@@ -25,8 +25,7 @@ package com.lookmum.view
 		{
 			super(target);
 			
-			// changed thisMc.stage to root
-			root.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+			// changed thisMc.stage to stage
 			
 			target.stop();
 			target.mouseEnabled = false;
@@ -34,11 +33,18 @@ package com.lookmum.view
 			target.mouseChildren = false;
 			setCursor(DEFAULT);
 			customCursorByEvent = new Dictionary();
-			root.addEventListener(DragEvent.ROLLOVER_DRAG, onRollOverDrag);
-			root.addEventListener(DragEvent.ROLLOUT_DRAG, onRollOutDrag);
-			root.addEventListener(DragEvent.START, onStartDrag);
-			root.addEventListener(DragEvent.STOP, onStopDrag);
-			root.addEventListener(MouseEvent.MOUSE_UP, onClick);
+			if (stage) onAddedToStage();
+			addEventListener(Event.ADDED_TO_STAGE,onAddedToStage)
+		}
+		
+		private function onAddedToStage(event:Event = null):void
+		{
+			stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+			stage.addEventListener(DragEvent.ROLLOVER_DRAG, onRollOverDrag);
+			stage.addEventListener(DragEvent.ROLLOUT_DRAG, onRollOutDrag);
+			stage.addEventListener(DragEvent.START, onStartDrag);
+			stage.addEventListener(DragEvent.STOP, onStopDrag);
+			stage.addEventListener(MouseEvent.MOUSE_UP, onClick);
 		}
 		
 		private function onClick(e:MouseEvent):void 
@@ -47,8 +53,8 @@ package com.lookmum.view
 		}
 		public function setEventCursor(rollOverEvent:String, rollOutEvent:String, cursorId:String):void {
 			//trace( "Cursor.setEventCursor > rollOverEvent : " + rollOverEvent + ", rollOutEvent : " + rollOutEvent + ", cursorId : " + cursorId );
-			root.addEventListener(rollOverEvent, onRollOverCustom);
-			root.addEventListener(rollOutEvent, onRollOutCustom);
+			stage.addEventListener(rollOverEvent, onRollOverCustom);
+			stage.addEventListener(rollOutEvent, onRollOutCustom);
 			customCursorByEvent[rollOverEvent] = cursorId;
 		}
 		
@@ -70,7 +76,8 @@ package com.lookmum.view
 		{
 			if (!enabled) return;
 			dragging = false;
-			setCursor(HAND_OPEN);
+			//setCursor(HAND_OPEN);
+			setCursor(DEFAULT);
 		}
 		
 		protected function onStartDrag(e:DragEvent):void 
@@ -91,9 +98,9 @@ package com.lookmum.view
 		}
 		protected function onMouseMove(e:MouseEvent):void 
 		{
-			// changed thisMc.stage to root
-			this.x = (root.mouseX);
-			this.y = (root.mouseY);
+			// changed thisMc.stage to stage
+			this.x = (stage.mouseX);
+			this.y = (stage.mouseY);
 		}
 		protected function setCursor(id:String):void
 		{

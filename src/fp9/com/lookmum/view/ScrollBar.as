@@ -40,6 +40,11 @@ package  com.lookmum.view {
 			this.tab.tabEnabled = false;
 			this.setScroll();
 			addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
+			if(scaleY!=1){
+				var tempHeight:Number = target.height;
+				scaleY = 1;
+				height = tempHeight;
+			}
 		}
 		
 		private function onMouseWheel(e:MouseEvent):void 
@@ -47,7 +52,7 @@ package  com.lookmum.view {
 			level -= e.delta * wheelSpeed;
 		}
 		
-		private function onClickTrack(e:MouseEvent):void 
+		protected function onClickTrack(e:MouseEvent):void 
 		{
 			if (e.localY < tab.y) {
 				level -= scrollSize;
@@ -58,11 +63,11 @@ package  com.lookmum.view {
 		/**
 		 * scoping
 		 */
-		private function getScrollTrack():ScrollTrack{
+		protected function getScrollTrack():ScrollTrack{
 			var newTrack:ScrollTrack = new ScrollTrack(target.getChildByName('track') as MovieClip);
 			return newTrack;
 		}
-		private function getScrollTab():ScrollTab{
+		protected function getScrollTab():ScrollTab{
 			var newTab:ScrollTab = new ScrollTab(target.getChildByName('tab') as MovieClip);
 			return newTab;
 		}
