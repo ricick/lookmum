@@ -17,8 +17,12 @@ public class FadingComponent extends Component{
 	protected var tweenDecorator:TweenableComponent;
 	public function FadingComponent(target:MovieClip) {
 		super(target);
+	}
+	override protected function createChildren():void 
+	{
+		super.createChildren();
 		this.tweenDecorator = new TweenableComponent(this);
-		this.tweenDecorator.duration = (200);
+		this.tweenDecorator.durationAlpha = 0.2;
 	}
 	override public function get visible():Boolean { return super.visible; }
 	

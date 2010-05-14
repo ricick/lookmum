@@ -83,7 +83,11 @@ package com.lookmum.view{
 		override public function set width(value:Number):void
 		{
 			this.track.width = (value);
-			this.tab.dragBounds = (new Rectangle(this.track.x,this.tab.y,this.track.width-this.tab.width,0));
+			this.tab.dragBounds = (new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0));
+			if (tab.x > this.track.width - this.tab.width) {
+				tab.x = this.track.width - this.tab.width;
+				this.dispatchEvent(new Event(Event.CHANGE));
+			}
 		}
 		override public function get width():Number
 		{

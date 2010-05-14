@@ -13,6 +13,16 @@
 		public static const DRAG:String = "drag";
 		public static const ROLLOVER_DRAG:String = "rolloverDrag";
 		public static const ROLLOUT_DRAG:String = "rolloutDrag";
+
+		public override function clone():Event 
+		{ 
+			return new DragEvent(type, bubbles, cancelable);
+		} 
+		
+		public override function toString():String 
+		{ 
+			return formatToString("DragEvent", "type", "bubbles", "cancelable", "eventPhase"); 
+		}
 		
 	}
 	
