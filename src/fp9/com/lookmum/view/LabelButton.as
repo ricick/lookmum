@@ -83,6 +83,7 @@ package com.lookmum.view
 			bg.width = textField.width + (bgDimensions.width - textFieldDimensions.width);
 			dispatchEvent(new ComponentEvent(ComponentEvent.RESIZE));
 		}
+		/*
 		override protected function addEventListeners():void 
 		{
 			super.addEventListeners();
@@ -97,6 +98,7 @@ package com.lookmum.view
 				textField.addEventListener(eventType, onEvent, false, 0, true);
 			}
 		}
+		*/
 		private function getTextField():TextField
 		{
 			return target.textField;
@@ -127,6 +129,15 @@ package com.lookmum.view
 		
 		
 		//{region animations
+		override protected function doEnable():void {
+			super.doEnable();
+			if (_textFormatDisable) currentTextFormat = (_textFormatRollOut);
+			if (bg) {
+				bg.gotoAndStop(FRAME_ROLL_OUT);
+			}
+			arrangeComponents();
+		}
+		
 		override protected function doDisable():void {
 			super.doDisable();
 			if (_textFormatDisable) currentTextFormat = (_textFormatDisable);
@@ -138,8 +149,15 @@ package com.lookmum.view
 		
 		override protected function onRollOver(e:MouseEvent):void 
 		{
+			
+			if (!enabled) {
+				return;
+			}
+			
 			super.onRollOver(e);
+			
 			if (_textFormatRollOver) currentTextFormat = (_textFormatRollOver);
+			
 			if (bg) {
 				bg.gotoAndStop(FRAME_ROLL_OVER);
 			}
@@ -148,8 +166,14 @@ package com.lookmum.view
 		
 		override protected function onRollOut(e:MouseEvent):void 
 		{
+			if (!enabled) {
+				return;
+			}
+			
 			super.onRollOut(e);
+			
 			if (_textFormatRollOut) currentTextFormat = (_textFormatRollOut);
+
 			if (bg) {
 				bg.gotoAndStop(FRAME_ROLL_OUT);
 			}
@@ -159,8 +183,14 @@ package com.lookmum.view
 		
 		override protected function onMouseDown(e:MouseEvent):void 
 		{
+			if (!enabled) {
+				return;
+			}
+			
 			super.onMouseDown(e);
+			
 			if (_textFormatPress) currentTextFormat = (_textFormatPress);
+
 			if (bg) {
 				bg.gotoAndStop(FRAME_PRESS);
 			}
@@ -170,8 +200,14 @@ package com.lookmum.view
 		
 		override protected function onMouseUp(e:MouseEvent):void 
 		{
+			if (!enabled) {
+				return;
+			}
+			
 			super.onMouseUp(e);
+			
 			if (_textFormatRollOver) currentTextFormat = (_textFormatRollOver);
+
 			if (bg) {
 				bg.gotoAndStop(FRAME_ROLL_OVER);
 			}

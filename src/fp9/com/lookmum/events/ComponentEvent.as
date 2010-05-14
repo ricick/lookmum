@@ -12,6 +12,16 @@ package com.lookmum.events {
 			super(type, bubbles, cancelable);
 			
 		}
+		
+		public override function clone():Event 
+		{ 
+			return new ComponentEvent(type, bubbles, cancelable);
+		} 
+		
+		public override function toString():String 
+		{ 
+			return formatToString("ComponentEvent", "type", "bubbles", "cancelable", "eventPhase"); 
+		}
 	}
 	
 }

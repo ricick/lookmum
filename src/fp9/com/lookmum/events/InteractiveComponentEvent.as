@@ -13,6 +13,16 @@ package com.lookmum.events {
 			
 		}
 		
+		public override function clone():Event 
+		{ 
+			return new InteractiveComponentEvent(type, bubbles, cancelable);
+		} 
+		
+		public override function toString():String 
+		{ 
+			return formatToString("InteractiveComponentEvent", "type", "bubbles", "cancelable", "eventPhase"); 
+		}
+		
 		
 		
 	}

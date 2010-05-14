@@ -86,7 +86,7 @@ package com.lookmum.view
 				videoSliderDisabled = true;
 			}
 		}
-		private function onStartDragSlider(e:DragEvent):void 
+		protected function onStartDragSlider(e:DragEvent):void 
 		{
 			mediaPlayer.pause();
 		}
