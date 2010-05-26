@@ -7,7 +7,6 @@ package com.lookmum.view{
 	import flash.geom.Rectangle;
 	
 	[Event(name = "change", type = "flash.events.Event")]
-	
 	[Event(name = "start", type = "com.lookmum.events.DragEvent")]
 	[Event(name = "stop", type = "com.lookmum.events.DragEvent")]
 	[Event(name = "drag", type = "com.lookmum.events.DragEvent")]
@@ -17,8 +16,9 @@ package com.lookmum.view{
 		protected var tab:DragButton;
 		protected var track:Button;
 		private var _dragging:Boolean = false;
-		private var bar:MovieClip;
-		public function Slider (target:MovieClip){
+		protected var bar:MovieClip;
+		public function Slider (target:MovieClip)
+		{
 			super (target);
 		}
 		override protected function createChildren():void 
@@ -26,14 +26,17 @@ package com.lookmum.view{
 			super.createChildren();
 			this.track = new Button(target.getChildByName('track') as MovieClip);
 			this.tab = new DragButton(target.getChildByName('tab') as MovieClip);
-			this.tab.dragBounds = (new Rectangle(this.track.x,this.tab.y,this.track.width-this.tab.width,0));
+			this.tab.dragBounds = (new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0));
+			
 			this.tab.addEventListener(DragEvent.START,onStartDrag);
 			this.tab.addEventListener(DragEvent.DRAG,onDrag);
 			this.tab.addEventListener(DragEvent.STOP, onStopDrag);
+			
 			this.tab.tabEnabled = (false);
 			this.track.addEventListener(MouseEvent.MOUSE_UP,onReleaseTrack);
 			this.track.tabEnabled = (false);
 			addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
+			
 			if (target.bar)
 			{
 				bar = target.bar;
@@ -49,14 +52,16 @@ package com.lookmum.view{
 			return tab;
 		}
 		
-		public function getIsDragging():Boolean{
+		public function getIsDragging():Boolean
+		{
 			return this._dragging;
 		}
-		protected function onMouseWheel(event:MouseEvent):void{
+		protected function onMouseWheel(event:MouseEvent):void
+		{
 			var delta:int = event.delta;
 			var destX:Number = this.tab.x+delta
 			if(destX<track.x)destX = track.x;
-			if(destX>track.x+track.width-tab.width)destX = track.x+track.width-tab.width;
+			if(destX > track.x + track.width - tab.width)destX = track.x + track.width - tab.width;
 			this.tab.x = (destX);
 			if (bar)
 			{
@@ -64,19 +69,23 @@ package com.lookmum.view{
 			}
 			this.dispatchEvent(new Event(Event.CHANGE));
 		}
-		private function onStartDrag(event:DragEvent):void{
+		private function onStartDrag(event:DragEvent):void
+		{
 			this.dispatchEvent(new DragEvent(DragEvent.START));
 			this._dragging = true;
 		}
-		protected function onDrag(event:DragEvent):void{
+		
+		protected function onDrag(event:DragEvent):void
+		{
 			this.dispatchEvent(new DragEvent(DragEvent.DRAG));
 			this.dispatchEvent(new Event(Event.CHANGE));
 			if (bar)
 			{
-				bar.width = tab.x - bar.x + tab.width;
+				bar.width = (tab.x - bar.x + tab.width)
 			}
 		}
-		protected function onStopDrag(event:DragEvent):void{
+		protected function onStopDrag(event:DragEvent):void
+		{
 			this.dispatchEvent(new DragEvent(DragEvent.STOP));
 			this._dragging = false;
 		}
@@ -84,7 +93,9 @@ package com.lookmum.view{
 		{
 			this.track.width = (value);
 			this.tab.dragBounds = (new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0));
-			if (tab.x > this.track.width - this.tab.width) {
+			
+			if (tab.x > this.track.width - this.tab.width) 
+			{
 				tab.x = this.track.width - this.tab.width;
 				this.dispatchEvent(new Event(Event.CHANGE));
 			}
@@ -97,11 +108,14 @@ package com.lookmum.view{
 		override public function get enabled():Boolean { return super.enabled; }
 		override public function set enabled(value:Boolean):void 
 		{
-			if (value) {
+			if (value) 
+			{
 				this.tab.enabled = true;
 				this.track.enabled = true;
 				this.track.tabEnabled = (false);
-			}else {
+			}
+			else 
+			{
 				this.tab.enabled = false;
 				this.track.enabled = false;
 			}
@@ -113,22 +127,29 @@ package com.lookmum.view{
 			this.tab.useHandCursor = (value);
 			this.track.useHandCursor = (value);
 		}
-		public function setTrackUseHandCursor(value:Boolean):void {
+		
+		public function setTrackUseHandCursor(value:Boolean):void 
+		{
 			this.track.useHandCursor = (value);
 		}
-		public function set level(value:Number):void {
+		
+		public function set level(value:Number):void 
+		{
 			if(value>1)value = 1;
 			if(value<0)value = 0;
-			this.tab.x = (this.track.x+(this.track.width-this.tab.width)*value);
+			this.tab.x = (this.track.x +(this.track.width-this.tab.width) * value);
 			if (bar)
 			{
 				bar.width = tab.x - bar.x + tab.width;
 			}
 		}
-		public function get level():Number {
-			return  (this.tab.x-this.track.x)/(this.track.x+(this.track.width-this.tab.width));
+		public function get level():Number 
+		{
+			return (this.tab.x-this.track.x)/(this.track.x+(this.track.width-this.tab.width));
 		}
-		protected function onReleaseTrack(event:MouseEvent):void{
+		
+		protected function onReleaseTrack(event:MouseEvent):void
+		{
 			this.tab.x = (mouseX-(this.tab.width/2));
 			if(this.tab.x<this.tab.dragBounds.left)this.tab.x = (this.tab.dragBounds.left);
 			if(this.tab.x>this.tab.dragBounds.right)this.tab.x = (this.tab.dragBounds.right);
