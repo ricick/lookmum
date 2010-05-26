@@ -34,6 +34,7 @@ package com.lookmum.view
 			mediaPlayer = getMediaPlayer();
 			mediaPlayer.addEventListener(MediaPlayerEvent.UPDATE, onUpdate);
 			mediaPlayer.addEventListener(MediaPlayerEvent.END, onEnd);
+			
 			if (target.getChildByName('volumeSlider')) volumeSlider = new VolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
 			if (target.getChildByName('buttonRewind')) {
 				buttonRewind = new Button(target.getChildByName('buttonRewind') as MovieClip);
@@ -43,7 +44,7 @@ package com.lookmum.view
 			videoSlider.addEventListener(DragEvent.START, onStartDragSlider);
 			videoSlider.addEventListener(DragEvent.DRAG, onDragSlider);
 			videoSlider.addEventListener(DragEvent.STOP, onStopDragSlider);
-			buttonPlayPause = new ToggleButton(target.getChildByName('buttonPlayPause') as MovieClip);
+			buttonPlayPause = getButtonPlayPause();
 			buttonPlayPause.addEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
 			
 		}
@@ -66,9 +67,12 @@ package com.lookmum.view
 		{
 			return new Slider(target.getChildByName('videoSlider') as MovieClip);
 		}
+		protected function getButtonPlayPause():ToggleButton
+		{
+			return new ToggleButton(target.getChildByName('buttonPlayPause') as MovieClip);
+		}
 		protected function onEnd(e:MediaPlayerEvent):void 
 		{
-			//trace( "VideoPlayer.onEnd > e : " + e );
 			buttonPlayPause.toggle = true;
 			_playing = false;
 			if (_autoRewind)
@@ -78,17 +82,31 @@ package com.lookmum.view
 			dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.END));
 		}
 		/**
-		 * Disable the slider and flasg it as not included in enabling/disabling children
+		 * Disable the slider and flag it as not included in enabling/disabling children
 		 */
-		public function disableSlider():void{
-			if (videoSlider) {
+		public function disableSlider():void
+		{
+			if (videoSlider)
+			{
 				videoSlider.enabled = false;
 				videoSliderDisabled = true;
 			}
 		}
+		/**
+		 * If the player is playing, then dragging will not stop the video. If it's already
+		 * paused, then it will not re-engage playback
+		 * Andrew Catchaturyan
+		 */
 		protected function onStartDragSlider(e:DragEvent):void 
 		{
-			mediaPlayer.pause();
+			if (_playing)
+			{
+				mediaPlayer.play();
+			}
+			else
+			{
+				mediaPlayer.pause();
+			}
 		}
 		protected function onDragSlider(e:DragEvent):void 
 		{
@@ -124,7 +142,6 @@ package com.lookmum.view
 		}
 		public function load(url:String, autoPlay:Boolean = true):void
 		{
-			
 			videoSlider.level = (0);
 			_playing = autoPlay;
 			mediaPlayer.load(url, autoPlay);
