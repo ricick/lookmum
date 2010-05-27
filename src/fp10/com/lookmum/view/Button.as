@@ -127,7 +127,6 @@ package com.lookmum.view
 		
 		protected function onRollOut(e:MouseEvent):void 
 		{
-			trace( "Button.onRollOut > e : " + e );
 			isMouseOutside = true;
 			if (!enabled) return;
 			target.gotoAndStop(FRAME_ROLL_OUT);
@@ -143,7 +142,6 @@ package com.lookmum.view
 		
 		private function onMouseUpOutside(e:MouseEvent):void 
 		{
-			trace( "Button.onMouseUpOutside > e : " + e );
 			getHitspot().stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUpOutside);
 			dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.MOUSE_UP_OUTSIDE, true));
 		}
