@@ -116,7 +116,8 @@ package  com.lookmum.view {
 		 * if movieclip set the y value to -((content height - mask height) * getLevel())
 		 * if textfield scroll = Math.round(maxScroll * getLevel())
 		 */
-		public function get level():Number {
+		public function get level():Number 
+		{
 			//trace( "level : " + _scroll );
 			return this._scroll;
 		}

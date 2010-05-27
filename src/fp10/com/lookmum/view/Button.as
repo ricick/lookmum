@@ -130,7 +130,6 @@ package com.lookmum.view
 			isMouseOutside = true;
 			if (!enabled) return;
 			target.gotoAndStop(FRAME_ROLL_OUT);
-			
 		}
 		
 		protected function onMouseDown(e:MouseEvent):void 
@@ -140,11 +139,12 @@ package com.lookmum.view
 			getHitspot().stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 		}
 		
-		private function onMouseUpOutside(e:MouseEvent):void 
-		{
-			getHitspot().stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUpOutside);
-			dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.MOUSE_UP_OUTSIDE, true));
-		}
+		//private function onMouseUpOutside(e:MouseEvent):void 
+		//{
+			//trace( "Button.onMouseUpOutside > e : " + e );
+			//getHitspot().stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUpOutside);
+			//dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.MOUSE_UP_OUTSIDE, true));
+		//}
 		
 		protected function onMouseUp(e:MouseEvent):void 
 		{
