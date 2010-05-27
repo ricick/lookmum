@@ -206,6 +206,14 @@ package com.lookmum.view
 		{
 			_autoRewind = value;
 		}
+		override public function get enabled():Boolean { return videoSlider.enabled; }
+		
+		override public function set enabled(value:Boolean):void 
+		{
+			videoSlider.enabled = value;
+			buttonPlayPause.enabled = value;
+			if (buttonRewind) buttonRewind.enabled = value;
+		}
 		
 	}
 	
