@@ -23,7 +23,7 @@ package com.lookmum.view
 		protected var buttonPlayPause:ToggleButton;
 		protected var buttonRewind:Button;
 		protected var _playing:Boolean;
-		private var _autoRewind:Boolean = true;
+		protected var _autoRewind:Boolean = true;
 		private var videoSliderDisabled:Boolean;
 		public function VideoPlayer(target:MovieClip) 
 		{
@@ -36,8 +36,9 @@ package com.lookmum.view
 			mediaPlayer.addEventListener(MediaPlayerEvent.END, onEnd);
 			
 			if (target.getChildByName('volumeSlider')) volumeSlider = new VolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
-			if (target.getChildByName('buttonRewind')) {
-				buttonRewind = new Button(target.getChildByName('buttonRewind') as MovieClip);
+			if (target.getChildByName('buttonRewind'))
+			{
+				buttonRewind = getButtonRewind();
 				buttonRewind.addEventListener(MouseEvent.CLICK, onRewind);
 			}
 			videoSlider = getSlider();
@@ -59,18 +60,27 @@ package com.lookmum.view
 			if (!value) pause();
 			super.visible = value;
 		}
+		
 		protected function getMediaPlayer():IMediaPlayer
 		{
 			return new FLVPlayer(target.getChildByName('flvPlayer') as MovieClip);
 		}
+		
 		protected function getSlider():Slider
 		{
 			return new Slider(target.getChildByName('videoSlider') as MovieClip);
 		}
+		
 		protected function getButtonPlayPause():ToggleButton
 		{
 			return new ToggleButton(target.getChildByName('buttonPlayPause') as MovieClip);
 		}
+		
+		protected function getButtonRewind():Button
+		{
+			return new Button(target.getChildByName('buttonRewind') as MovieClip);
+		}
+		
 		protected function onEnd(e:MediaPlayerEvent):void 
 		{
 			buttonPlayPause.toggle = true;
@@ -214,6 +224,7 @@ package com.lookmum.view
 			buttonPlayPause.enabled = value;
 			if (buttonRewind) buttonRewind.enabled = value;
 		}
+		
 		
 	}
 	
