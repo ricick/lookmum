@@ -109,6 +109,7 @@ package com.lookmum.view
 		 */
 		protected function onStartDragSlider(e:DragEvent):void 
 		{
+			/*
 			if (_playing)
 			{
 				mediaPlayer.play();
@@ -117,6 +118,8 @@ package com.lookmum.view
 			{
 				mediaPlayer.pause();
 			}
+			*/
+			mediaPlayer.pause();
 		}
 		protected function onDragSlider(e:DragEvent):void 
 		{
@@ -124,7 +127,7 @@ package com.lookmum.view
 		}
 		protected function onStopDragSlider(e:DragEvent):void 
 		{
-			if (!playing) return;
+			if (!_playing) return;
 			mediaPlayer.play();
 		}
 		
