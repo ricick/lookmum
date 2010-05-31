@@ -49,7 +49,7 @@ package com.lookmum.view
 			buttonPlayPause.addEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
 			
 		}
-		private function onRewind(e:MouseEvent):void 
+		protected function onRewind(e:MouseEvent):void 
 		{
 			seek(0);
 		}
