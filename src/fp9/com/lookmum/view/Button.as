@@ -37,42 +37,6 @@ package com.lookmum.view
 			if (target.getChildByName("hitspot")) return target.getChildByName("hitspot") as MovieClip;
 			return target;
 		}
-		/*
-		override protected function addEventListeners():void 
-		{
-			var eventList:Array = [
-				Event.TAB_INDEX_CHANGE,
-				Event.TAB_ENABLED_CHANGE,
-				Event.TAB_CHILDREN_CHANGE,
-				KeyboardEvent.KEY_UP,
-				KeyboardEvent.KEY_DOWN,
-				MouseEvent.ROLL_OVER,
-				MouseEvent.ROLL_OUT,
-				MouseEvent.MOUSE_WHEEL,
-				MouseEvent.MOUSE_UP,
-				MouseEvent.MOUSE_OVER,
-				MouseEvent.MOUSE_OUT,
-				MouseEvent.MOUSE_MOVE,
-				MouseEvent.MOUSE_DOWN,
-				MouseEvent.DOUBLE_CLICK,
-				MouseEvent.CLICK,
-				FocusEvent.MOUSE_FOCUS_CHANGE,
-				FocusEvent.KEY_FOCUS_CHANGE,
-				FocusEvent.FOCUS_OUT,
-				FocusEvent.FOCUS_IN,
-				Event.RENDER,
-				Event.REMOVED_FROM_STAGE,
-				Event.REMOVED,
-				Event.ENTER_FRAME,
-				Event.ADDED_TO_STAGE,
-				Event.ADDED,
-			]
-			for each(var eventType:String in eventList) 
-			{
-				getHitspot().addEventListener(eventType, onEvent, false, 0, true);
-			}
-		}
-		*/
 		/**
 		 * A Boolean value that indicates whether a movie clip is enabled.
 		 */
