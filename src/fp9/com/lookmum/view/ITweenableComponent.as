@@ -26,7 +26,7 @@ package com.lookmum.view {
 		function set easingHeight(easingIEasing:IEasing):void;
 		function set easingAlpha(easingIEasing:IEasing):void;
 		function set easingRotation(easingIEasing:IEasing):void;
-		function set easingScale(easingIEasing:IEasing):void
+		function set easingScale(easingIEasing:IEasing):void;
 	}
 	
 }
