@@ -101,15 +101,19 @@ package com.lookmum.view
 			if (isMouseOutside) 
 			{
 				isMouseOutside = false;
-				getHitspot().stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+				if (getHitspot().stage)  getHitspot().stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 				target.gotoAndStop(FRAME_ROLL_OUT);
 				dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.MOUSE_UP_OUTSIDE, true));
 			}
 		}
 		
-		
-		
-		
+		override public function destroy():void 
+		{
+			if(getHitspot().stage) getHitspot().stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp) ;
+			
+			super.destroy();
+			
+		}
 	}
 
 }
