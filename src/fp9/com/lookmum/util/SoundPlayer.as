@@ -56,7 +56,8 @@ package com.lookmum.util {
 		
 		}
 		
-		public function load(url:String, autoPlay:Boolean = true):void {
+		public function load(url:String, autoPlay:Boolean = true):void 
+		{
 			if (url.indexOf('\\') != -1) trace('WARNING: the file path ' + url + ' contains backslashes, this may be incorrect');
 			_url = url;
 
