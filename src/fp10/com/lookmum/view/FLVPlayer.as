@@ -27,11 +27,15 @@ package com.lookmum.view{
 		private var _loadProgressTime:Number = 100;
 		private var _metaData:VideoMetaData;
 		private var _bufferTime:Number = 0;
+		private var videoWidth:Number;
+		private var videoHeight:Number;
 		public function FLVPlayer (target:MovieClip){
 			super (target);
 			_nc = new NetConnection();
 			_nc.connect(null);
 			videoArea = new Video(width, height);
+			videoWidth = width;
+			videoHeight = height;
 			addChild(videoArea);
 		}
 		/**
@@ -125,7 +129,10 @@ package com.lookmum.view{
 			e.currentFPS = _netStream.currentFPS;
 			e.liveDelay = _netStream.liveDelay;
 			e.time = _netStream.time;
-	
+			
+			videoArea.width = videoWidth;
+			videoArea.height = videoHeight;
+			
 			dispatchEvent(e);
 			//trace( "getDuration() : " + getDuration() );
 		}

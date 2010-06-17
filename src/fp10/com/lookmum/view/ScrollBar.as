@@ -138,6 +138,7 @@ package  com.lookmum.view {
 			if(this._maxScroll<=0){
 				this.tab.height = (this.scrollHeight);
 				this.tab.enabled = false;
+				this.track.enabled = false;
 				this.doScroll(new DragEvent(DragEvent.STOP));
 				this.tab.y = (this.track.y);
 				this.tab.x = (this.track.x);
@@ -149,6 +150,7 @@ package  com.lookmum.view {
 					this.visible = true;
 				}
 				this.tab.enabled = true;
+				this.track.enabled = true;
 				if(this._scroll>this._maxScroll){
 					level = (this._maxScroll);
 				}
@@ -182,6 +184,7 @@ package  com.lookmum.view {
 		{
 			super.enabled = value;
 			this.tab.enabled = value;
+			this.track.enabled = value;
 		}
 		override public function get tabIndex():int { return tab.tabIndex; }
 		

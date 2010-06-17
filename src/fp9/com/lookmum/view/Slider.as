@@ -7,6 +7,7 @@ package com.lookmum.view{
 	import flash.geom.Rectangle;
 	
 	[Event(name = "change", type = "flash.events.Event")]
+	
 	[Event(name = "start", type = "com.lookmum.events.DragEvent")]
 	[Event(name = "stop", type = "com.lookmum.events.DragEvent")]
 	[Event(name = "drag", type = "com.lookmum.events.DragEvent")]
@@ -81,7 +82,7 @@ package com.lookmum.view{
 			this.dispatchEvent(new Event(Event.CHANGE));
 			if (bar)
 			{
-				bar.width = (tab.x - bar.x + tab.width)
+				bar.width = tab.x - bar.x + tab.width;
 			}
 		}
 		protected function onStopDrag(event:DragEvent):void
