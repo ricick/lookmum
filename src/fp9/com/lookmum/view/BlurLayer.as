@@ -30,12 +30,16 @@ package com.lookmum.view
 		public function BlurLayer(target:MovieClip) 
 		{
 			super(target);
+		}
+		override protected function createChildren():void 
+		{
+			super.createChildren();
 			bitmap = new Bitmap();
 			target.addChild(bitmap);
-			filters = [new BlurFilter(blurAmount, blurAmount, 3)];
+			bitmap.filters = [new BlurFilter(blurAmount, blurAmount, 3)];
 			refresh();
 			addEventListener(Event.ADDED, onAdded);
-		}		
+		}
 		private function onAdded(e:Event):void 
 		{
 			if (visible) refresh();
