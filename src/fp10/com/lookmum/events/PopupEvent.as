@@ -1,4 +1,4 @@
-package com.lookmum.events {
+﻿package com.lookmum.events {
 
 	import flash.events.Event;
 		
@@ -12,7 +12,7 @@ package com.lookmum.events {
 		
 		public override function clone():Event 
 		{ 
-			return new PopupEvent(type,caption , bubbles, cancelable);
+			return new PopupEvent(type, bubbles, cancelable);
 		} 
 		
 		public override function toString():String 

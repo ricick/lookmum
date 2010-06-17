@@ -1,4 +1,4 @@
-
+﻿
 package com.lookmum.events {
 
 	import flash.events.Event;

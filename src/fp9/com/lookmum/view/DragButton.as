@@ -16,10 +16,11 @@ package com.lookmum.view{
 	public class DragButton extends Button{
 		private var _lockCenter:Boolean;
 		private var _dragBounds:Rectangle;
+		
 		public function DragButton(target:MovieClip) {
 			super(target);
 			addEventListener(MouseEvent.MOUSE_DOWN,doStartDrag);
-			addEventListener(MouseEvent.MOUSE_UP,doStopDrag);
+			addEventListener(MouseEvent.MOUSE_UP, doStopDrag);
 			addEventListener(MouseEvent.MOUSE_OVER,onRollOverDrag);
 			addEventListener(MouseEvent.MOUSE_OUT, onRollOutDrag);
 			addEventListener(InteractiveComponentEvent.MOUSE_UP_OUTSIDE, doStopDrag);
@@ -48,9 +49,10 @@ package com.lookmum.view{
 			target.dispatchEvent(new DragEvent(DragEvent.START, true));
 		}
 		
-		private function doStopDrag(event:Event):void {
+		private function doStopDrag(event:Event):void 
+		{
 			stopDrag();
-			stage.removeEventListener(MouseEvent.MOUSE_MOVE,onDrag);
+			stage.removeEventListener(MouseEvent.MOUSE_MOVE, onDrag);
 			dispatchEvent(new DragEvent(DragEvent.STOP));
 			target.dispatchEvent(new DragEvent(DragEvent.STOP, true));
 		}
