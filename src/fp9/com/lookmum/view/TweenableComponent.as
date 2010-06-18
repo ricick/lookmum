@@ -56,7 +56,8 @@ package com.lookmum.view {
 		 * Getters and Setters
 		 */
 		
-		public function get duration():Number {
+		public function get duration():Number 
+		{
 			return convertSecondsToMilliseconds(_duration);
 		}
 		
