@@ -49,7 +49,9 @@ package com.lookmum.util {
 		protected var _loop:Boolean
 		protected var soundsLookup:Dictionary;
 		private var _cacheSounds:Boolean;
-		public function SoundPlayer() {
+		
+		public function SoundPlayer() 
+		{
 						
 			soundChannelObject = new SoundChannel();
 			soundsLookup = new Dictionary();
@@ -149,10 +151,9 @@ package com.lookmum.util {
 
 		}
 
-		public function get volume():Number {
-			
+		public function get volume():Number 
+		{
 			return (soundTransformObject.volume * 0.01);
-			
 		}
 				
 		public function get duration():Number
@@ -180,22 +181,24 @@ package com.lookmum.util {
 		public function get time():Number {
 			
 			return soundChannelObject.position;
-			
 		}
 
 		public function seek(time:Number):void {
 			
 			this._time = time;
 
-			if (this._playing) {
+			if (this._playing) 
+			{
 				soundChannelObject.stop();
 				soundChannelObject = this._sound.play(this._time, 0);
 			}
-			
 		}
 		
-		protected function onUpdate():void {
-			this.dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.UPDATE));
+		protected function onUpdate():void 
+		{
+			var event:MediaPlayerEvent = new MediaPlayerEvent(MediaPlayerEvent.UPDATE)
+			event.time = time;
+			this.dispatchEvent(event);
 		}
 		
 		private function onLoadProgress():void {
