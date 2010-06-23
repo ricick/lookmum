@@ -43,7 +43,7 @@ package com.lookmum.view
 	public class LabelButton extends Button implements ITextComponent
 	{
 		
-		private var textField:TextField;
+		protected var textField:TextField;
 		protected var bg:MovieClip;
 		private var textFieldDimensions:Rectangle;
 		private var bgDimensions:Rectangle;
