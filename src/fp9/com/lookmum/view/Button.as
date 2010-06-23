@@ -55,7 +55,7 @@ package com.lookmum.view
 		}
 		protected function doEnable():void {
 			ModalManager.getInstance().registerComponent(this, this.doDisable);
-			target.gotoAndStop(FRAME_ROLL_OUT);
+			animationRollOut();
 			buttonMode = true;
 			tabEnabled = true;
 			mouseEnabled = true;
@@ -69,7 +69,7 @@ package com.lookmum.view
 			mouseEnabled = false;
 			super.enabled = false;
 			mouseChildren = false;
-			target.gotoAndStop(FRAME_DISABLE);
+			animationDisable();
 			this.dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.DISABLE));
 		}
 		
@@ -78,33 +78,50 @@ package com.lookmum.view
 		protected function onRollOver(e:MouseEvent):void 
 		{
 			if (!enabled) return;
-			target.gotoAndStop(FRAME_ROLL_OVER);
+			animationRollOver();
 		}
 		
 		protected function onRollOut(e:MouseEvent):void 
 		{
 			isMouseOutside = true;
 			if (!enabled) return;
-			target.gotoAndStop(FRAME_ROLL_OUT);
+			animationRollOut();
 		}
 		
 		protected function onMouseDown(e:MouseEvent):void 
 		{
 			if (!enabled) return;
-			target.gotoAndStop(FRAME_PRESS);
+			animationMouseDown();
 			if (getHitspot().stage) getHitspot().stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 		}
 		protected function onMouseUp(e:MouseEvent):void 
 		{
 			if (!enabled) return;
-			target.gotoAndStop(FRAME_ROLL_OVER);
+			animationRollOver();
 			if (isMouseOutside) 
 			{
 				isMouseOutside = false;
 				if (getHitspot().stage) getHitspot().stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
-				target.gotoAndStop(FRAME_ROLL_OUT);
+				animationRollOut();
 				dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.MOUSE_UP_OUTSIDE, true));
 			}
+		}
+		//animations
+		protected function animationRollOver():void 
+		{
+			target.gotoAndStop(FRAME_ROLL_OVER);
+		}
+		protected function animationRollOut():void 
+		{
+			target.gotoAndStop(FRAME_ROLL_OUT);
+		}
+		protected function animationMouseDown():void 
+		{
+			target.gotoAndStop(FRAME_PRESS);
+		}
+		protected function animationDisable():void 
+		{
+			target.gotoAndStop(FRAME_DISABLE);
 		}
 		
 		override public function destroy():void 
