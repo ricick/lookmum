@@ -132,22 +132,21 @@ package com.lookmum.view
 		
 		protected function onReleaseButtonPlayPause(e:MouseEvent):void 
 		{
-			if (buttonPlayPause.toggle)
+			if (_playing)
 			{
-				mediaPlayer.pause();
 				_playing = false;
+				mediaPlayer.pause();
 			}
-			//else if (mediaPlayer.time >= mediaPlayer.duration) 
-			//{
-				//seek(0)
-				//mediaPlayer.play();
-				//_playing = true;
-			//}
+			else 
+			{
+				_playing = true;
+				mediaPlayer.play();
+			}
 			
 			if (isComplete)
 			{
 				isComplete = false;
-				seek(0)
+				seek(0);
 				mediaPlayer.play();
 				_playing = true;
 			}
