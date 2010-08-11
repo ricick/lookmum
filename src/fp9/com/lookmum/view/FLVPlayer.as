@@ -33,7 +33,9 @@ package com.lookmum.view{
 			super (target);
 			_nc = new NetConnection();
 			_nc.connect(null);
-			videoArea = new Video(width, height);
+			//phil: starting at a small size to get rid of "size popping" bug
+			videoArea = new Video(1,1);
+			//videoArea = new Video(width, height);
 			videoWidth = width;
 			videoHeight = height;
 			addChild(videoArea);
@@ -58,6 +60,8 @@ package com.lookmum.view{
 			_netStream.client.onPlayStatus = onPlayStatus;		
 			
 			videoArea.attachNetStream(_netStream);
+			videoArea.width = width;
+			videoArea.height = height;
 			_netStream.play(url);
 			addEventListener(Event.ENTER_FRAME,onLoadProgress);
 			if(autoPlay){
@@ -202,8 +206,8 @@ package com.lookmum.view{
 		}
 		private function onMetaData(metadata:Object):void
 		{
-			//trace( "FLVPlayer.onMetaData > metadata : "  );
-			//for( var i:String in metadata ) trace( "key : " + i + ", value : " + metadata[ i ] );
+			trace( "FLVPlayer.onMetaData > metadata : "  );
+			for( var i:String in metadata ) trace( "key : " + i + ", value : " + metadata[ i ] );
 			_metaData = new VideoMetaData();
 			_metaData.videoWidth = metadata.width;
 			_metaData.videoHeight = metadata.height;
