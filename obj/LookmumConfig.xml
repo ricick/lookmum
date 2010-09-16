@@ -4,29 +4,29 @@
 <flex-config>
   <target-player>10.0.0</target-player>
   <compiler>
-    <define>
+    <define append="true">
       <name>CONFIG::debug</name>
       <value>true</value>
     </define>
-    <define>
+    <define append="true">
       <name>CONFIG::release</name>
       <value>false</value>
     </define>
-    <define>
+    <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'11/06/2010'</value>
+      <value>'16/09/2010'</value>
     </define>
     <source-path append="true">
-      <path-element>C:\projects\lookmum\src\fp10</path-element>
-      <path-element>C:\projects\actuate</path-element>
+      <path-element>C:\projects\flash\lookmum\src\fp10</path-element>
+      <path-element>C:\projects\flash\actuate</path-element>
       <path-element>C:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>C:\projects\lookmum\lib\assets.swc</path-element>
+      <path-element>C:\projects\flash\lookmum\lib\assets.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>C:\projects\lookmum\examples\ExampleScrollbar.as</path-element>
+    <path-element>C:\projects\flash\lookmum\examples\ExampleLabelToggleButton.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>
