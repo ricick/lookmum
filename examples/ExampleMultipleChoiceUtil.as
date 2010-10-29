@@ -85,6 +85,9 @@ package
 				addChild(choice);
 				yModifier += choice.height;
 			}
+			
+			submitBtn.x = (choice.x + choice.width) - submitBtn.width;
+			submitBtn.y = yModifier + submitBtn.height
 		}
 		
 		private function onChoiceClick(e:MouseEvent):void 

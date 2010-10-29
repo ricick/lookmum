@@ -6,6 +6,11 @@ package com.lookmum.util
 	/**
 	 * ...
 	 * @author Andrew Catchaturyan
+	 * 
+	 * Hello. This class is to help you out when you're doing multiple choice assessment tasks.
+	 * You data of choice is an array of MultipleChoiceVOs
+	 * com.lookmum.vo.MultipleChoiceVO
+	 * 
 	 */
 	public class MultiChoiceUtil
 	{
@@ -21,10 +26,8 @@ package com.lookmum.util
 			{
 				if (choice.correct != choice.selected) 
 				{
-					//choice.score = 0
 					isCorrect = false;
 				}
-				
 			}
 			
 			return isCorrect;
@@ -36,7 +39,7 @@ package com.lookmum.util
 			
 			for each(var choice:MultipleChoiceVO in multipleChoiceVOs)
 			{
-				if (choice.correct ==choice.selected) 
+				if (choice.correct == choice.selected) 
 				{
 					correctAnswers.push(choice);
 				}
