@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<choices>
+		<choice statement="Statement 1" correct="true" />
+		<choice statement="Statement 2" correct="false" />
+		<choice statement="Statement 3" correct="false" />
+		<choice statement="Statement 4" correct="false" />
+	</choices>
+</data>
