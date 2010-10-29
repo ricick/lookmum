@@ -8,7 +8,7 @@ package com.lookmum.vo
 	{
 		public var statement:String;
 		public var correct:Boolean;
-		public var selected:Boolean;
+		public var selected:Boolean; // this is set inside the view
 		
 		public function MultipleChoiceVO() 
 		{
