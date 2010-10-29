@@ -206,8 +206,8 @@ package com.lookmum.view{
 		}
 		private function onMetaData(metadata:Object):void
 		{
-			trace( "FLVPlayer.onMetaData > metadata : "  );
-			for( var i:String in metadata ) trace( "key : " + i + ", value : " + metadata[ i ] );
+			//trace( "FLVPlayer.onMetaData > metadata : "  );
+			for( var i:String in metadata ) //trace( "key : " + i + ", value : " + metadata[ i ] );
 			_metaData = new VideoMetaData();
 			_metaData.videoWidth = metadata.width;
 			_metaData.videoHeight = metadata.height;
