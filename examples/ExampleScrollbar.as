@@ -8,6 +8,7 @@ package
 	import flash.display.StageScaleMode;
 	import flash.text.TextField;
 	
+	
 	/**
 	 * ...
 	 * @author Phil Douglas

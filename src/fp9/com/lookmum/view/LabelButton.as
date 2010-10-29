@@ -45,8 +45,8 @@ package com.lookmum.view
 		
 		protected var textField:TextField;
 		protected var bg:MovieClip;
-		private var textFieldDimensions:Rectangle;
-		private var bgDimensions:Rectangle;
+		protected var textFieldDimensions:Rectangle;
+		protected var bgDimensions:Rectangle;
 		private var _textFormatRollOver:TextFormat;
 		private var _textFormatRollOut:TextFormat;
 		private var _textFormatPress:TextFormat;
