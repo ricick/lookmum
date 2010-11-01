@@ -10,8 +10,8 @@ package com.lookmum.view
 	 */
 	public class MultipleChoiceStatement extends LabelToggleButton
 	{
-		private var _choiceVO:MultipleChoiceVO;
-		private var _isCorrect:Boolean;
+		protected var _choiceVO:MultipleChoiceVO;
+		protected var _isCorrect:Boolean;
 		
 		public function MultipleChoiceStatement(target:MovieClip) 
 		{
@@ -24,6 +24,8 @@ package com.lookmum.view
 		public function set choiceVO(value:MultipleChoiceVO):void 
 		{
 			_choiceVO = value;
+			
+			htmlText = value.statement;
 		}
 		
 		public function get isCorrect():Boolean { return _isCorrect; }
