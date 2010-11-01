@@ -1,5 +1,6 @@
 package  
 {
+	import com.lookmum.util.RadioGroupManager;
 	import com.lookmum.view.Button;
 	import com.lookmum.view.MultipleChoiceStatement;
 	import com.lookmum.vo.MultipleChoiceVO;
@@ -25,6 +26,8 @@ package
 		private var choiceRenderByChoiceVO:Dictionary;
 		private var choiceRenders:Array;
 		private var submitBtn:Button;
+		private var radioGroup:RadioGroupManager;
+		private var oneAnswerType:Boolean = true;
 		
 		public function ExampleMultipleChoiceUtil() 
 		{
@@ -37,6 +40,8 @@ package
 			submitBtn = new Button(new buttonClip);
 			submitBtn.addEventListener(MouseEvent.CLICK, onSubmitClick);
 			addChild(submitBtn);
+			
+			radioGroup = new RadioGroupManager();
 		}
 		
 		private function onSubmitClick(e:MouseEvent):void 
@@ -79,15 +84,33 @@ package
 				choice.y = yModifier;
 				choiceRenderByChoiceVO[choiceVOs[i]] = choice;
 				indexByChoice[choice] = i;
-				choice.addEventListener(MouseEvent.CLICK, onChoiceClick)
+				if (oneAnswerType)
+				{
+					radioGroup.addButton(choice);
+				}
+				else
+				{
+					choice.addEventListener(MouseEvent.CLICK, onChoiceClick)
+				}
 				choice.choiceVO = choiceVOs[i];
 				choiceRenders.push(choice);
 				addChild(choice);
 				yModifier += choice.height;
 			}
 			
+			if (oneAnswerType)
+			{
+				radioGroup.addEventListener(Event.SELECT, onSelect);
+			}
+			
 			submitBtn.x = (choice.x + choice.width) - submitBtn.width;
-			submitBtn.y = yModifier + submitBtn.height
+			submitBtn.y = yModifier + submitBtn.height;
+		}
+		
+		private function onSelect(e:Event):void 
+		{
+			var itemIndex:int = radioGroup.selectedIndex;
+			choiceVOs[itemIndex].selected = choiceRenders[itemIndex].toggle;
 		}
 		
 		private function onChoiceClick(e:MouseEvent):void 
