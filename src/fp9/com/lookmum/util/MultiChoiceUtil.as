@@ -6,32 +6,25 @@ package com.lookmum.util
 	/**
 	 * ...
 	 * @author Andrew Catchaturyan
+	 * 
+	 * Hello. This class is to help you out when you're doing multiple choice assessment tasks.
+	 * You data of choice is an array of MultipleChoiceVOs
+	 * com.lookmum.vo.MultipleChoiceVO
+	 * 
 	 */
 	public class MultiChoiceUtil
 	{
-		private var _isCorrect:Boolean;
+		public static var isCorrect:Boolean;
+		public static var correctAnswers:Array;
+		public static var incorrectAnswers:Array;
 		
-		public function MultiChoiceUtil() 
-		{
-			LabelToggleButton
-		}
-		
-		public static function markChoices(multipleChoiceVOs:Array, statementByChoice:Dictionary):Boolean
+		public static function markChoices(multipleChoiceVOs:Array):Boolean
 		{
 			isCorrect = true;
 			
 			for each(var choice:MultipleChoiceVO in multipleChoiceVOs)
 			{
-				var statement:MultipleChoiceStatement = statementByChoice[choice];
-				if (choice.correct) 
-				{
-					statement.isCorrect = true;
-				}
-				else
-				{
-					statement.isCorrect = false;
-				}
-				if (choice.correct != statement.toggle) 
+				if (choice.correct != choice.selected) 
 				{
 					isCorrect = false;
 				}
@@ -40,13 +33,35 @@ package com.lookmum.util
 			return isCorrect;
 		}
 		
-		public function get isCorrect():Boolean { return _isCorrect; }
-		
-		public function set isCorrect(value:Boolean):void 
+		public static function getCorrectAnswers(multipleChoiceVOs:Array):Array
 		{
-			_isCorrect = value;
+			correctAnswers = [];
+			
+			for each(var choice:MultipleChoiceVO in multipleChoiceVOs)
+			{
+				if (choice.correct == choice.selected) 
+				{
+					correctAnswers.push(choice);
+				}
+			}
+			
+			return correctAnswers;
 		}
 		
+		public static function getIncorrectAnswers(multipleChoiceVOs:Array):Array
+		{
+			incorrectAnswers = [];
+			
+			for each(var choice:MultipleChoiceVO in multipleChoiceVOs)
+			{
+				if (!choice.correct) 
+				{
+					incorrectAnswers.push(choice);
+				}
+			}
+			
+			return incorrectAnswers;
+		}
 	}
 
 }
