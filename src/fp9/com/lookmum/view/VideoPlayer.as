@@ -19,7 +19,7 @@ package com.lookmum.view
 		
 		protected var mediaPlayer:IMediaPlayer;
 		protected var videoSlider:Slider;
-		private var volumeSlider:VolumeSlider;
+		protected var volumeSlider:VolumeSlider;
 		protected var buttonPlayPause:ToggleButton;
 		protected var buttonRewind:Button;
 		protected var _playing:Boolean;
@@ -36,7 +36,7 @@ package com.lookmum.view
 			mediaPlayer.addEventListener(MediaPlayerEvent.UPDATE, onUpdate);
 			mediaPlayer.addEventListener(MediaPlayerEvent.END, onEnd);
 			
-			if (target.getChildByName('volumeSlider')) volumeSlider = new VolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
+			volumeSlider = getVolumeSlider();
 			if (target.getChildByName('buttonRewind')) 
 			{
 				buttonRewind = getButtonRewind();
@@ -48,8 +48,8 @@ package com.lookmum.view
 			videoSlider.addEventListener(DragEvent.STOP, onStopDragSlider);
 			buttonPlayPause = getButtonPlayPause();
 			buttonPlayPause.addEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
-			
 		}
+		
 		protected function onRewind(e:MouseEvent):void 
 		{
 			seek(0);
@@ -74,7 +74,10 @@ package com.lookmum.view
 		{
 			return new Slider(target.getChildByName('videoSlider') as MovieClip);
 		}
-		
+		protected function getVolumeSlider():VolumeSlider
+		{
+			return new VolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
+		}
 		protected function getButtonPlayPause():ToggleButton
 		{
 			return new ToggleButton(target.getChildByName('buttonPlayPause') as MovieClip);

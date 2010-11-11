@@ -27,7 +27,10 @@ package
 		private var choiceRenders:Array;
 		private var submitBtn:Button;
 		private var radioGroup:RadioGroupManager;
+		
+		// Switches between
 		private var oneAnswerType:Boolean = true;
+		//
 		
 		public function ExampleMultipleChoiceUtil() 
 		{
@@ -86,6 +89,7 @@ package
 				indexByChoice[choice] = i;
 				if (oneAnswerType)
 				{
+					//trace( "oneAnswerType : " + oneAnswerType );
 					radioGroup.addButton(choice);
 				}
 				else
