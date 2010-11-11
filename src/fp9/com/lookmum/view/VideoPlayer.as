@@ -78,6 +78,7 @@ package com.lookmum.view
 		{
 			return new VolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
 		}
+		
 		protected function getButtonPlayPause():ToggleButton
 		{
 			return new ToggleButton(target.getChildByName('buttonPlayPause') as MovieClip);
