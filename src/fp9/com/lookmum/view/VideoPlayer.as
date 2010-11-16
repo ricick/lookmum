@@ -36,12 +36,17 @@ package com.lookmum.view
 			mediaPlayer.addEventListener(MediaPlayerEvent.UPDATE, onUpdate);
 			mediaPlayer.addEventListener(MediaPlayerEvent.END, onEnd);
 			
-			volumeSlider = getVolumeSlider();
+			if (target.getChildByName('volumeSlider')) 
+			{
+				volumeSlider = getVolumeSlider();
+			}
+			
 			if (target.getChildByName('buttonRewind')) 
 			{
 				buttonRewind = getButtonRewind();
 				buttonRewind.addEventListener(MouseEvent.CLICK, onRewind);
 			}
+			
 			videoSlider = getSlider();
 			videoSlider.addEventListener(DragEvent.START, onStartDragSlider);
 			videoSlider.addEventListener(DragEvent.DRAG, onDragSlider);
