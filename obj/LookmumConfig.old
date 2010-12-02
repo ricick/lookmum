@@ -14,7 +14,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'1/11/2010'</value>
+      <value>'26/11/2010'</value>
     </define>
     <source-path append="true">
       <path-element>C:\Projects\lookmum\src\fp10</path-element>
@@ -26,7 +26,7 @@
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>C:\Projects\lookmum\examples\ExampleMultipleChoiceUtil.as</path-element>
+    <path-element>C:\Projects\lookmum\examples\ExampleDiableButtonBugFix.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>
