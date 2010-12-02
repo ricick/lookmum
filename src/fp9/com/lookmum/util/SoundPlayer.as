@@ -153,7 +153,7 @@ package com.lookmum.util {
 
 		public function get volume():Number 
 		{
-			return (soundTransformObject.volume * 0.01);
+			return (soundTransformObject.volume / 0.01);
 		}
 				
 		public function get duration():Number
