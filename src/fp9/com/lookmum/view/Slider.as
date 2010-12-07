@@ -25,12 +25,13 @@ package com.lookmum.view{
 		override protected function createChildren():void 
 		{
 			super.createChildren();
+			
 			this.track = new Button(target.getChildByName('track') as MovieClip);
 			this.tab = new DragButton(target.getChildByName('tab') as MovieClip);
-			this.tab.dragBounds = (new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0));
+			this.tab.dragBounds = getDragBounds();
 			
-			this.tab.addEventListener(DragEvent.START,onStartDrag);
-			this.tab.addEventListener(DragEvent.DRAG,onDrag);
+			this.tab.addEventListener(DragEvent.START, onStartDrag);
+			this.tab.addEventListener(DragEvent.DRAG, onDrag);
 			this.tab.addEventListener(DragEvent.STOP, onStopDrag);
 			
 			this.tab.tabEnabled = (false);
@@ -45,6 +46,11 @@ package com.lookmum.view{
 			}
 		}
 		
+		protected function getDragBounds():Rectangle
+		{
+			return new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0);
+		}
+		
 		public function getTrack():Button {
 			return track;
 		}
@@ -57,6 +63,7 @@ package com.lookmum.view{
 		{
 			return this._dragging;
 		}
+		
 		protected function onMouseWheel(event:MouseEvent):void
 		{
 			var delta:int = event.delta;
@@ -70,7 +77,8 @@ package com.lookmum.view{
 			}
 			this.dispatchEvent(new Event(Event.CHANGE));
 		}
-		private function onStartDrag(event:DragEvent):void
+		
+		protected function onStartDrag(event:DragEvent):void
 		{
 			this.dispatchEvent(new DragEvent(DragEvent.START));
 			this._dragging = true;
@@ -85,11 +93,13 @@ package com.lookmum.view{
 				bar.width = tab.x - bar.x + tab.width;
 			}
 		}
+		
 		protected function onStopDrag(event:DragEvent):void
 		{
 			this.dispatchEvent(new DragEvent(DragEvent.STOP));
 			this._dragging = false;
 		}
+		
 		override public function set width(value:Number):void
 		{
 			this.track.width = (value);
@@ -144,6 +154,7 @@ package com.lookmum.view{
 				bar.width = tab.x - bar.x + tab.width;
 			}
 		}
+		
 		public function get level():Number 
 		{
 			return (this.tab.x-this.track.x)/(this.track.x+(this.track.width-this.tab.width));
