@@ -36,10 +36,11 @@ package com.lookmum.view
 			mediaPlayer.addEventListener(MediaPlayerEvent.UPDATE, onUpdate);
 			mediaPlayer.addEventListener(MediaPlayerEvent.END, onEnd);
 			
-			if (target.getChildByName('volumeSlider')) 
-			{
-				volumeSlider = getVolumeSlider();
-			}
+			//if (target.getChildByName('volumeSlider')) 
+			//{
+				//trace("hello");
+				//volumeSlider = getVolumeSlider();
+			//}
 			
 			if (target.getChildByName('buttonRewind')) 
 			{
@@ -71,23 +72,28 @@ package com.lookmum.view
 		{
 			return new FLVPlayer(target.getChildByName('flvPlayer') as MovieClip);
 		}
+		
 		protected function getButtonRewind():Button
 		{
 			return new Button(target.getChildByName('buttonRewind') as MovieClip);
 		}
+		
 		protected function getSlider():Slider
 		{
 			return new Slider(target.getChildByName('videoSlider') as MovieClip);
 		}
-		protected function getVolumeSlider():VolumeSlider
-		{
-			return new VolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
-		}
+		
+		//protected function getVolumeSlider():VolumeSlider
+		//{
+			//trace( "getVolumeSlider : " + getVolumeSlider );
+			//return new VolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
+		//}
 		
 		protected function getButtonPlayPause():ToggleButton
 		{
 			return new ToggleButton(target.getChildByName('buttonPlayPause') as MovieClip);
 		}
+		
 		protected function onEnd(e:MediaPlayerEvent):void 
 		{
 			isComplete = true;

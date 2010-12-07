@@ -29,7 +29,6 @@ package
 			addChild(scrollBar1);
 			var sbm1:ScrollBarManager = new ScrollBarManager(scrollBar1);
 			sbm1.associateTextFieldScroll(textField);
-			
 		
 			var scrollBar2:ScrollBar = new ScrollBar(new scrollBarClip());
 			var clip:MovieClip = new scrollTestClip();
