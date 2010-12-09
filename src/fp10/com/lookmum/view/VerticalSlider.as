@@ -12,7 +12,6 @@ package com.lookmum.view
 	 */
 	public class VerticalSlider extends Slider
 	{
-		
 		public function VerticalSlider(target:MovieClip) 
 		{
 			super(target);
@@ -21,15 +20,15 @@ package com.lookmum.view
 	
 		override protected function getDragBounds():Rectangle 
 		{
-			return new Rectangle(this.track.x, this.tab.y, 0, this.track.height - this.tab.height);
+			return new Rectangle(this.track.x, this.track.y, 0, this.track.height - this.tab.height);
 		}
 		
 		override protected function onReleaseTrack(event:MouseEvent):void 
 		{
 			this.tab.y = (mouseY + ( this.tab.height / 2 ));
 			
-			if(this.tab.y < this.tab.dragBounds.top) this.tab.y = (this.tab.dragBounds.top);
-			if (this.tab.y > this.tab.dragBounds.bottom) this.tab.y = (this.tab.dragBounds.bottom);
+			if (this.tab.y < this.tab.dragBounds.bottom) this.tab.y = (this.tab.dragBounds.bottom);
+			if (this.tab.y > this.tab.dragBounds.top) this.tab.y = (this.tab.dragBounds.top);
 			
 			if (bar)
 			{
@@ -56,7 +55,7 @@ package com.lookmum.view
 		{
 			var delta:int = event.delta;
 			var destY:Number = this.tab.y - delta;
-			if(destY < track.y)destY = track.y;
+			if(destY < track.y) destY = track.y;
 			if(destY > track.y + track.height - tab.height)destY = track.y + track.height - tab.height;
 			this.tab.y = (destY);
 			
@@ -73,7 +72,8 @@ package com.lookmum.view
 			if (value > 1 ) value = 1;
 			if (value < 0) value = 0;
 			
-			this.tab.y = (this.track.y - (this.track.height + this.tab.height) * value);
+			this.tab.y = (this.track.y +(this.track.height-this.tab.height) * (1 - value));
+			
 			if (bar)
 			{
 				bar.height = tab.y - bar.y + tab.height;
@@ -81,8 +81,8 @@ package com.lookmum.view
 		}
 		
 		override public function get level():Number
-		{ 
-			return (this.tab.y - this.track.y) / (this.track.y + (this.track.height - this.tab.height));
+		{
+			return 1 - ((this.tab.y - this.track.y) / (this.track.y + (this.track.height - this.tab.height)));
 		}
 	
 		override public function set height(value:Number):void 

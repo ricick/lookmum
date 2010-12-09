@@ -16,7 +16,7 @@ package com.lookmum.view
 		{
 			super(target);
 			this.addEventListener(DragEvent.DRAG,onSlide);
-			this.level = (1);
+			this.level = (0.25);
 		}
 		
 		override public function set level(value:Number):void
@@ -33,7 +33,6 @@ package com.lookmum.view
 		public function onSlide(event:DragEvent):void
 		{
 			SoundMixer.soundTransform = new SoundTransform(this.level);
-			
 		}
 		
 	}
