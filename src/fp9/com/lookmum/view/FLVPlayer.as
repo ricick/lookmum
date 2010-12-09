@@ -29,7 +29,8 @@ package com.lookmum.view{
 		private var _bufferTime:Number = 0;
 		private var videoWidth:Number;
 		private var videoHeight:Number;
-		public function FLVPlayer (target:MovieClip){
+		public function FLVPlayer (target:MovieClip)
+		{
 			super (target);
 			_nc = new NetConnection();
 			_nc.connect(null);
