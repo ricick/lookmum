@@ -80,20 +80,20 @@ package com.lookmum.util{
 			//set to -1 if you want nothing selected
 			if(index>buttons.length-1)index = buttons.length-1;
 			_selectedIndex = index;
-			if (selectedButton) {
-				selectedButton.toggle = (false);
-				selectedButton.enabled = true;
-				selectedButton.tabEnabled = true;
+			if (_selectedButton) {
+				_selectedButton.toggle = (false);
+				_selectedButton.enabled = true;
+				_selectedButton.tabEnabled = true;
 			}
 			if (index != -1)
 			{
-				selectedButton = buttons[index];
-				selectedButton.toggle = (true);
-				selectedButton.enabled = false;
-				selectedButton.tabEnabled = false;
+				_selectedButton = buttons[index];
+				_selectedButton.toggle = (true);
+				_selectedButton.enabled = false;
+				_selectedButton.tabEnabled = false;
 			}
 			else {
-				selectedButton = null;
+				_selectedButton = null;
 			}
 			return;
 		}
@@ -126,8 +126,15 @@ package com.lookmum.util{
 		
 		public function set selectedButton(value:IToggle):void 
 		{
-			if (_selectedButton)_selectedButton.toggle = false;
-			_selectedButton = value;
+			for (var i:int = 0; i < buttons.length; i++)
+			{
+				if (buttons[i] == value)
+				{
+					selectedIndex = i;
+					return ;
+				}
+			}
+			selectedIndex = -1;
 		}
 	}
 }
