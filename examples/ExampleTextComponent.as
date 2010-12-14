@@ -2,6 +2,7 @@ package
 {
 	import com.lookmum.view.TextComponent;
 	import flash.display.Sprite;
+	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFieldType;
 	
 	/**
