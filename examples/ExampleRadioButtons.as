@@ -30,6 +30,8 @@ package
 			radioGroup.addButton(tb2);
 			radioGroup.addButton(tb3);
 			radioGroup.addEventListener(Event.SELECT, onSelect);
+			
+			radioGroup.selectedButton = tb3;
 		}
 		
 		private function onSelect(e:Event):void 
