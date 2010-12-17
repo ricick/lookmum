@@ -16,7 +16,7 @@ package com.lookmum.view
 		{
 			super(target);
 			this.addEventListener(DragEvent.DRAG,onSlide);
-			this.level = (0.25);
+			this.level = (0.5);
 		}
 		
 		override public function set level(value:Number):void

@@ -34,9 +34,7 @@ package com.lookmum.view{
 			super (target);
 			_nc = new NetConnection();
 			_nc.connect(null);
-			//phil: starting at a small size to get rid of "size popping" bug
-			videoArea = new Video(1,1);
-			//videoArea = new Video(width, height);
+			videoArea = new Video(1, 1);
 			videoWidth = width;
 			videoHeight = height;
 			addChild(videoArea);
@@ -208,7 +206,7 @@ package com.lookmum.view{
 		private function onMetaData(metadata:Object):void
 		{
 			//trace( "FLVPlayer.onMetaData > metadata : "  );
-			for( var i:String in metadata ) //trace( "key : " + i + ", value : " + metadata[ i ] );
+			//for( var i:String in metadata ) trace( "key : " + i + ", value : " + metadata[ i ] );
 			_metaData = new VideoMetaData();
 			_metaData.videoWidth = metadata.width;
 			_metaData.videoHeight = metadata.height;

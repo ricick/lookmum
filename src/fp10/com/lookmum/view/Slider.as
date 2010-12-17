@@ -51,13 +51,11 @@ package com.lookmum.view{
 			return new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0);
 		}
 		
-		public function getTrack():Button
-		{
+		public function getTrack():Button {
 			return track;
 		}
 		
-		public function getTab():DragButton
-		{
+		public function getTab():DragButton {
 			return tab;
 		}
 		

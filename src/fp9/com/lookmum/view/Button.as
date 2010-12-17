@@ -63,9 +63,7 @@ package com.lookmum.view
 			mouseChildren = true;
 			this.dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.ENABLE));
 		}
-		protected function doDisable():void 
-		{
-			//trace( "Button.doDisable" );
+		protected function doDisable():void {
 			buttonMode = false;
 			tabEnabled = false;
 			mouseEnabled = false;

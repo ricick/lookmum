@@ -20,6 +20,8 @@ package com.lookmum.util{
 			buttons = new Array();
 		}
 		public function clear():void {
+			for each (var button:IToggle in buttons)
+				button.removeEventListener(MouseEvent.CLICK, onReleaseButton);
 			buttons = new Array();
 			_selectedIndex = -1;
 			selectedButton = null;
@@ -53,7 +55,7 @@ package com.lookmum.util{
 		private function onReleaseButton(event:MouseEvent):void {
 			//PHIL: same as set selected index, but clicked button takes care of its own toggle state
 			//setSelectedIndex(index);
-			var index:Number;
+			var index:Number = -1;
 			var i:int;
 			for (var j:int = 0; j < buttons.length; j++) {
 				var button:IToggle = buttons[j];
@@ -78,20 +80,20 @@ package com.lookmum.util{
 			//set to -1 if you want nothing selected
 			if(index>buttons.length-1)index = buttons.length-1;
 			_selectedIndex = index;
-			if (selectedButton) {
-				selectedButton.toggle = (false);
-				selectedButton.enabled = true;
-				selectedButton.tabEnabled = true;
+			if (_selectedButton) {
+				_selectedButton.toggle = (false);
+				_selectedButton.enabled = true;
+				_selectedButton.tabEnabled = true;
 			}
 			if (index != -1)
 			{
-				selectedButton = buttons[index];
-				selectedButton.toggle = (true);
-				selectedButton.enabled = false;
-				selectedButton.tabEnabled = false;
+				_selectedButton = buttons[index];
+				_selectedButton.toggle = (true);
+				_selectedButton.enabled = false;
+				_selectedButton.tabEnabled = false;
 			}
 			else {
-				selectedButton = null;
+				_selectedButton = null;
 			}
 			return;
 		}
@@ -124,8 +126,15 @@ package com.lookmum.util{
 		
 		public function set selectedButton(value:IToggle):void 
 		{
-			if (_selectedButton)_selectedButton.toggle = false;
-			_selectedButton = value;
+			for (var i:int = 0; i < buttons.length; i++)
+			{
+				if (buttons[i] == value)
+				{
+					selectedIndex = i;
+					return ;
+				}
+			}
+			selectedIndex = -1;
 		}
 	}
 }

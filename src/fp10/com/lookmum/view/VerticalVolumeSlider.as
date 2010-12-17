@@ -33,7 +33,6 @@ package com.lookmum.view
 		public function onSlide(event:DragEvent):void
 		{
 			SoundMixer.soundTransform = new SoundTransform(this.level);
-			
 		}
 		
 	}

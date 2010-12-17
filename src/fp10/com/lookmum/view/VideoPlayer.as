@@ -25,6 +25,7 @@ package com.lookmum.view
 		protected var _playing:Boolean;
 		protected var _autoRewind:Boolean = true;
 		private var videoSliderDisabled:Boolean;
+		protected var _isComplete:Boolean;
 		public function VideoPlayer(target:MovieClip) 
 		{
 			super(target);
@@ -49,6 +50,7 @@ package com.lookmum.view
 			buttonPlayPause.addEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
 			
 		}
+		
 		protected function onRewind(e:MouseEvent):void 
 		{
 			seek(0);
@@ -83,6 +85,7 @@ package com.lookmum.view
 		
 		protected function onEnd(e:MediaPlayerEvent):void 
 		{
+			isComplete = true;
 			buttonPlayPause.toggle = true;
 			_playing = false;
 			if (_autoRewind)
@@ -133,13 +136,21 @@ package com.lookmum.view
 		
 		protected function onReleaseButtonPlayPause(e:MouseEvent):void 
 		{
-			if (buttonPlayPause.toggle)
+			if (_playing)
 			{
-				mediaPlayer.pause();
 				_playing = false;
-			}else
+				mediaPlayer.pause();
+			}
+			else 
 			{
-				if (mediaPlayer.time >= mediaPlayer.duration) seek(0);
+				_playing = true;
+				mediaPlayer.play();
+			}
+			
+			if (isComplete)
+			{
+				isComplete = false;
+				seek(0);
 				mediaPlayer.play();
 				_playing = true;
 			}
@@ -193,7 +204,8 @@ package com.lookmum.view
 		public function get loadLevel():Number{
 			return mediaPlayer.loadLevel;
 		}
-		public function get duration():Number{
+		public function get duration():Number
+		{
 			return mediaPlayer.duration;
 		}
 		public function clear():void
@@ -228,7 +240,12 @@ package com.lookmum.view
 			if (buttonRewind) buttonRewind.enabled = value;
 		}
 		
+		public function get isComplete():Boolean { return _isComplete; }
 		
+		public function set isComplete(value:Boolean):void 
+		{
+			_isComplete = value;
+		}
 	}
 	
 }
