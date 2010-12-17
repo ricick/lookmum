@@ -6,7 +6,7 @@ package com.lookmum.vo
 	 */
 	public class MultipleChoiceVO
 	{
-		public var statement:String;
+		public var text:String;
 		public var correct:Boolean;
 		public var selected:Boolean; // this is set inside the view
 		
@@ -18,7 +18,7 @@ package com.lookmum.vo
 		public static function fromXML(xml:XML):MultipleChoiceVO 
 		{
 			var value:MultipleChoiceVO = new MultipleChoiceVO();
-			value.statement = xml.@statement;
+			value.text = xml.@text;
 			value.correct = xml.@correct == "true";
 			
 			return value;
