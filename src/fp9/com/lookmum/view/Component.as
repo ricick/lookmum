@@ -508,11 +508,11 @@ package com.lookmum.view
 		 * Specifies the context menu associated with this object.
 		 */
 		/*
-		override public function get contextMenu () : ContextMenu {
-			return target.contextMenu;
-		}
-		override public function set contextMenu (cm:ContextMenu) : void {
-			target.contextMenu = cm;
+		override public function get contextMenu():ContextMenu { return target.contextMenu; }
+		
+		override public function set contextMenu(value:ContextMenu):void 
+		{
+			target.contextMenu = value;
 		}
 		*/
 		/**

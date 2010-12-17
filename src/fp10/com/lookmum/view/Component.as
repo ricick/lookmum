@@ -60,7 +60,8 @@ package com.lookmum.view
 		private var _target:MovieClip;
 		public function Component(target:MovieClip) 
 		{
-			if (!target) {
+			if (!target) 
+			{
 				throw new Error('No MovieClip supplied to Component ' + getQualifiedClassName(this));
 			}
 			_target = target;

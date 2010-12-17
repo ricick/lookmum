@@ -1,5 +1,6 @@
 package com.lookmum.view 
 {
+	import com.lookmum.events.ComponentEvent;
 	import com.lookmum.view.Component;
 	import flash.display.MovieClip;
 	import flash.display.DisplayObject;
@@ -41,7 +42,10 @@ package com.lookmum.view
 	 */
 	public class TextComponent extends Component implements ITextComponent
 	{
+		private var _padding:Number = 0;
 		protected var textField:TextField;
+		protected var bg:MovieClip;
+		
 		public function TextComponent(target:MovieClip) 
 		{
 			super(target);
@@ -50,7 +54,21 @@ package com.lookmum.view
 		{
 			super.createChildren();
 			textField = getTextField();
+			if (target.getChildByName("bg"))
+				bg = target.getChildByName("bg") as MovieClip;
+			resize();
 		}
+		
+		private function resize():void
+		{
+			if (!bg) return ;
+			
+			bg.width = 2 * _padding + textField.width;
+			bg.height = 2 * _padding + textField.height;
+			textField.x = _padding;
+			textField.y = _padding;
+		}
+		
 		/*
 		override protected function addEventListeners():void 
 		{
@@ -68,6 +86,32 @@ package com.lookmum.view
 			}
 		}
 		*/
+		
+		public function get padding():Number {
+			return _padding;
+		}
+		
+		public function set padding(value:Number):void {
+			_padding = value;
+			resize();
+		}
+		
+		override public function set height(value:Number):void {
+			//super.height = value;
+			var event:ComponentEvent = new ComponentEvent(ComponentEvent.RESIZE);
+			textField.height = value;
+			dispatchEvent(event);
+			resize();
+		}
+		
+		override public function set width(value:Number):void {
+			//super.width = value;
+			var event:ComponentEvent = new ComponentEvent(ComponentEvent.RESIZE);
+			textField.width = value;
+			dispatchEvent(event);
+			resize();
+		}
+		
 		override public function get tabEnabled():Boolean { return textField.tabEnabled; }
 		
 		override public function set tabEnabled(value:Boolean):void 
@@ -82,8 +126,6 @@ package com.lookmum.view
 		}
 		override public function setFocus():void 
 		{
-			trace( "TextComponent.setFocus" );
-			//textField.setFocus();
 			if (stage) stage.focus = textField;
 		}
 		private function getTextField():TextField
@@ -120,6 +162,7 @@ package com.lookmum.view
 		}
 		public function set autoSize (value:String) : void {
 			textField.autoSize = value;
+			resize();
 		}
 
 		/**
@@ -194,6 +237,7 @@ package com.lookmum.view
 		}
 		public function set defaultTextFormat (format:TextFormat) : void {
 			textField.defaultTextFormat = format;
+			resize();
 		}
 
 		/**
@@ -234,6 +278,7 @@ package com.lookmum.view
 		}
 		public function set htmlText (value:String) : void {
 			textField.htmlText = value;
+			resize();
 		}
 
 		/**
@@ -251,6 +296,7 @@ package com.lookmum.view
 		}
 		public function set maxChars (value:int) : void {
 			textField.maxChars = value;
+			resize();
 		}
 
 		/**
@@ -285,6 +331,7 @@ package com.lookmum.view
 		}
 		public function set multiline (value:Boolean) : void {
 			textField.multiline = value;
+			resize();
 		}
 
 		/**
@@ -370,6 +417,7 @@ package com.lookmum.view
 		}
 		public function set styleSheet (value:StyleSheet) : void {
 			textField.styleSheet = value;
+			resize();
 		}
 
 		/**
@@ -380,6 +428,7 @@ package com.lookmum.view
 		}
 		public function set text (value:String) : void {
 			textField.text = value;
+			resize();
 		}
 
 		/**
@@ -444,13 +493,15 @@ package com.lookmum.view
 		}
 		public function set wordWrap (value:Boolean) : void {
 			textField.wordWrap = value;
+			resize();
 		}
 
 		/**
 		 * Appends text to the end of the existing text of the TextField.
 		 */
 		public function appendText (newText:String) : void {
-			return textField.appendText(newText);
+			textField.appendText(newText);
+			resize();
 		}
 
 		/**
@@ -550,35 +601,40 @@ package com.lookmum.view
 		}
 
 		public function insertXMLText (beginIndex:int, endIndex:int, richText:String, pasting:Boolean = false) : void {
-			return textField.insertXMLText(beginIndex,endIndex,richText,pasting);
+			textField.insertXMLText(beginIndex, endIndex, richText, pasting);
+			resize();
 		}
 
 		/**
 		 * Replaces the current selection with the contents of the value parameter.
 		 */
 		public function replaceSelectedText (value:String) : void {
-			return textField.replaceSelectedText(value);
+			textField.replaceSelectedText(value);
+			resize();
 		}
 
 		/**
 		 * Replaces a range of characters.
 		 */
 		public function replaceText (beginIndex:int, endIndex:int, newText:String) : void {
-			return textField.replaceText(beginIndex,endIndex,newText);
+			textField.replaceText(beginIndex, endIndex, newText);
+			resize();
 		}
 
 		/**
 		 * Sets a new text selection.
 		 */
 		public function setSelection (beginIndex:int, endIndex:int) : void {
-			return textField.setSelection(beginIndex,endIndex);
+			textField.setSelection(beginIndex, endIndex);
+			resize();
 		}
 
 		/**
 		 * Applies text formatting.
 		 */
 		public function setTextFormat (format:TextFormat, beginIndex:int = -1, endIndex:int = -1) : void {
-			return textField.setTextFormat(format,beginIndex,endIndex);
+			textField.setTextFormat(format, beginIndex, endIndex);
+			resize();
 		}
 		
 		//}

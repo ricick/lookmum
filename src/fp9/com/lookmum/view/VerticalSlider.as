@@ -12,8 +12,6 @@ package com.lookmum.view
 	 */
 	public class VerticalSlider extends Slider
 	{
-		//private var state:Number
-		
 		public function VerticalSlider(target:MovieClip) 
 		{
 			super(target);
