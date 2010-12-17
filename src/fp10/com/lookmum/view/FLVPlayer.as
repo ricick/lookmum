@@ -29,11 +29,12 @@ package com.lookmum.view{
 		private var _bufferTime:Number = 0;
 		private var videoWidth:Number;
 		private var videoHeight:Number;
-		public function FLVPlayer (target:MovieClip){
+		public function FLVPlayer (target:MovieClip)
+		{
 			super (target);
 			_nc = new NetConnection();
 			_nc.connect(null);
-			videoArea = new Video(width, height);
+			videoArea = new Video(1, 1);
 			videoWidth = width;
 			videoHeight = height;
 			addChild(videoArea);
@@ -58,6 +59,8 @@ package com.lookmum.view{
 			_netStream.client.onPlayStatus = onPlayStatus;		
 			
 			videoArea.attachNetStream(_netStream);
+			videoArea.width = width;
+			videoArea.height = height;
 			_netStream.play(url);
 			addEventListener(Event.ENTER_FRAME,onLoadProgress);
 			if(autoPlay){

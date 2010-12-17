@@ -23,10 +23,12 @@ package com.lookmum.view{
 			SoundMixer.soundTransform = new SoundTransform(this.level);
 		}
 		
-		override public function get level():Number {
+		override public function get level():Number 
+		{
 			return super.level
 		}
-		public function onSlide(event:DragEvent):void{
+		public function onSlide(event:DragEvent):void
+		{
 			SoundMixer.soundTransform = new SoundTransform(this.level);
 			
 		}

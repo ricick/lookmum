@@ -1,7 +1,10 @@
 
-package com.lookmum.view {
+package com.lookmum.view 
+{
 	import com.eclecticdesignstudio.motion.easing.IEasing;
-	public interface ITweenableComponent{
+	
+	public interface ITweenableComponent
+	{
 		function get duration():Number;
 		function set duration(value:Number):void;
 		function widthTo(width:Number):void;

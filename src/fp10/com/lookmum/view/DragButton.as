@@ -17,7 +17,8 @@ package com.lookmum.view{
 		private var _lockCenter:Boolean;
 		private var _dragBounds:Rectangle;
 		
-		public function DragButton(target:MovieClip) {
+		public function DragButton(target:MovieClip) 
+		{
 			super(target);
 			addEventListener(MouseEvent.MOUSE_DOWN,doStartDrag);
 			addEventListener(MouseEvent.MOUSE_UP, doStopDrag);
