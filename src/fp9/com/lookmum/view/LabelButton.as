@@ -73,6 +73,7 @@ package com.lookmum.view
 				bgDimensions = bg.getBounds(target);
 				bg.gotoAndStop(FRAME_ROLL_OUT);
 			}
+			arrangeComponents();
 		}
 		override protected function arrangeComponents():void 
 		{
