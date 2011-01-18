@@ -11,7 +11,7 @@ package com.lookmum.util
 		{
 			
 		}
-		public static function printStack():void {
+		public static function trace():void {
 			try{
 				throw(new Error('Stack trace'));
 			}catch (e:Error) {
