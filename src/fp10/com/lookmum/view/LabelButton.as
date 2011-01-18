@@ -73,6 +73,7 @@ package com.lookmum.view
 				bgDimensions = bg.getBounds(target);
 				bg.gotoAndStop(FRAME_ROLL_OUT);
 			}
+			arrangeComponents();
 		}
 		override protected function arrangeComponents():void 
 		{
@@ -149,7 +150,6 @@ package com.lookmum.view
 		
 		override protected function onRollOver(e:MouseEvent):void 
 		{
-			
 			if (!enabled) {
 				return;
 			}
@@ -204,11 +204,15 @@ package com.lookmum.view
 				return;
 			}
 			
+			var out:Boolean = isMouseOutside;
 			super.onMouseUp(e);
 			
 			if (_textFormatRollOver) currentTextFormat = (_textFormatRollOver);
 
 			if (bg) {
+				if (out)
+					bg.gotoAndStop(FRAME_ROLL_OUT);
+				else
 				bg.gotoAndStop(FRAME_ROLL_OVER);
 			}
 			arrangeComponents();

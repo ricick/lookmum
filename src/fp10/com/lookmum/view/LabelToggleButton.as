@@ -38,19 +38,30 @@ package com.lookmum.view
 		}
 		override protected function onMouseUp(e:MouseEvent):void 
 		{
-			super.onMouseUp(e);
 			if (!enabled) return;
+			
+			var out:Boolean = isMouseOutside;
+			super.onMouseUp(e);
+			
 			if (toggle) {
 				target.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
-				if (bg) bg.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+				if (bg)
+				{
+					if (out)
+						bg.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+					else
+						bg.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+				}
 				if (_textFormatRollOutToggle) currentTextFormat = (_textFormatRollOutToggle);
 				arrangeComponents();
 			}
 		}
 		override protected function onMouseDown(e:MouseEvent):void 
 		{
-			super.onMouseDown(e);
 			if (!enabled) return;
+			
+			super.onMouseDown(e);
+			
 			if (toggle) {
 				target.gotoAndStop(FRAME_PRESS_TOGGLE);
 				if (bg) bg.gotoAndStop(FRAME_PRESS_TOGGLE);
@@ -71,8 +82,10 @@ package com.lookmum.view
 		}
 		override protected function onRollOut(e:MouseEvent):void 
 		{
-			super.onRollOut(e);
 			if (!enabled) return;
+			
+			super.onRollOut(e);
+			
 			if (toggle) {
 				target.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
 				if (bg) bg.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);

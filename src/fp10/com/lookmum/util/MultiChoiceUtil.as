@@ -14,13 +14,9 @@ package com.lookmum.util
 	 */
 	public class MultiChoiceUtil
 	{
-		public static var isCorrect:Boolean;
-		public static var correctAnswers:Array;
-		public static var incorrectAnswers:Array;
-		
-		public static function markChoices(multipleChoiceVOs:Array):Boolean
+		public static function getCorrect(multipleChoiceVOs:Array):Boolean
 		{
-			isCorrect = true;
+			var isCorrect:Boolean = true;
 			
 			for each(var choice:MultipleChoiceVO in multipleChoiceVOs)
 			{
@@ -35,7 +31,7 @@ package com.lookmum.util
 		
 		public static function getCorrectAnswers(multipleChoiceVOs:Array):Array
 		{
-			correctAnswers = [];
+			var correctAnswers:Array = [];
 			
 			for each(var choice:MultipleChoiceVO in multipleChoiceVOs)
 			{
@@ -50,7 +46,7 @@ package com.lookmum.util
 		
 		public static function getIncorrectAnswers(multipleChoiceVOs:Array):Array
 		{
-			incorrectAnswers = [];
+			var incorrectAnswers:Array = [];
 			
 			for each(var choice:MultipleChoiceVO in multipleChoiceVOs)
 			{
