@@ -53,8 +53,6 @@ package com.lookmum.util{
 		}
 		
 		private function onReleaseButton(event:MouseEvent):void {
-			//PHIL: same as set selected index, but clicked button takes care of its own toggle state
-			//setSelectedIndex(index);
 			var index:Number = -1;
 			var i:int;
 			for (var j:int = 0; j < buttons.length; j++) {
@@ -65,15 +63,6 @@ package com.lookmum.util{
 				}
 			}
 			selectedIndex = index;
-			if (selectedButton) {
-				selectedButton.toggle = (false);
-				selectedButton.enabled = true;
-				selectedButton.tabEnabled = true;
-			}
-			selectedButton = event.target as IToggle;
-			selectedButton.enabled = false;
-			selectedButton.tabEnabled = false;
-			selectedButton.toggle = (true);
 			dispatchEvent(new Event(Event.SELECT));
 		}
 		public function set selectedIndex(index:Number):void {
