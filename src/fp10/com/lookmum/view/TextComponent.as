@@ -45,7 +45,7 @@ package com.lookmum.view
 		private var _padding:Number = 0;
 		protected var textField:TextField;
 		protected var bg:MovieClip;
-		
+		public var autosizeBackground:Boolean = false;
 		public function TextComponent(target:MovieClip) 
 		{
 			super(target);
@@ -56,17 +56,18 @@ package com.lookmum.view
 			textField = getTextField();
 			if (target.getChildByName("bg"))
 				bg = target.getChildByName("bg") as MovieClip;
-			resize();
 		}
 		
-		private function resize():void
+		override protected function arrangeComponents():void 
 		{
+			super.arrangeComponents();
 			if (!bg) return ;
-			
-			bg.width = 2 * _padding + textField.width;
-			bg.height = 2 * _padding + textField.height;
-			textField.x = _padding;
-			textField.y = _padding;
+			if(autosizeBackground){
+				bg.width = 2 * _padding + textField.width;
+				bg.height = 2 * _padding + textField.height;
+				textField.x = _padding;
+				textField.y = _padding;
+			}
 		}
 		
 		/*
@@ -93,7 +94,7 @@ package com.lookmum.view
 		
 		public function set padding(value:Number):void {
 			_padding = value;
-			resize();
+			arrangeComponents();
 		}
 		
 		override public function set height(value:Number):void {
@@ -101,7 +102,7 @@ package com.lookmum.view
 			var event:ComponentEvent = new ComponentEvent(ComponentEvent.RESIZE);
 			textField.height = value;
 			dispatchEvent(event);
-			resize();
+			arrangeComponents();
 		}
 		
 		override public function set width(value:Number):void {
@@ -109,7 +110,7 @@ package com.lookmum.view
 			var event:ComponentEvent = new ComponentEvent(ComponentEvent.RESIZE);
 			textField.width = value;
 			dispatchEvent(event);
-			resize();
+			arrangeComponents();
 		}
 		
 		override public function get tabEnabled():Boolean { return textField.tabEnabled; }
@@ -162,7 +163,7 @@ package com.lookmum.view
 		}
 		public function set autoSize (value:String) : void {
 			textField.autoSize = value;
-			resize();
+			arrangeComponents();
 		}
 
 		/**
@@ -237,7 +238,7 @@ package com.lookmum.view
 		}
 		public function set defaultTextFormat (format:TextFormat) : void {
 			textField.defaultTextFormat = format;
-			resize();
+			arrangeComponents();
 		}
 
 		/**
@@ -278,7 +279,7 @@ package com.lookmum.view
 		}
 		public function set htmlText (value:String) : void {
 			textField.htmlText = value;
-			resize();
+			arrangeComponents();
 		}
 
 		/**
@@ -296,7 +297,7 @@ package com.lookmum.view
 		}
 		public function set maxChars (value:int) : void {
 			textField.maxChars = value;
-			resize();
+			arrangeComponents();
 		}
 
 		/**
@@ -331,7 +332,7 @@ package com.lookmum.view
 		}
 		public function set multiline (value:Boolean) : void {
 			textField.multiline = value;
-			resize();
+			arrangeComponents();
 		}
 
 		/**
@@ -417,7 +418,7 @@ package com.lookmum.view
 		}
 		public function set styleSheet (value:StyleSheet) : void {
 			textField.styleSheet = value;
-			resize();
+			arrangeComponents();
 		}
 
 		/**
@@ -428,7 +429,7 @@ package com.lookmum.view
 		}
 		public function set text (value:String) : void {
 			textField.text = value;
-			resize();
+			arrangeComponents();
 		}
 
 		/**
@@ -493,7 +494,7 @@ package com.lookmum.view
 		}
 		public function set wordWrap (value:Boolean) : void {
 			textField.wordWrap = value;
-			resize();
+			arrangeComponents();
 		}
 
 		/**
@@ -501,7 +502,7 @@ package com.lookmum.view
 		 */
 		public function appendText (newText:String) : void {
 			textField.appendText(newText);
-			resize();
+			arrangeComponents();
 		}
 
 		/**
@@ -602,7 +603,7 @@ package com.lookmum.view
 
 		public function insertXMLText (beginIndex:int, endIndex:int, richText:String, pasting:Boolean = false) : void {
 			textField.insertXMLText(beginIndex, endIndex, richText, pasting);
-			resize();
+			arrangeComponents();
 		}
 
 		/**
@@ -610,7 +611,7 @@ package com.lookmum.view
 		 */
 		public function replaceSelectedText (value:String) : void {
 			textField.replaceSelectedText(value);
-			resize();
+			arrangeComponents();
 		}
 
 		/**
@@ -618,7 +619,7 @@ package com.lookmum.view
 		 */
 		public function replaceText (beginIndex:int, endIndex:int, newText:String) : void {
 			textField.replaceText(beginIndex, endIndex, newText);
-			resize();
+			arrangeComponents();
 		}
 
 		/**
@@ -626,7 +627,7 @@ package com.lookmum.view
 		 */
 		public function setSelection (beginIndex:int, endIndex:int) : void {
 			textField.setSelection(beginIndex, endIndex);
-			resize();
+			arrangeComponents();
 		}
 
 		/**
@@ -634,7 +635,7 @@ package com.lookmum.view
 		 */
 		public function setTextFormat (format:TextFormat, beginIndex:int = -1, endIndex:int = -1) : void {
 			textField.setTextFormat(format, beginIndex, endIndex);
-			resize();
+			arrangeComponents();
 		}
 		
 		//}
