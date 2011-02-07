@@ -1,4 +1,3 @@
-
 package com.lookmum.view 
 {
 
@@ -16,16 +15,18 @@ package com.lookmum.view
 
 	public class VideoPlayer extends Component implements IMediaPlayer
 	{
-		
+		protected var videoControls:FadingComponent;
 		protected var mediaPlayer:IMediaPlayer;
 		protected var videoSlider:Slider;
-		private var volumeSlider:VolumeSlider;
 		protected var buttonPlayPause:ToggleButton;
 		protected var buttonRewind:Button;
 		protected var _playing:Boolean;
 		protected var _autoRewind:Boolean = true;
-		private var videoSliderDisabled:Boolean;
 		protected var _isComplete:Boolean;
+		private var volumeSlider:VolumeSlider;
+		private var videoControlsFlag:Boolean = false;
+		private var videoSliderDisabled:Boolean;
+		
 		public function VideoPlayer(target:MovieClip) 
 		{
 			super(target);
@@ -36,19 +37,46 @@ package com.lookmum.view
 			mediaPlayer.addEventListener(MediaPlayerEvent.UPDATE, onUpdate);
 			mediaPlayer.addEventListener(MediaPlayerEvent.END, onEnd);
 			
-			if (target.getChildByName('volumeSlider')) volumeSlider = new VolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
+			if (target.getChildByName('videoControls'))
+			{
+				videoControlsFlag = true;
+				videoControls = getVideoControls();
+			}
+			
+			if (target.getChildByName('volumeSlider')) 
+			{
+				volumeSlider = new VolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
+			}
+			
 			if (target.getChildByName('buttonRewind'))
 			{
 				buttonRewind = getButtonRewind();
 				buttonRewind.addEventListener(MouseEvent.CLICK, onRewind);
 			}
+			
 			videoSlider = getSlider();
 			videoSlider.addEventListener(DragEvent.START, onStartDragSlider);
 			videoSlider.addEventListener(DragEvent.DRAG, onDragSlider);
 			videoSlider.addEventListener(DragEvent.STOP, onStopDragSlider);
 			buttonPlayPause = getButtonPlayPause();
 			buttonPlayPause.addEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
-			
+		}
+		
+		protected function getVolumeSlider():VerticalVolumeSlider 
+		{
+			if (videoControlsFlag)
+			{
+				return new VerticalVolumeSlider(target.videoControls.volumeSlider);
+			}
+			else
+			{
+				return new VerticalVolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
+			}
+		}
+		
+		private function getVideoControls():FadingComponent
+		{
+			return new FadingComponent(target.getChildByName('videoControls') as MovieClip);
 		}
 		
 		protected function onRewind(e:MouseEvent):void 
@@ -70,12 +98,26 @@ package com.lookmum.view
 		
 		protected function getSlider():Slider
 		{
-			return new Slider(target.getChildByName('videoSlider') as MovieClip);
+			if (videoControlsFlag)
+			{
+				return new Slider(target.videoControls.videoSlider);
+			}
+			else
+			{
+				return new Slider(target.getChildByName('videoSlider') as MovieClip);
+			}
 		}
 		
 		protected function getButtonPlayPause():ToggleButton
 		{
-			return new ToggleButton(target.getChildByName('buttonPlayPause') as MovieClip);
+			if (videoControlsFlag)
+			{
+				return new ToggleButton(target.videoControls.buttonPlayPause);
+			}
+			else
+			{
+				return new ToggleButton(target.getChildByName('buttonPlayPause') as MovieClip);
+			}
 		}
 		
 		protected function getButtonRewind():Button
@@ -88,10 +130,12 @@ package com.lookmum.view
 			isComplete = true;
 			buttonPlayPause.toggle = true;
 			_playing = false;
+			
 			if (_autoRewind)
 			{
 				seek(0);
 			}
+			
 			dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.END));
 		}
 		/**
@@ -124,10 +168,12 @@ package com.lookmum.view
 			*/
 			mediaPlayer.pause();
 		}
+		
 		protected function onDragSlider(e:DragEvent):void 
 		{
 			mediaPlayer.seek(mediaPlayer.duration * videoSlider.level);
 		}
+		
 		protected function onStopDragSlider(e:DragEvent):void 
 		{
 			if (!_playing) return;
@@ -159,11 +205,13 @@ package com.lookmum.view
 		protected function onUpdate(e:MediaPlayerEvent):void 
 		{
 			if (videoSlider.getIsDragging()) return;
+			//trace( "mediaPlayer.duration : " + mediaPlayer.duration );
 			var level:Number = mediaPlayer.time / mediaPlayer.duration;
 			if (level > 1 || isNaN(level)) return;
 			videoSlider.level = (level);
 			dispatchEvent(e.clone());
 		}
+		
 		public function load(url:String, autoPlay:Boolean = true):void
 		{
 			videoSlider.level = (0);

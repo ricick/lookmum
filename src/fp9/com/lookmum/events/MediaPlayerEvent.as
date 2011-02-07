@@ -33,6 +33,7 @@ package com.lookmum.events {
 		public var currentFPS:Number;
 		public var liveDelay:Number;
 		public var time:Number;
+		public var duration:Number;
 		
 		public var metaData:VideoMetaData;
 		public function MediaPlayerEvent(type:String, bubbles:Boolean =  false, cancelable:Boolean =  false) {
@@ -50,6 +51,7 @@ package com.lookmum.events {
 			event.currentFPS = currentFPS;
 			event.liveDelay = liveDelay;
 			event.time = time;
+			//event.duration = duration;
 			return event;
 		} 
 		

@@ -14,7 +14,7 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src\fp9" />
-    <class path="..\actuate" />
+    <class path="..\actuate\Source\AS3" />
     <class path="..\lib_as3" />
   </classpaths>
   <!-- Build options -->
@@ -70,7 +70,7 @@
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="examples\ExampleMovieComponent.as" />
+    <compile path="examples\ExampleVideoPlayer.as" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
