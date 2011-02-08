@@ -20,7 +20,7 @@ package com.lookmum.util
 			if(seconds == 60) strMinutes = "00";
 			var minutes:int = Math.round(Math.floor((milliseconds / 1000) / 60));
 			var strMinutes:String = (minutes < 10) ? ("0" + String(minutes)) : String(minutes);
-			trace( "minutes : " + minutes );
+			//trace( "minutes : " + minutes );
 			
 			if(minutes > 60)
 			{
