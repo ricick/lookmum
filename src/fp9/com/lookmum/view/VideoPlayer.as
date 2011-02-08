@@ -1,15 +1,19 @@
 package com.lookmum.view 
 {
 
+	import com.greensock.TweenMax;
 	import com.lookmum.events.DragEvent;
 	import com.lookmum.events.MediaPlayerEvent;
 	import com.lookmum.util.IMediaPlayer;
+	import com.lookmum.util.TimeCodeUtil;
 	import com.lookmum.view.FLVPlayer;
 	import com.lookmum.view.Slider;
 	import com.lookmum.view.ToggleButton;
 	import com.lookmum.view.VolumeSlider;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
+	import flash.text.TextField;
+	import flash.text.TextFieldAutoSize;
 	
 	[Event(name = 'end', type = 'com.lookmum.events.MediaPlayerEvent')]
 
@@ -23,9 +27,23 @@ package com.lookmum.view
 		protected var _playing:Boolean;
 		protected var _autoRewind:Boolean = true;
 		protected var _isComplete:Boolean;
-		private var volumeSlider:VolumeSlider;
+		protected var _isVerticalVolume:Boolean = true;
+		private var volumeSlider:VerticalVolumeSlider;
 		private var videoControlsFlag:Boolean = false;
 		private var videoSliderDisabled:Boolean;
+		private var volumeSliderBg:MovieClip;
+		private var volumeIcon:Button;
+		//protected var bounds:MovieClip;
+		private var _videoWidth:Number;
+		private var _videoHeight:Number;
+		private var isVolumeShowing:Boolean = false;
+		private var isPositionSet:Boolean = false;
+		private var volumeYPos:Number;
+		private var volumeBgYPos:Number;
+		private var timeDisplay:TextField;
+		//private var totalTime:TextField;
+		private var spinner:MovieClip;
+		private var player:MovieClip;
 		
 		public function VideoPlayer(target:MovieClip) 
 		{
@@ -35,6 +53,7 @@ package com.lookmum.view
 		{
 			mediaPlayer = getMediaPlayer();
 			mediaPlayer.addEventListener(MediaPlayerEvent.UPDATE, onUpdate);
+			mediaPlayer.addEventListener(MediaPlayerEvent.META_DATA, onMetaDataHandler);
 			mediaPlayer.addEventListener(MediaPlayerEvent.END, onEnd);
 			
 			if (target.getChildByName('videoControls'))
@@ -43,10 +62,12 @@ package com.lookmum.view
 				videoControls = getVideoControls();
 			}
 			
-			if (target.getChildByName('volumeSlider')) 
-			{
-				volumeSlider = new VolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
-			}
+			//if (target.getChildByName('volumeSlider')) 
+			//{
+			volumeSlider = getVolumeSlider();
+			volumeSlider.alpha = 0;
+			volumeSlider.visible = false;
+			//}
 			
 			if (target.getChildByName('buttonRewind'))
 			{
@@ -60,6 +81,34 @@ package com.lookmum.view
 			videoSlider.addEventListener(DragEvent.STOP, onStopDragSlider);
 			buttonPlayPause = getButtonPlayPause();
 			buttonPlayPause.addEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
+			volumeIcon = new Button(target.videoControls.volumeIcon);
+			volumeIcon.addEventListener(MouseEvent.CLICK, onIconClick);
+			volumeYPos = volumeSlider.y;
+			//bounds = target.bounds;
+			volumeSliderBg = target.videoControls.volumeSliderBg;
+			volumeSliderBg.alpha = 0;
+			volumeSliderBg.visible = false;
+			volumeBgYPos = volumeSliderBg.y;
+			timeDisplay = target.videoControls.timeDisplay;
+			timeDisplay.autoSize = TextFieldAutoSize.LEFT;
+			spinner = target.spinner;
+			player = target.getChildByName('flvPlayer') as MovieClip;
+		}
+		
+		private function onIconClick(e:MouseEvent):void 
+		{
+			if (isVolumeShowing)
+			{
+				isVolumeShowing = false;
+				TweenMax.to(volumeSliderBg, 0.2, { autoAlpha:0, y:volumeBgYPos + volumeSliderBg.height } );
+				TweenMax.to(volumeSlider, 0.2, { autoAlpha:0, y:volumeYPos + volumeSlider.height } );
+			}
+			else
+			{
+				isVolumeShowing = true;
+				TweenMax.to(volumeSliderBg, 0.2, { autoAlpha:1, y:volumeBgYPos } );
+				TweenMax.to(volumeSlider, 0.2, { autoAlpha:1, y:volumeYPos } );
+			}
 		}
 		
 		protected function getVolumeSlider():VerticalVolumeSlider 
@@ -205,10 +254,28 @@ package com.lookmum.view
 		protected function onUpdate(e:MediaPlayerEvent):void 
 		{
 			if (videoSlider.getIsDragging()) return;
-			//trace( "mediaPlayer.duration : " + mediaPlayer.duration );
+			
 			var level:Number = mediaPlayer.time / mediaPlayer.duration;
 			if (level > 1 || isNaN(level)) return;
 			videoSlider.level = (level);
+			
+			var milliSeconds:Number = e.time * 1000;
+			timeDisplay.text = TimeCodeUtil.toTimeCode(milliSeconds);
+			
+			dispatchEvent(e.clone());
+		}
+		
+		private function onMetaDataHandler(e:MediaPlayerEvent):void 
+		{
+			if (!isPositionSet)
+			{
+				isPositionSet = true;
+				onResize(e.metaData.videoWidth, e.metaData.videoHeight);
+				addEventListener(MouseEvent.ROLL_OVER, onRollOverPlayer);
+				addEventListener(MouseEvent.ROLL_OUT, onRollOutPlayer);
+				TweenMax.to(spinner, 0.2, { autoAlpha:0 } );
+			}
+						
 			dispatchEvent(e.clone());
 		}
 		
@@ -279,6 +346,59 @@ package com.lookmum.view
 		{
 			_autoRewind = value;
 		}
+		
+		private function onRollOutPlayer(e:MouseEvent):void 
+		{
+			videoControls.visible = false;
+			
+			if (isVolumeShowing)
+			{
+				isVolumeShowing = false;
+				TweenMax.to(volumeSliderBg, 0.2, { autoAlpha:0, y:volumeBgYPos + volumeSliderBg.height } );
+				TweenMax.to(volumeSlider, 0.2, { autoAlpha:0, y:volumeYPos + volumeSlider.height } );
+			}
+		}
+		
+		private function onRollOverPlayer(e:MouseEvent):void 
+		{
+			videoControls.visible = true;
+		}
+		
+		public function onResize(playerWidth:Number, playerHeight:Number):void
+		{
+			if (stage)
+			{
+				_videoWidth = playerWidth;
+				_videoHeight = playerHeight;
+				player.width = playerWidth;
+				player.height = playerHeight;
+				
+				videoControls.y = player.height - videoControls.height;
+				videoControls.x = 3;
+				var controlsBg:MovieClip = target.videoControls.controlsBg;
+				var slider:MovieClip = target.videoControls.videoSlider;
+				var playPause:MovieClip = target.videoControls.buttonPlayPause;
+				var volumeSlider:MovieClip = target.videoControls.volumeSlider;
+				var offset:Number = 60;
+				var nudgeOffset:Number = 5;
+				
+				slider.width = (player.width - playPause.width) - offset;
+				controlsBg.width = playerWidth;
+				videoControls.x = 0;
+				videoControls.y = (player.height - videoControls.height) + volumeSliderBg.height;
+				volumeIcon.x = playerWidth - (volumeIcon.width + nudgeOffset);
+				volumeSliderBg.x = playerWidth - volumeSliderBg.width;
+				volumeSlider.x = volumeSliderBg.x + nudgeOffset;
+				volumeSlider.y = volumeYPos + volumeSlider.height;
+				
+				timeDisplay.x = volumeSliderBg.x - (timeDisplay.width + 2);
+				
+				buttonRewind.x = playerWidth * 0.5;
+				buttonRewind.y = playerHeight * 0.5;
+			}
+		}
+		
+		
 		override public function get enabled():Boolean { return videoSlider.enabled; }
 		
 		override public function set enabled(value:Boolean):void 
@@ -293,6 +413,13 @@ package com.lookmum.view
 		public function set isComplete(value:Boolean):void 
 		{
 			_isComplete = value;
+		}
+		
+		public function get isVerticalVolume():Boolean { return _isVerticalVolume; }
+		
+		public function set isVerticalVolume(value:Boolean):void 
+		{
+			_isVerticalVolume = value;
 		}
 	}
 	
