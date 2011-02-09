@@ -62,12 +62,9 @@ package com.lookmum.view
 				videoControls = getVideoControls();
 			}
 			
-			//if (target.getChildByName('volumeSlider')) 
-			//{
 			volumeSlider = getVolumeSlider();
 			volumeSlider.alpha = 0;
 			volumeSlider.visible = false;
-			//}
 			
 			if (target.getChildByName('buttonRewind'))
 			{
@@ -93,6 +90,15 @@ package com.lookmum.view
 			timeDisplay.autoSize = TextFieldAutoSize.LEFT;
 			spinner = target.spinner;
 			player = target.getChildByName('flvPlayer') as MovieClip;
+			
+			setUpVideoControls();
+		}
+		
+		protected function setUpVideoControls():void
+		{
+			videoControls.visible = false;
+			buttonRewind.visible = false;
+			setAutoRewind(false);
 		}
 		
 		private function onIconClick(e:MouseEvent):void 
@@ -131,6 +137,7 @@ package com.lookmum.view
 		protected function onRewind(e:MouseEvent):void 
 		{
 			seek(0);
+			buttonRewind.visible = false;
 		}
 		override public function get visible():Boolean { return super.visible; }
 		
@@ -185,8 +192,16 @@ package com.lookmum.view
 				seek(0);
 			}
 			
+			onEndCallback();
 			dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.END));
 		}
+		
+		protected function onEndCallback():void
+		{
+			videoControls.visible = true;
+			buttonRewind.visible = true;
+		}
+		
 		/**
 		 * Disable the slider and flag it as not included in enabling/disabling children
 		 */
@@ -198,23 +213,9 @@ package com.lookmum.view
 				videoSliderDisabled = true;
 			}
 		}
-		/**
-		 * If the player is playing, then dragging will not stop the video. If it's already
-		 * paused, then it will not re-engage playback
-		 * Andrew Catchaturyan
-		 */
+		
 		protected function onStartDragSlider(e:DragEvent):void 
 		{
-			/*
-			if (_playing)
-			{
-				mediaPlayer.play();
-			}
-			else
-			{
-				mediaPlayer.pause();
-			}
-			*/
 			mediaPlayer.pause();
 		}
 		
@@ -249,6 +250,8 @@ package com.lookmum.view
 				mediaPlayer.play();
 				_playing = true;
 			}
+			
+			//buttonRewind.visible = false;
 		}
 		
 		protected function onUpdate(e:MediaPlayerEvent):void 
