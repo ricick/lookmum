@@ -23,7 +23,7 @@ package
 			vp = new StandardVideoPlayer(new updatedVideoPlayerClip());
 			addChild(vp);
 			
-			vp.load('video/s10_5_F8_Lg.flv', false);
+			vp.load('video/stockland_diversity_preview.flv', false);
 		}
 		
 	}

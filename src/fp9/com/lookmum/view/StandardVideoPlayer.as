@@ -5,6 +5,7 @@ package com.lookmum.view
 	import com.lookmum.events.DragEvent;
 	import com.lookmum.events.MediaPlayerEvent;
 	import com.lookmum.util.IMediaPlayer;
+	import com.lookmum.util.RadioGroupManager;
 	import com.lookmum.util.TimeCodeUtil;
 	import com.lookmum.view.FLVPlayer;
 	import com.lookmum.view.Slider;
@@ -25,17 +26,18 @@ package com.lookmum.view
 		private var videoControlsFlag:Boolean = false;
 		private var videoSliderDisabled:Boolean;
 		private var volumeSliderBg:MovieClip;
-		private var volumeIcon:Button;
+		private var volumeIcon:ToggleButton;
 		private var _videoWidth:Number;
 		private var _videoHeight:Number;
 		private var isVolumeShowing:Boolean = false;
+		private var isVolumeInteractive:Boolean = false;
 		private var isPositionSet:Boolean = false;
 		private var volumeYPos:Number;
 		private var volumeBgYPos:Number;
 		private var timeDisplay:TextField;
-		//private var totalTime:TextField;
 		private var spinner:MovieClip;
 		private var player:MovieClip;
+		private var controlsMasker:MovieClip;
 		
 		public function StandardVideoPlayer(target:MovieClip) 
 		{
@@ -47,14 +49,17 @@ package com.lookmum.view
 			super.createChildren();
 			
 			videoControls = getVideoControls();
+			controlsMasker = new MovieClip();
 			
 			volumeSlider = getVCVolumeSlider();
 			
 			volumeSlider.alpha = 0;
 			volumeSlider.visible = false;
 			
-			volumeIcon = new Button(target.videoControls.volumeIcon);
-			volumeIcon.addEventListener(MouseEvent.CLICK, onIconClick);
+			volumeIcon = new ToggleButton(target.videoControls.volumeIcon);
+			volumeIcon.addEventListener(MouseEvent.MOUSE_UP, onIconUp);
+			volumeIcon.addEventListener(MouseEvent.MOUSE_OVER, onIconOver);
+			volumeIcon.addEventListener(MouseEvent.MOUSE_OUT, onIconOut);
 			volumeYPos = volumeSlider.y;
 			volumeSliderBg = target.videoControls.volumeSliderBg;
 			volumeSliderBg.alpha = 0;
@@ -65,10 +70,35 @@ package com.lookmum.view
 			spinner = target.spinner;
 			
 			player = target.getChildByName('flvPlayer') as MovieClip;
-			
 			mediaPlayer.addEventListener(MediaPlayerEvent.META_DATA, onMetaDataHandler);
 			
 			setUpVideoControls();
+		}
+		
+		private function onIconUp(e:MouseEvent):void 
+		{
+			if (!e.target.toggle)
+			{
+				if (stage.hasEventListener(MouseEvent.MOUSE_MOVE))
+				{
+					stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+				}
+				volumeIcon.removeEventListener(MouseEvent.MOUSE_OVER, onIconOver);
+				volumeIcon.removeEventListener(MouseEvent.MOUSE_OUT, onIconOut);
+				TweenMax.to(volumeSliderBg, 0.2, { autoAlpha:0, y:volumeBgYPos + volumeSliderBg.height } );
+				TweenMax.to(volumeSlider, 0.2, { autoAlpha:0, y:volumeYPos + volumeSlider.height } );
+				
+				volumeSlider.level = 0;
+			}
+			else
+			{
+				stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+				
+				TweenMax.to(volumeSliderBg, 0.2, { autoAlpha:1, y:volumeBgYPos } );
+				TweenMax.to(volumeSlider, 0.2, { autoAlpha:1, y:volumeYPos } );
+				
+				volumeSlider.level = 0.5;
+			}
 		}
 		
 		protected function setUpVideoControls():void
@@ -79,19 +109,49 @@ package com.lookmum.view
 			setAutoRewind(false);
 		}
 		
-		private function onIconClick(e:MouseEvent):void 
+		private function onIconOut(e:MouseEvent):void 
 		{
-			if (isVolumeShowing)
+			hideVolume();
+		}
+		
+		private function onIconOver(e:MouseEvent):void 
+		{
+			showVolume();
+		}
+		
+		private function hideVolume():void
+		{
+			isVolumeShowing = false;
+			TweenMax.to(volumeSliderBg, 0.2, { autoAlpha:0, y:volumeBgYPos + volumeSliderBg.height } );
+			TweenMax.to(volumeSlider, 0.2, { autoAlpha:0, y:volumeYPos + volumeSlider.height, onComplete: volumeHidden } );
+		}
+		
+		private function showVolume():void
+		{
+			isVolumeShowing = true;
+			TweenMax.to(volumeSliderBg, 0.2, { autoAlpha:1, y:volumeBgYPos } );
+			TweenMax.to(volumeSlider, 0.2, { autoAlpha:1, y:volumeYPos, onComplete:volumeShown } );
+		}
+		
+		private function volumeHidden():void 
+		{
+			volumeIcon.addEventListener(MouseEvent.MOUSE_OVER, onIconOver);
+			volumeIcon.addEventListener(MouseEvent.MOUSE_OUT, onIconOut);
+			stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+		}
+		
+		private function volumeShown():void 
+		{
+			volumeIcon.removeEventListener(MouseEvent.MOUSE_OVER, onIconOver);
+			volumeIcon.removeEventListener(MouseEvent.MOUSE_OUT, onIconOut);
+			stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+		}
+		
+		private function onMouseMove(e:MouseEvent):void 
+		{
+			if (!volumeSliderBg.hitTestPoint(mouseX, mouseY))
 			{
-				isVolumeShowing = false;
-				TweenMax.to(volumeSliderBg, 0.2, { autoAlpha:0, y:volumeBgYPos + volumeSliderBg.height } );
-				TweenMax.to(volumeSlider, 0.2, { autoAlpha:0, y:volumeYPos + volumeSlider.height } );
-			}
-			else
-			{
-				isVolumeShowing = true;
-				TweenMax.to(volumeSliderBg, 0.2, { autoAlpha:1, y:volumeBgYPos } );
-				TweenMax.to(volumeSlider, 0.2, { autoAlpha:1, y:volumeYPos } );
+				hideVolume();
 			}
 		}
 		
@@ -158,8 +218,9 @@ package com.lookmum.view
 			videoSlider.level = (level);
 			
 			var milliSeconds:Number = e.time * 1000;
-			timeDisplay.text = TimeCodeUtil.toTimeCode(milliSeconds);
-			
+			var duration:Number = mediaPlayer.duration * 1000;
+			var timeDiff:Number = duration - milliSeconds;
+			timeDisplay.text = TimeCodeUtil.toTimeCode(timeDiff);
 			dispatchEvent(e.clone());
 		}
 		
@@ -196,27 +257,34 @@ package com.lookmum.view
 		
 		public function onResize(playerWidth:Number, playerHeight:Number):void
 		{
+			var duration:Number = mediaPlayer.duration * 1000;
+			timeDisplay.text = TimeCodeUtil.toTimeCode(duration);
+			
 			if (stage)
 			{
 				_videoWidth = playerWidth;
 				_videoHeight = playerHeight;
 				player.width = playerWidth;
 				player.height = playerHeight;
-			
+				controlsMasker.graphics.beginFill(0x00ff00, 0);
+				controlsMasker.graphics.drawRect(0, 0, playerWidth, playerHeight);
+				controlsMasker.graphics.endFill();
+				
 				videoControls.y = player.height - videoControls.height;
 				videoControls.x = 3;
+				videoControls.mask = controlsMasker;
 				var controlsBg:MovieClip = target.videoControls.controlsBg;
 				var slider:MovieClip = target.videoControls.videoSlider;
 				var playPause:MovieClip = target.videoControls.buttonPlayPause;
 				var volumeSlider:MovieClip = target.videoControls.volumeSlider;
-				var offset:Number = 60;
+				var offset:Number = 70;
 				var nudgeOffset:Number = 5;
 				
 				slider.width = (player.width - playPause.width) - offset;
 				controlsBg.width = playerWidth;
 				videoControls.x = 0;
-				videoControls.y = (player.height - videoControls.height) + volumeSliderBg.height;
-				volumeIcon.x = playerWidth - (volumeIcon.width + nudgeOffset);
+				videoControls.y = (player.height - videoControls.height) + 74;
+				volumeIcon.x = playerWidth - (volumeIcon.width);
 				volumeSliderBg.x = playerWidth - volumeSliderBg.width;
 				volumeSlider.x = volumeSliderBg.x + nudgeOffset;
 				volumeSlider.y = volumeYPos + volumeSlider.height;
