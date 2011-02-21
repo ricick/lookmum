@@ -295,6 +295,26 @@ package com.lookmum.view
 				buttonRewind.y = playerHeight * 0.5;
 			}
 		}
+		
+		public function get videoWidth():Number 
+		{
+			return _videoWidth;
+		}
+		
+		public function set videoWidth(value:Number):void 
+		{
+			_videoWidth = value;
+		}
+		
+		public function get videoHeight():Number 
+		{
+			return _videoHeight;
+		}
+		
+		public function set videoHeight(value:Number):void 
+		{
+			_videoHeight = value;
+		}
 	}
 	
 }
