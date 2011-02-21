@@ -35,7 +35,7 @@ package com.lookmum.view{
 			this.tab.addEventListener(DragEvent.STOP, onStopDrag);
 			
 			this.tab.tabEnabled = (false);
-			this.track.addEventListener(MouseEvent.MOUSE_UP,onReleaseTrack);
+			this.track.addEventListener(MouseEvent.MOUSE_UP, onReleaseTrack);
 			this.track.tabEnabled = (false);
 			addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
 			
