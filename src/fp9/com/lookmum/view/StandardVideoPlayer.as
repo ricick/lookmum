@@ -38,6 +38,7 @@ package com.lookmum.view
 		private var spinner:MovieClip;
 		private var player:MovieClip;
 		private var controlsMasker:MovieClip;
+		private var _autosize:Boolean = true;
 		
 		public function StandardVideoPlayer(target:MovieClip) 
 		{
@@ -68,13 +69,18 @@ package com.lookmum.view
 			timeDisplay = target.videoControls.timeDisplay;
 			timeDisplay.autoSize = TextFieldAutoSize.LEFT;
 			spinner = target.spinner;
-			
+			spinner.visible = false;
 			player = target.getChildByName('flvPlayer') as MovieClip;
 			mediaPlayer.addEventListener(MediaPlayerEvent.META_DATA, onMetaDataHandler);
 			
 			setUpVideoControls();
 		}
-		
+		override public function load(url:String, autoPlay:Boolean = true):void 
+		{
+			spinner.visible = true;
+			buttonRewind.visible = false;
+			super.load(url, autoPlay);
+		}
 		private function onIconUp(e:MouseEvent):void 
 		{
 			if (!e.target.toggle)
@@ -229,7 +235,7 @@ package com.lookmum.view
 			if (!isPositionSet)
 			{
 				isPositionSet = true;
-				onResize(e.metaData.videoWidth, e.metaData.videoHeight);
+				if (autosize) onResize(e.metaData.videoWidth, e.metaData.videoHeight);
 				addEventListener(MouseEvent.ROLL_OVER, onRollOverPlayer);
 				addEventListener(MouseEvent.ROLL_OUT, onRollOutPlayer);
 				TweenMax.to(spinner, 0.2, { autoAlpha:0 } );
@@ -314,6 +320,16 @@ package com.lookmum.view
 		public function set videoHeight(value:Number):void 
 		{
 			_videoHeight = value;
+		}
+		
+		public function get autosize():Boolean 
+		{
+			return _autosize;
+		}
+		
+		public function set autosize(value:Boolean):void 
+		{
+			_autosize = value;
 		}
 	}
 	
