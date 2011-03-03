@@ -45,6 +45,8 @@ package  com.lookmum.view {
 				scaleY = 1;
 				height = tempHeight;
 			}
+			tabEnabled = false;
+			tabChildren = false;
 		}
 		
 		private function onMouseWheel(e:MouseEvent):void 
