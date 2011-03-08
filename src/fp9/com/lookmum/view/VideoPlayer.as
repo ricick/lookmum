@@ -132,21 +132,18 @@ package com.lookmum.view
 		{
 			if (_playing)
 			{
-				_playing = false;
-				mediaPlayer.pause();
+				pause();
 			}
 			else 
 			{
-				_playing = true;
-				mediaPlayer.play();
+				play();
 			}
 			
 			if (isComplete)
 			{
 				isComplete = false;
 				seek(0);
-				mediaPlayer.play();
-				_playing = true;
+				play();
 			}
 		}
 		
