@@ -61,6 +61,7 @@ package com.lookmum.view
 		protected function onRewind(e:MouseEvent):void 
 		{
 			seek(0);
+			play();
 		}
 		override public function get visible():Boolean { return super.visible; }
 		
@@ -171,6 +172,7 @@ package com.lookmum.view
 			_playing = true;
 			mediaPlayer.play();
 			buttonPlayPause.toggle = (false);
+			buttonRewind.visible = false;
 		}
 		
 		public function pause():void
