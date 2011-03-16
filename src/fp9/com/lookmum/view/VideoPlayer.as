@@ -19,9 +19,10 @@ package com.lookmum.view
 		
 		protected var mediaPlayer:IMediaPlayer;
 		protected var videoSlider:Slider;
-		private var volumeSlider:VolumeSlider;
+		protected var volumeSlider:VolumeSlider;
 		protected var buttonPlayPause:ToggleButton;
 		protected var buttonRewind:Button;
+		protected var buttonFastForward:Button;
 		protected var _playing:Boolean;
 		protected var _autoRewind:Boolean = true;
 		private var videoSliderDisabled:Boolean;
@@ -37,25 +38,44 @@ package com.lookmum.view
 			mediaPlayer = getMediaPlayer();
 			mediaPlayer.addEventListener(MediaPlayerEvent.UPDATE, onUpdate);
 			mediaPlayer.addEventListener(MediaPlayerEvent.END, onEnd);
-			
-			if (target.getChildByName('volumeSlider')) volumeSlider = new VolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
+			volumeSlider = getVolumeSlider();
 			if (volumeSlider)
 			{
-				volumeSlider.alpha = 0;
-				volumeSlider.visible = false;
 			}
-			
-			if (target.getChildByName('buttonRewind'))
+			buttonRewind = getButtonRewind()
+			if (buttonRewind)
 			{
-				buttonRewind = getButtonRewind();
 				buttonRewind.addEventListener(MouseEvent.CLICK, onRewind);
 			}
+			buttonFastForward = getButtonFastForward();
+			if (buttonFastForward)
+			{
+				buttonFastForward.addEventListener(MouseEvent.CLICK, onFastForward);
+			}
 			videoSlider = getSlider();
-			videoSlider.addEventListener(DragEvent.START, onStartDragSlider);
-			videoSlider.addEventListener(DragEvent.DRAG, onDragSlider);
-			videoSlider.addEventListener(DragEvent.STOP, onStopDragSlider);
+			if (videoSlider)
+			{
+				videoSlider.addEventListener(DragEvent.START, onStartDragSlider);
+				videoSlider.addEventListener(DragEvent.DRAG, onDragSlider);
+				videoSlider.addEventListener(DragEvent.STOP, onStopDragSlider, true);
+			}
 			buttonPlayPause = getButtonPlayPause();
-			buttonPlayPause.addEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
+			if (buttonPlayPause)
+			{
+				buttonPlayPause.addEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
+			}
+		}
+		
+		private function onFastForward(e:MouseEvent):void 
+		{
+			pause();
+			if (_autoRewind)
+			{
+				seek(0);
+			}else {
+				seek(duration);
+			}
+			dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.END));
 		}
 		
 		protected function onRewind(e:MouseEvent):void 
@@ -78,17 +98,31 @@ package com.lookmum.view
 		
 		protected function getSlider():Slider
 		{
+			if (!target.getChildByName('videoSlider')) return null;
 			return new Slider(target.getChildByName('videoSlider') as MovieClip);
 		}
 		
 		protected function getButtonPlayPause():ToggleButton
 		{
+			if (!target.getChildByName('buttonPlayPause')) return null;
 			return new ToggleButton(target.getChildByName('buttonPlayPause') as MovieClip);
 		}
 		
 		protected function getButtonRewind():Button
 		{
+			if (!target.getChildByName('buttonRewind')) return null;
 			return new Button(target.getChildByName('buttonRewind') as MovieClip);
+		}
+		
+		protected function getButtonFastForward():Button
+		{
+			if (!target.getChildByName('buttonFastForward')) return null;
+			return new Button(target.getChildByName('buttonFastForward') as MovieClip);
+		}
+		protected function getVolumeSlider():VolumeSlider
+		{
+			if (!target.getChildByName('volumeSlider')) return null;
+			return new VolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
 		}
 		
 		protected function onEnd(e:MediaPlayerEvent):void 
@@ -100,6 +134,7 @@ package com.lookmum.view
 			{
 				seek(0);
 			}
+			dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.STOP));
 			dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.END));
 		}
 		/**
@@ -124,6 +159,7 @@ package com.lookmum.view
 		}
 		protected function onStopDragSlider(e:DragEvent):void 
 		{
+			e.preventDefault();
 			if (!_playing) return;
 			mediaPlayer.play();
 		}
@@ -158,10 +194,12 @@ package com.lookmum.view
 		
 		public function load(url:String, autoPlay:Boolean = true):void
 		{
+			isComplete = false;
 			videoSlider.level = (0);
 			_playing = autoPlay;
 			mediaPlayer.load(url, autoPlay);
 			buttonPlayPause.toggle = (!autoPlay);
+			if(autoPlay)dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.PLAY));
 		}
 		
 		override public function play():void
@@ -169,13 +207,15 @@ package com.lookmum.view
 			_playing = true;
 			mediaPlayer.play();
 			buttonPlayPause.toggle = (false);
-			buttonRewind.visible = false;
+			dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.PLAY));
 		}
 		
 		public function pause():void
 		{
 			_playing = false;
+			trace( "_playing : " + _playing );
 			mediaPlayer.pause();
+			dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.STOP));
 		}
 		
 		public function get playing():Boolean
@@ -216,11 +256,11 @@ package com.lookmum.view
 			mediaPlayer.bufferTime = (value);
 		}
 		
-		public function getAutoRewind():Boolean {
+		public function get autoRewind():Boolean {
 			return _autoRewind;
 		}
 		
-		public function setAutoRewind(value:Boolean):void 
+		public function set autoRewind(value:Boolean):void 
 		{
 			_autoRewind = value;
 		}
