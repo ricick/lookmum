@@ -36,6 +36,7 @@ package com.lookmum.view
 		}
 		protected function getHitspot():MovieClip
 		{
+			if (target.hitspot) return target.hitspot;
 			return target;
 		}
 		/**
