@@ -14,10 +14,15 @@ package com.lookmum.view
 	{
 		private var _out:Signal;
 		protected var transitioning:Boolean;
-		protected static const MIN_IN_TIME:Number = 1;
-		protected static const MAX_IN_TIME:Number = 2;
-		protected static const MIN_OUT_TIME:Number = 1;
-		protected static const MAX_OUT_TIME:Number = 1.5;
+		private static const MIN_IN_TIME:Number = 1;
+		private static const MAX_IN_TIME:Number = 2;
+		private static const MIN_OUT_TIME:Number = 1;
+		private static const MAX_OUT_TIME:Number = 1.5;
+		public var minInTime:Number = MIN_IN_TIME;
+		public var maxInTime:Number = MAX_IN_TIME;
+		public var minOutTime:Number = MIN_OUT_TIME;
+		public var maxOutTime:Number = MAX_OUT_TIME;
+		private var _time:Number;
 		public function TransitionerDecorator(target:MovieClip) 
 		{
 			super(target);
@@ -29,7 +34,7 @@ package com.lookmum.view
 			reset();
 			transitioning = true;
 			target.alpha = 0;
-			var time:Number = MIN_IN_TIME + (Math.random() * (MAX_IN_TIME-MIN_IN_TIME));
+			var time:Number = MIN_IN_TIME + (Math.random() * (maxInTime-minInTime));
 			Tweener.addTween(target, { 
 				alpha: 1,
 				time: time,
@@ -43,7 +48,7 @@ package com.lookmum.view
 			reset();
 			transitioning = true;
 			if (!target.visible) return out.dispatch();
-			var time:Number = MIN_OUT_TIME + (Math.random() * (MAX_OUT_TIME-MIN_OUT_TIME));
+			var time:Number = MIN_OUT_TIME + (Math.random() * (maxOutTime-minOutTime));
 			Tweener.addTween(target, { 
 				alpha:0, 
 				time: time,
@@ -70,6 +75,20 @@ package com.lookmum.view
 		public function set out(value:Signal):void 
 		{
 			_out = value;
+		}
+		
+		public function get time():Number 
+		{
+			return _time;
+		}
+		
+		public function set time(value:Number):void 
+		{
+			_time = value;
+			minInTime = time;
+			maxInTime = time;
+			minOutTime = time;
+			maxOutTime = time;
 		}
 		override public function destroy():void 
 		{
