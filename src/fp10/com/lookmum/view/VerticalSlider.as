@@ -15,7 +15,6 @@ package com.lookmum.view
 		public function VerticalSlider(target:MovieClip) 
 		{
 			super(target);
-			
 		}
 	
 		override protected function getDragBounds():Rectangle 
@@ -27,8 +26,8 @@ package com.lookmum.view
 		{
 			this.tab.y = (mouseY + ( this.tab.height / 2 ));
 			
-			if (this.tab.y < this.tab.dragBounds.bottom) this.tab.y = (this.tab.dragBounds.bottom);
-			if (this.tab.y > this.tab.dragBounds.top) this.tab.y = (this.tab.dragBounds.top);
+			if (this.tab.y > this.tab.dragBounds.bottom) this.tab.y = (this.tab.dragBounds.bottom);
+			if (this.tab.y < this.tab.dragBounds.top) this.tab.y = (this.tab.dragBounds.top);
 			
 			if (bar)
 			{

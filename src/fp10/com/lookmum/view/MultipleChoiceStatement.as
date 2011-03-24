@@ -25,7 +25,7 @@ package com.lookmum.view
 		{
 			_choiceVO = value;
 			
-			htmlText = value.statement;
+			htmlText = value.text;
 		}
 		
 		public function get isCorrect():Boolean { return _isCorrect; }
