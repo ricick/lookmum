@@ -185,7 +185,7 @@ package com.lookmum.view
 		
 		protected function onUpdate(e:MediaPlayerEvent):void 
 		{
-			if (videoSlider.getIsDragging()) return;
+			if (videoSlider && videoSlider.getIsDragging()) return;
 			var level:Number = mediaPlayer.time / mediaPlayer.duration;
 			if (level > 1 || isNaN(level)) return;
 			videoSlider.level = (level);
@@ -195,7 +195,7 @@ package com.lookmum.view
 		public function load(url:String, autoPlay:Boolean = true):void
 		{
 			isComplete = false;
-			videoSlider.level = (0);
+			if(videoSlider)videoSlider.level = (0);
 			_playing = autoPlay;
 			mediaPlayer.load(url, autoPlay);
 			buttonPlayPause.toggle = (!autoPlay);
@@ -231,7 +231,7 @@ package com.lookmum.view
 		public function seek(time:Number):void
 		{
 			mediaPlayer.seek(time);
-			videoSlider.level = (time/mediaPlayer.duration);
+			if(videoSlider)videoSlider.level = (time/mediaPlayer.duration);
 		}
 		
 		public function get loadLevel():Number{
@@ -243,7 +243,7 @@ package com.lookmum.view
 		}
 		public function clear():void
 		{
-			videoSlider.level = (0);
+			if(videoSlider)videoSlider.level = (0);
 			mediaPlayer.clear();
 			buttonPlayPause.toggle = (true);
 		}
@@ -268,9 +268,11 @@ package com.lookmum.view
 		
 		override public function set enabled(value:Boolean):void 
 		{
-			videoSlider.enabled = value;
-			buttonPlayPause.enabled = value;
+			if (videoSlider) videoSlider.enabled = value;
+			if (buttonPlayPause) buttonPlayPause.enabled = value;
 			if (buttonRewind) buttonRewind.enabled = value;
+			if (buttonFastForward) buttonFastForward.enabled = value;
+			if (volumeSlider) volumeSlider.enabled = value;
 		}
 		
 		public function get isComplete():Boolean { return _isComplete; }

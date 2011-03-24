@@ -13,7 +13,7 @@ package com.lookmum.view{
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 
-	public class DragButton extends Button{
+	public class DragButton extends Button implements IDraggable{
 		private var _lockCenter:Boolean;
 		private var _dragBounds:Rectangle;
 		

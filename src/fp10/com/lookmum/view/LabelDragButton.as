@@ -1,10 +1,5 @@
-package com.lookmum.view{
-	/**
-	* Description here..
-	* @author Default
-	* @version 0.1
-	*/
-
+package com.lookmum.view 
+{
 	import com.lookmum.events.ComponentEvent;
 	import com.lookmum.events.DragEvent;
 	import com.lookmum.events.InteractiveComponentEvent;
@@ -12,12 +7,17 @@ package com.lookmum.view{
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
-
-	public class DragButton extends Button implements IDraggable{
+	
+	/**
+	 * ...
+	 * @author Phil Douglas
+	 */
+	public class LabelDragButton extends LabelButton implements IDraggable
+	{
 		private var _lockCenter:Boolean;
 		private var _dragBounds:Rectangle;
 		
-		public function DragButton(target:MovieClip) 
+		public function LabelDragButton(target:MovieClip) 
 		{
 			super(target);
 			addEventListener(MouseEvent.MOUSE_DOWN,doStartDrag);
@@ -25,6 +25,7 @@ package com.lookmum.view{
 			addEventListener(MouseEvent.MOUSE_OVER,onRollOverDrag);
 			addEventListener(MouseEvent.MOUSE_OUT, onRollOutDrag);
 			addEventListener(InteractiveComponentEvent.MOUSE_UP_OUTSIDE, doStopDrag);
+			
 		}
 		/**
 		 * Bubble event for cursors
@@ -77,5 +78,7 @@ package com.lookmum.view{
 		{
 			_dragBounds = value;
 		}
+		
 	}
+
 }

@@ -18,6 +18,9 @@ package com.lookmum.view{
 		protected var track:Button;
 		private var _dragging:Boolean = false;
 		protected var bar:MovieClip;
+		private var _vertical:Boolean;
+		private var tabStartX:Number;
+		private var tabStartY:Number;
 		public function Slider (target:MovieClip)
 		{
 			super (target);
@@ -25,9 +28,10 @@ package com.lookmum.view{
 		override protected function createChildren():void 
 		{
 			super.createChildren();
-			
-			this.track = new Button(target.getChildByName('track') as MovieClip);
-			this.tab = new DragButton(target.getChildByName('tab') as MovieClip);
+			this.track = createTrack();
+			this.tab = createTab();
+			tabStartX = tab.x;
+			tabStartY = tab.y;
 			this.tab.dragBounds = getDragBounds();
 			
 			this.tab.addEventListener(DragEvent.START, onStartDrag);
@@ -39,16 +43,29 @@ package com.lookmum.view{
 			this.track.tabEnabled = (false);
 			addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
 			
-			if (target.bar)
+			bar = createBar();
+			if (bar)
 			{
-				bar = target.bar;
 				bar.mouseEnabled = false;
 			}
+		}
+		protected function createTrack():Button {
+			return new Button(target.getChildByName('track') as MovieClip);
+		}
+		protected function createTab():DragButton {
+			return new DragButton(target.getChildByName('tab') as MovieClip);
+		}
+		protected function createBar():MovieClip {
+			return target.bar;
 		}
 		
 		protected function getDragBounds():Rectangle
 		{
+			if (vertical) {
+				return new Rectangle(this.tab.x, this.track.y, 0, this.track.height - this.tab.height);
+			}else{
 			return new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0);
+		}
 		}
 		
 		public function getTrack():Button {
@@ -67,17 +84,36 @@ package com.lookmum.view{
 		protected function onMouseWheel(event:MouseEvent):void
 		{
 			var delta:int = event.delta;
+			if (vertical) {
+				var destY:Number = this.tab.y - delta;
+				if(destY < track.y) destY = track.y;
+				if(destY > track.y + track.height - tab.height)destY = track.y + track.height - tab.height;
+				this.tab.y = (destY);
+				
+				if (bar)
+				{
+					updateBar();
+				}
+			}else{
 			var destX:Number = this.tab.x+delta
 			if(destX<track.x)destX = track.x;
 			if(destX > track.x + track.width - tab.width)destX = track.x + track.width - tab.width;
 			this.tab.x = (destX);
 			if (bar)
 			{
-				bar.width = destX - bar.x + tab.width;
+					updateBar();
+				}
 			}
 			this.dispatchEvent(new Event(Event.CHANGE));
 		}
-		
+		private function updateBar():void{
+			if (vertical) {
+				bar.y = tab.y;
+				bar.height = track.height - tab.y;
+			}else {
+				bar.width = tab.x - bar.x + tab.width;
+			}
+		}
 		protected function onStartDrag(event:DragEvent):void
 		{
 			this.dispatchEvent(new DragEvent(DragEvent.START));
@@ -88,9 +124,16 @@ package com.lookmum.view{
 		{
 			this.dispatchEvent(new DragEvent(DragEvent.DRAG));
 			this.dispatchEvent(new Event(Event.CHANGE));
+			if (vertical) {
 			if (bar)
 			{
-				bar.width = tab.x - bar.x + tab.width;
+					updateBar();
+				}
+			}else{
+				if (bar)
+				{
+					updateBar();
+				}
 			}
 		}
 		
@@ -102,8 +145,11 @@ package com.lookmum.view{
 		
 		override public function set width(value:Number):void
 		{
+			if (vertical) {
+				super.width = value;
+			}else{
 			this.track.width = (value);
-			this.tab.dragBounds = (new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0));
+				this.tab.dragBounds = getDragBounds();
 			
 			if (tab.x > this.track.width - this.tab.width) 
 			{
@@ -111,9 +157,30 @@ package com.lookmum.view{
 				this.dispatchEvent(new Event(Event.CHANGE));
 			}
 		}
+		}
 		override public function get width():Number
 		{
 			return track.width;
+		}
+		override public function set height(value:Number):void 
+		{
+			if (vertical) {
+				this.track.height = (value);
+				this.tab.dragBounds = (new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0));
+				
+				if (tab.y > this.track.height - this.tab.height) 
+				{
+					tab.y = this.track.height - this.tab.height;
+					this.dispatchEvent(new Event(Event.CHANGE));
+				}
+			}else{
+				super.height = value;
+			}
+		}
+		
+		override public function get height():Number 
+		{ 
+			return track.height;
 		}
 		
 		override public function get enabled():Boolean { return super.enabled; }
@@ -146,28 +213,63 @@ package com.lookmum.view{
 		
 		public function set level(value:Number):void 
 		{
+			if (vertical) {
+					
+				if (value > 1 ) value = 1;
+				if (value < 0) value = 0;
+				
+				this.tab.y = (this.track.y +(this.track.height-this.tab.height) * (1 - value));
+				
+				if (bar)
+				{
+					updateBar();
+				}
+			}else {
 			if(value>1)value = 1;
 			if(value<0)value = 0;
 			this.tab.x = (this.track.x +(this.track.width-this.tab.width) * value);
 			if (bar)
 			{
-				bar.width = tab.x - bar.x + tab.width;
+					updateBar();
+				}
+				
 			}
 		}
 		
 		public function get level():Number 
 		{
+			if (vertical) {
+				trace( "this.tab.height : " + this.tab.height );
+				trace( "this.track.height : " + this.track.height );
+				trace( "this.track.y : " + this.track.y );
+				trace( "this.tab.y : " + this.tab.y );
+				return 1 - ((this.tab.y - this.track.y) / (this.track.y + (this.track.height - this.tab.height)));
+			}else{
 			return (this.tab.x-this.track.x)/(this.track.x+(this.track.width-this.tab.width));
+		}
 		}
 		
 		protected function onReleaseTrack(event:MouseEvent):void
 		{
+			if (vertical) {
+				
+				this.tab.y = (mouseY + ( this.tab.height / 2 ));
+				
+				if (this.tab.y > this.tab.dragBounds.bottom) this.tab.y = (this.tab.dragBounds.bottom);
+				if (this.tab.y < this.tab.dragBounds.top) this.tab.y = (this.tab.dragBounds.top);
+				
+				if (bar)
+				{
+					updateBar();
+				}
+			}else{
 			this.tab.x = (mouseX-(this.tab.width/2));
 			if(this.tab.x<this.tab.dragBounds.left)this.tab.x = (this.tab.dragBounds.left);
 			if(this.tab.x>this.tab.dragBounds.right)this.tab.x = (this.tab.dragBounds.right);
 			if (bar)
 			{
-				bar.width = tab.x - bar.x + tab.width;
+					updateBar();
+				}
 			}
 			this.dispatchEvent(new DragEvent(DragEvent.DRAG));
 			this.dispatchEvent(new DragEvent(DragEvent.STOP));
@@ -182,6 +284,20 @@ package com.lookmum.view{
 		}
 		override public function get doubleClickEnabled():Boolean {
 			return this.tab.doubleClickEnabled;
+		}
+		
+		public function get vertical():Boolean 
+		{
+			return _vertical;
+		}
+		
+		public function set vertical(value:Boolean):void 
+		{
+			_vertical = value;
+			tab.x = tabStartX;
+			tab.y = tabStartY;
+			this.tab.dragBounds = getDragBounds();
+			level = this.level;
 		}
 		override public function getIsFocus():Boolean {
 			return this.tab.getIsFocus();

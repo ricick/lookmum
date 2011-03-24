@@ -34,9 +34,16 @@ package com.lookmum.view{
 		}
 		override protected function onMouseUp(e:MouseEvent):void 
 		{
+			var out:Boolean = isMouseOutside;
 			super.onMouseUp(e);
 			if (!enabled) return;
-			if (toggle) target.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+			if (toggle) 
+			{
+				if (out)
+					target.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+				else
+					target.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+			}
 		}
 		override protected function onMouseDown(e:MouseEvent):void 
 		{

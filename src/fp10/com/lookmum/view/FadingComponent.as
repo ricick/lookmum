@@ -15,7 +15,8 @@ import flash.display.MovieClip;
 public class FadingComponent extends Component{
 
 	protected var tweenDecorator:TweenableComponent;
-	public function FadingComponent(target:MovieClip) {
+	public function FadingComponent(target:MovieClip) 
+	{
 		super(target);
 	}
 	override protected function createChildren():void 
