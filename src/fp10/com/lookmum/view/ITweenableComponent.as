@@ -1,4 +1,3 @@
-
 package com.lookmum.view 
 {
 	import com.eclecticdesignstudio.motion.easing.IEasing;
