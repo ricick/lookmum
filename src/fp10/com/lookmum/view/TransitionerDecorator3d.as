@@ -30,7 +30,7 @@ package com.lookmum.view
 			reset();
 			transitioning = true;
 			target.alpha = 0;
-			var time:Number = MIN_IN_TIME + (Math.random() * (MAX_IN_TIME-MIN_IN_TIME));
+			var time:Number = minInTime + (Math.random() * (maxInTime-minInTime));
 			cacheX = target.x;
 			cacheY = target.y;
 			cacheZ = target.z;
@@ -74,7 +74,7 @@ package com.lookmum.view
 			cacheZ = target.z;
 			cacheRotationX = target.rotationX;
 			cacheRotationY = target.rotationY;
-			var time:Number = MIN_OUT_TIME + (Math.random() * (MAX_OUT_TIME-MIN_OUT_TIME));
+			var time:Number = minOutTime + (Math.random() * (maxOutTime-minOutTime));
 			var x:Number = target.x;
 			var y:Number = target.y;
 			var z:Number = target.z;
