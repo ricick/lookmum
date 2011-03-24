@@ -17,6 +17,7 @@ package com.lookmum.view{
 	
 	public class FLVPlayer extends Component implements IMediaPlayer
 	{
+		public var loop:Boolean;
 		protected var videoArea:Video;
 		private var _url:String;
 		private var _netStream:NetStream;
@@ -177,6 +178,10 @@ package com.lookmum.view{
 				case 'NetStream.Play.Stop':
 				pause();
 				dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.END));
+				if (loop) {
+					seek(0);
+					play();
+				}
 				break;
 				case 'NetStream.Buffer.Full':
 				
