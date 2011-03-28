@@ -57,7 +57,7 @@ package com.lookmum.view
 			{
 				videoSlider.addEventListener(DragEvent.START, onStartDragSlider);
 				videoSlider.addEventListener(DragEvent.DRAG, onDragSlider);
-				videoSlider.addEventListener(DragEvent.STOP, onStopDragSlider, true);
+				videoSlider.addEventListener(DragEvent.STOP, onStopDragSlider);
 			}
 			buttonPlayPause = getButtonPlayPause();
 			if (buttonPlayPause)
@@ -213,7 +213,7 @@ package com.lookmum.view
 		public function pause():void
 		{
 			_playing = false;
-			trace( "_playing : " + _playing );
+			//trace( "_playing : " + _playing );
 			mediaPlayer.pause();
 			dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.STOP));
 		}
