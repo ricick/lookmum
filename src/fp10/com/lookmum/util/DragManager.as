@@ -16,6 +16,7 @@ package com.lookmum.util
 	public class DragManager 
 	{
 		public var drop:Signal = new Signal(IDraggable, Boolean);
+		public var overlap:Signal = new Signal(IDraggable);
 		
 		private var dragItems:Array;
 		private var dropLocations:Array;
@@ -92,6 +93,8 @@ package com.lookmum.util
 					dropping = true;
 					moveDragItemToDropLocation(dragItem, dropLocation);
 					drop.dispatch(dragItem, true);
+				} else {
+					overlap.dispatch(dragItem, dropLocation);
 				}
 			}
 			//if not dropped check if previous drop location and move there
