@@ -20,6 +20,8 @@ package
 		{
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			var scrollBar1:ScrollBar = new ScrollBar(new scrollBarClip());
+			scrollBar1.tabEnabled = false;
+			scrollBar1.tabChildren = false;
 			var textField:TextField  = new TextField();
 			textField.height = scrollBar1.height;
 			textField.wordWrap = true;

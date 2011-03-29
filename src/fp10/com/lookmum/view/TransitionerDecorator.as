@@ -12,7 +12,8 @@ package com.lookmum.view
 	 */
 	public class TransitionerDecorator extends Component implements ITransitioner
 	{
-		private var _out:Signal;
+		private var _onIn:Signal;
+		private var _onOut:Signal;
 		protected var transitioning:Boolean;
 		private static const MIN_IN_TIME:Number = 1;
 		private static const MAX_IN_TIME:Number = 2;
@@ -23,10 +24,16 @@ package com.lookmum.view
 		public var minOutTime:Number = MIN_OUT_TIME;
 		public var maxOutTime:Number = MAX_OUT_TIME;
 		private var _time:Number;
+		private var cacheX:Number;
+		private var cacheY:Number;
+		private static const MAX_X_VAR:Number = 200;
+		private static const MAX_Y_VAR:Number = 200;
 		public function TransitionerDecorator(target:MovieClip) 
 		{
 			super(target);
-			out = new Signal();
+			onIn = new Signal();
+			onOut = new Signal();
+			transitioning = false;
 		}
 		
 		public function transitionIn():void 
@@ -34,12 +41,24 @@ package com.lookmum.view
 			reset();
 			transitioning = true;
 			target.alpha = 0;
-			var time:Number = MIN_IN_TIME + (Math.random() * (maxInTime-minInTime));
+			target.visible = true;
+			var time:Number = minInTime + (Math.random() * (maxInTime-minInTime));
+			cacheX = target.x;
+			cacheY = target.y;
+			var vert:Boolean = Math.random() > 0.5;
+			if(vert){
+				target.y += (Math.random() * MAX_Y_VAR) - (MAX_Y_VAR / 2);
+			}else{
+				target.x += (Math.random() * MAX_X_VAR) - (MAX_X_VAR / 2);
+			}
 			Tweener.addTween(target, { 
+				x:cacheX,
+				y:cacheY,
 				alpha: 1,
 				time: time,
 				onComplete: function():void {
 					transitioning = false;
+					onIn.dispatch();
 				}
 			} );
 		}
@@ -47,15 +66,27 @@ package com.lookmum.view
 		{
 			reset();
 			transitioning = true;
-			if (!target.visible) return out.dispatch();
-			var time:Number = MIN_OUT_TIME + (Math.random() * (maxOutTime-minOutTime));
+			if (!target.visible) return onOut.dispatch();
+			cacheX = target.x;
+			cacheY = target.y;
+			var time:Number = minOutTime + (Math.random() * (maxOutTime-minOutTime));
+			var x:Number = target.x;
+			var y:Number = target.y;
+			var vert:Boolean = Math.random() > 0.5;
+			if(vert){
+				y += (Math.random() * MAX_Y_VAR) - (MAX_Y_VAR / 2);
+			}else{
+				x += (Math.random() * MAX_X_VAR) - (MAX_X_VAR / 2);
+			}
 			Tweener.addTween(target, { 
-				alpha:0, 
+				alpha:0,
+				x:x,
+				y:y,
 				time: time,
 				onComplete:function():void {
 					target.visible = false;
-					out.dispatch();
 					transitioning = false;
+					onOut.dispatch();
 				}
 			} );
 		}
@@ -64,22 +95,39 @@ package com.lookmum.view
 			if (transitioning) {
 				transitioning = false;
 				Tweener.removeTweens(target);
+				target.x = cacheX;
+				target.y = cacheY;
 			}
 		}
 		
-		public function get out():Signal 
+		public function get onIn():Signal 
 		{
-			return _out;
+			return _onIn;
 		}
 		
-		public function set out(value:Signal):void 
+		public function set onIn(value:Signal):void 
 		{
-			_out = value;
+			_onIn = value;
+		}
+		
+		public function get onOut():Signal 
+		{
+			return _onOut;
+		}
+		
+		public function set onOut(value:Signal):void 
+		{
+			_onOut = value;
 		}
 		
 		public function get time():Number 
 		{
 			return _time;
+		}
+		
+		public function get isTransitioning():Boolean
+		{
+			return transitioning;
 		}
 		
 		public function set time(value:Number):void 
@@ -92,7 +140,8 @@ package com.lookmum.view
 		}
 		override public function destroy():void 
 		{
-			out.removeAll();
+			onIn.removeAll();
+			onOut.removeAll();
 			super.destroy();
 		}
 		

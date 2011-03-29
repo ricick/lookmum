@@ -18,6 +18,8 @@ package
 			var textComponent:TextComponent = new TextComponent(new textComponentClip());
 			addChild(textComponent);
 			textComponent.type = TextFieldType.INPUT;
+			textComponent.autoSize = TextFieldAutoSize.LEFT;
+			textComponent.padding = 10;
 		}
 		
 	}

@@ -11,7 +11,9 @@ package com.lookmum.view
 	{
 		function transitionIn():void;
 		function transitionOut():void;
-		function get out():Signal;
+		function get onIn():Signal;
+		function get onOut():Signal;
+		function get isTransitioning():Boolean;
 	}
 	
 }

@@ -14,7 +14,7 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src\fp9" />
-    <class path="..\actuate\Source\AS3" />
+    <class path="..\actuate" />
     <class path="..\lib_as3" />
   </classpaths>
   <!-- Build options -->
@@ -51,6 +51,7 @@
   <libraryPaths>
     <element path="lib\assets.swc" />
     <element path="libs\assets.swc" />
+    <element path="libs\as3-signals-v0.7.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
@@ -70,7 +71,7 @@
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="examples\ExampleVideoPlayer.as" />
+    <compile path="examples\ExampleTransitioner.as" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
@@ -83,6 +84,6 @@
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="False" />
-    <option testMovie="ExternalPlayer" />
+    <option testMovie="Default" />
   </options>
 </project>
