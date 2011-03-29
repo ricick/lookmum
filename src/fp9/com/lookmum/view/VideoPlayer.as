@@ -27,6 +27,8 @@ package com.lookmum.view
 		protected var _autoRewind:Boolean = true;
 		private var videoSliderDisabled:Boolean;
 		protected var _isComplete:Boolean;
+		protected var playIcon:Button;
+		protected var loadIcon:MovieClip;
 		
 		public function VideoPlayer(target:MovieClip) 
 		{
@@ -38,6 +40,7 @@ package com.lookmum.view
 			mediaPlayer = getMediaPlayer();
 			mediaPlayer.addEventListener(MediaPlayerEvent.UPDATE, onUpdate);
 			mediaPlayer.addEventListener(MediaPlayerEvent.END, onEnd);
+			mediaPlayer.addEventListener(MediaPlayerEvent.LOAD_PROGRESS, onLoadProgress);
 			volumeSlider = getVolumeSlider();
 			if (volumeSlider)
 			{
@@ -64,6 +67,28 @@ package com.lookmum.view
 			{
 				buttonPlayPause.addEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
 			}
+			playIcon = getPlayIcon();
+			if (playIcon) {
+				playIcon.addEventListener(MouseEvent.CLICK, onReleasePlayIcon);
+			}
+			loadIcon = getLoadIcon();
+			if (loadIcon) {
+				loadIcon.visible = false;
+			}
+		}
+		
+		private function onLoadProgress(e:MediaPlayerEvent):void 
+		{
+			if (e.bytesLoaded > 0 && loadIcon && loadIcon.visible) {
+				loadIcon.visible = false;
+			}
+		}
+		
+		
+		
+		private function onReleasePlayIcon(e:MouseEvent):void 
+		{
+			play();
 		}
 		
 		private function onFastForward(e:MouseEvent):void 
@@ -123,6 +148,16 @@ package com.lookmum.view
 		{
 			if (!target.getChildByName('volumeSlider')) return null;
 			return new VolumeSlider(target.getChildByName('volumeSlider') as MovieClip);
+		}
+		protected function getPlayIcon():Button 
+		{
+			if (!target.getChildByName('playIcon')) return null;
+			return new Button(target.getChildByName('playIcon') as MovieClip);
+		}
+		protected function getLoadIcon():MovieClip 
+		{
+			if (!target.getChildByName('loadIcon')) return null;
+			return target.getChildByName('loadIcon') as MovieClip;
 		}
 		
 		protected function onEnd(e:MediaPlayerEvent):void 
@@ -195,15 +230,28 @@ package com.lookmum.view
 		public function load(url:String, autoPlay:Boolean = true):void
 		{
 			isComplete = false;
-			if(videoSlider)videoSlider.level = (0);
+			if (videoSlider) videoSlider.level = (0);
+			if (loadIcon) loadIcon.visible = true;
 			_playing = autoPlay;
 			mediaPlayer.load(url, autoPlay);
 			buttonPlayPause.toggle = (!autoPlay);
-			if(autoPlay)dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.PLAY));
+			if (autoPlay) {
+				if (playIcon) {
+					playIcon.visible = false;
+				}
+				dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.PLAY));
+			}else {
+				if (playIcon) {
+					playIcon.visible = true;
+				}
+			}
 		}
 		
 		override public function play():void
 		{
+			if (playIcon) {
+				playIcon.visible = false;
+			}
 			_playing = true;
 			mediaPlayer.play();
 			buttonPlayPause.toggle = (false);
@@ -213,7 +261,6 @@ package com.lookmum.view
 		public function pause():void
 		{
 			_playing = false;
-			//trace( "_playing : " + _playing );
 			mediaPlayer.pause();
 			dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.STOP));
 		}

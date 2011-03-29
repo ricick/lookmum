@@ -58,7 +58,7 @@ package com.lookmum.view{
 			_netStream.client.onCuePoint = onCuePoint;
 			_netStream.client.onMetaData = onMetaData;
 			_netStream.client.onPlayStatus = onPlayStatus;		
-			
+			videoArea.clear();
 			videoArea.attachNetStream(_netStream);
 			videoArea.width = width;
 			videoArea.height = height;

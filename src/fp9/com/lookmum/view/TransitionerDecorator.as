@@ -34,7 +34,8 @@ package com.lookmum.view
 			reset();
 			transitioning = true;
 			target.alpha = 0;
-			var time:Number = MIN_IN_TIME + (Math.random() * (maxInTime-minInTime));
+			target.visible = true;
+			var time:Number = minInTime + (Math.random() * (maxInTime-minInTime));
 			Tweener.addTween(target, { 
 				alpha: 1,
 				time: time,
@@ -48,7 +49,7 @@ package com.lookmum.view
 			reset();
 			transitioning = true;
 			if (!target.visible) return out.dispatch();
-			var time:Number = MIN_OUT_TIME + (Math.random() * (maxOutTime-minOutTime));
+			var time:Number = minOutTime + (Math.random() * (maxOutTime-minOutTime));
 			Tweener.addTween(target, { 
 				alpha:0, 
 				time: time,
