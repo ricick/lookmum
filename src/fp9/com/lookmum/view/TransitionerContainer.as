@@ -12,12 +12,15 @@ package com.lookmum.view
 	{
 		
 		private var transitionComponents:Array;
-		private var _out:Signal;
+		private var _onIn:Signal;
+		private var _onOut:Signal;
+		private var _isTransitioning:Boolean;
 		public function TransitionerContainer(target:MovieClip) 
 		{
 			super(target);
-			_out = new Signal();
-			
+			_onIn = new Signal();
+			_onOut = new Signal();
+			_isTransitioning = false;
 		}
 		override protected function createChildren():void 
 		{
@@ -32,7 +35,8 @@ package com.lookmum.view
 				transitioner = getDefaultDecorator(item);
 			}
 			if (transitionComponents.indexOf(transitioner) > -1) return;
-			transitioner.out.add(onItemTransitionOut);
+			transitioner.onIn.add(onItemTransitionIn);
+			transitioner.onOut.add(onItemTransitionOut);
 			transitionComponents.push(transitioner);
 		}
 		protected function getDefaultDecorator(item:MovieClip):ITransitioner {
@@ -57,7 +61,8 @@ package com.lookmum.view
 			}
 			if (transitioner) {
 				if (transitionComponents.indexOf(transitioner) > -1) return;
-				transitioner.out.remove(onItemTransitionOut);
+				transitioner.onIn.remove(onItemTransitionIn);
+				transitioner.onOut.remove(onItemTransitionOut);
 				transitionComponents.splice(transitionComponents.indexOf(transitioner),1);
 			}
 		}
@@ -77,16 +82,25 @@ package com.lookmum.view
 			}
 			return null;
 		}
+		private function onItemTransitionIn():void 
+		{
+			for each (var item:ITransitioner in transitionComponents) 
+			{
+				if (item.isTransitioning) return;
+			}
+			onTransitionIn();
+		}
 		private function onItemTransitionOut():void 
 		{
 			for each (var item:ITransitioner in transitionComponents) 
 			{
-				if (item.visible) return;
+				if (item.isTransitioning) return;
 			}
 			onTransitionOut();
 		}
 		public function transitionIn():void
 		{
+			_isTransitioning = true;
 			if (!visible) visible = true;
 			for each (var item:ITransitioner in transitionComponents) 
 			{
@@ -97,6 +111,7 @@ package com.lookmum.view
 		
 		public function transitionOut():void
 		{
+			_isTransitioning = true;
 			enabled = false;
 			if (transitionComponents.length == 0) onTransitionOut();
 			for each (var item:ITransitioner in transitionComponents) 
@@ -105,11 +120,17 @@ package com.lookmum.view
 			}
 		}
 		
+		protected function onTransitionIn():void
+		{
+			_isTransitioning = false;
+			onIn.dispatch();
+		}
+		
 		protected function onTransitionOut():void
 		{
-			if (visible) 
-				visible = false;
-			out.dispatch();
+			_isTransitioning = false;
+			if (visible) visible = false;
+			onOut.dispatch();
 		}
 		
 		public function getOut():Boolean 
@@ -117,9 +138,19 @@ package com.lookmum.view
 			return !visible;
 		}
 		
-		public function get out():Signal 
+		public function get onIn():Signal 
 		{
-			return _out;
+			return _onIn;
+		}
+		
+		public function get onOut():Signal 
+		{
+			return _onOut;
+		}
+		
+		public function get isTransitioning():Boolean
+		{
+			return _isTransitioning;
 		}
 		
 	}

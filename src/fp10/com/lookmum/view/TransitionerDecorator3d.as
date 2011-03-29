@@ -61,6 +61,7 @@ package com.lookmum.view
 					x = cacheX;
 					y = cacheY;
 					transitioning = false;
+					onIn.dispatch();
 				}
 			} );
 		}
@@ -68,7 +69,7 @@ package com.lookmum.view
 		{
 			reset();
 			transitioning = true;
-			if (!target.visible) return out.dispatch();
+			if (!target.visible) return onOut.dispatch();
 			cacheX = target.x;
 			cacheY = target.y;
 			cacheZ = target.z;
@@ -88,7 +89,7 @@ package com.lookmum.view
 				x += (Math.random() * MAX_X_VAR) - (MAX_X_VAR / 2);
 				rotationY += (Math.random() * MAX_ROTATION_VAR) - (MAX_ROTATION_VAR / 2);
 			}
-			z += MIN_Z_VAR+(Math.random() * MAX_Z_VAR);
+			z += MIN_Z_VAR + (Math.random() * MAX_Z_VAR);
 			Tweener.addTween(target, { 
 				alpha:0, 
 				x:x,
@@ -104,8 +105,8 @@ package com.lookmum.view
 					target.rotationX = cacheRotationX;
 					target.rotationY = cacheRotationY;
 					target.visible = false;
-					out.dispatch();
 					transitioning = false;
+					onOut.dispatch();
 				}
 			} );
 		}
