@@ -57,6 +57,8 @@ package com.lookmum.view
 				alpha: 1,
 				time: time,
 				onComplete: function():void {
+					x = cacheX;
+					y = cacheY;
 					transitioning = false;
 					onIn.dispatch();
 				}
@@ -84,6 +86,8 @@ package com.lookmum.view
 				y:y,
 				time: time,
 				onComplete:function():void {
+					target.x = cacheX;
+					target.y = cacheY;
 					target.visible = false;
 					transitioning = false;
 					onOut.dispatch();
