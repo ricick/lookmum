@@ -35,8 +35,6 @@ package com.lookmum.view
 				transitioner = getDefaultDecorator(item);
 			}
 			if (transitionComponents.indexOf(transitioner) > -1) return;
-			transitioner.onIn.add(onItemTransitionIn);
-			transitioner.onOut.add(onItemTransitionOut);
 			transitionComponents.push(transitioner);
 		}
 		protected function getDefaultDecorator(item:MovieClip):ITransitioner {
@@ -61,8 +59,8 @@ package com.lookmum.view
 			}
 			if (transitioner) {
 				if (transitionComponents.indexOf(transitioner) > -1) return;
-				transitioner.onIn.remove(onItemTransitionIn);
-				transitioner.onOut.remove(onItemTransitionOut);
+				
+				
 				transitionComponents.splice(transitionComponents.indexOf(transitioner),1);
 			}
 		}
@@ -104,6 +102,7 @@ package com.lookmum.view
 			if (!visible) visible = true;
 			for each (var item:ITransitioner in transitionComponents) 
 			{
+				item.onIn.add(onItemTransitionIn);
 				item.transitionIn();
 			}
 			enabled = true;
@@ -116,18 +115,27 @@ package com.lookmum.view
 			if (transitionComponents.length == 0) onTransitionOut();
 			for each (var item:ITransitioner in transitionComponents) 
 			{
+				item.onOut.add(onItemTransitionOut);
 				item.transitionOut();
 			}
 		}
 		
 		protected function onTransitionIn():void
 		{
+			for each (var item:ITransitioner in transitionComponents) 
+			{
+				item.onIn.remove(onItemTransitionOut);
+			}
 			_isTransitioning = false;
 			onIn.dispatch();
 		}
 		
 		protected function onTransitionOut():void
 		{
+			for each (var item:ITransitioner in transitionComponents) 
+			{
+				item.onOut.remove(onItemTransitionOut);
+			}
 			_isTransitioning = false;
 			if (visible) visible = false;
 			onOut.dispatch();
