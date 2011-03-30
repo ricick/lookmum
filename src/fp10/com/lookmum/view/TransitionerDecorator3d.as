@@ -21,7 +21,16 @@ package com.lookmum.view
 		private static const MAX_ROTATION_VAR:Number = 100;
 		public function TransitionerDecorator3d(target:MovieClip) 
 		{
+			
 			super(target);
+			
+			cacheX = target.x;
+			cacheY = target.y;
+			
+			cacheRotationX = target.rotationX;
+			cacheRotationY = target.rotationY;
+			
+			cacheZ = target.z;
 			
 		}
 		
