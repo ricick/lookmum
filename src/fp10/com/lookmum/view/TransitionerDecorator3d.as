@@ -28,6 +28,7 @@ package com.lookmum.view
 		override public function transitionIn():void 
 		{
 			reset();
+			visible = true;
 			transitioning = true;
 			target.alpha = 0;
 			var time:Number = minInTime + (Math.random() * (maxInTime-minInTime));
