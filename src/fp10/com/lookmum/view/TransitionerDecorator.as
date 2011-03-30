@@ -31,9 +31,14 @@ package com.lookmum.view
 		public function TransitionerDecorator(target:MovieClip) 
 		{
 			super(target);
+			
 			onIn = new Signal();
 			onOut = new Signal();
 			transitioning = false;
+			
+			cacheX = target.x;
+			cacheY = target.y;
+
 		}
 		
 		public function transitionIn():void 
