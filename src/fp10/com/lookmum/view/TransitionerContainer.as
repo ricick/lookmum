@@ -98,6 +98,7 @@ package com.lookmum.view
 		}
 		public function transitionIn():void
 		{
+			if (_isTransitioning) return ;
 			_isTransitioning = true;
 			if (!visible) visible = true;
 			for each (var item:ITransitioner in transitionComponents) 
@@ -110,6 +111,7 @@ package com.lookmum.view
 		
 		public function transitionOut():void
 		{
+			if (_isTransitioning) return ;
 			_isTransitioning = true;
 			enabled = false;
 			if (transitionComponents.length == 0) onTransitionOut();
