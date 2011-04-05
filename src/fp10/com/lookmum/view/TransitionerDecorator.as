@@ -28,6 +28,8 @@ package com.lookmum.view
 		private var cacheY:Number;
 		private static const MAX_X_VAR:Number = 200;
 		private static const MAX_Y_VAR:Number = 200;
+		private static const maxX:Number = MAX_X_VAR;
+		private static const maxY:Number = MAX_Y_VAR;
 		public function TransitionerDecorator(target:MovieClip) 
 		{
 			super(target);
@@ -52,9 +54,9 @@ package com.lookmum.view
 			cacheY = target.y;
 			var vert:Boolean = Math.random() > 0.5;
 			if(vert){
-				target.y += (Math.random() * MAX_Y_VAR) - (MAX_Y_VAR / 2);
+				target.y += (Math.random() * maxY) - (maxY / 2);
 			}else{
-				target.x += (Math.random() * MAX_X_VAR) - (MAX_X_VAR / 2);
+				target.x += (Math.random() * maxX) - (maxX / 2);
 			}
 			Tweener.addTween(target, { 
 				x:cacheX,
@@ -81,9 +83,9 @@ package com.lookmum.view
 			var y:Number = target.y;
 			var vert:Boolean = Math.random() > 0.5;
 			if(vert){
-				y += (Math.random() * MAX_Y_VAR) - (MAX_Y_VAR / 2);
+				y += (Math.random() * maxY) - (maxY / 2);
 			}else{
-				x += (Math.random() * MAX_X_VAR) - (MAX_X_VAR / 2);
+				x += (Math.random() * maxX) - (maxX / 2);
 			}
 			Tweener.addTween(target, { 
 				alpha:0,
