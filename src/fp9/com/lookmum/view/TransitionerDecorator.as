@@ -34,6 +34,9 @@ package com.lookmum.view
 			onIn = new Signal();
 			onOut = new Signal();
 			transitioning = false;
+			
+			cacheX = target.x;
+			cacheY = target.y;
 		}
 		
 		public function transitionIn():void 
