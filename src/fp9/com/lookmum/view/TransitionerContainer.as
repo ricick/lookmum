@@ -99,12 +99,13 @@ package com.lookmum.view
 			if (_isTransitioning) return ;
 			_isTransitioning = true;
 			if (!visible) visible = true;
+			enabled = true;
+			if (transitionComponents.length == 0) onTransitionIn();
 			for each (var item:ITransitioner in transitionComponents) 
 			{
 				item.onIn.add(onItemTransitionIn);
 				item.transitionIn();
 			}
-			enabled = true;
 		}
 		
 		public function transitionOut():void
