@@ -2,6 +2,8 @@ package com.lookmum.view
 {
 	import caurina.transitions.Tweener;
 	import flash.display.MovieClip;
+	import flash.geom.Matrix;
+	import flash.geom.Transform;
 	
 	/**
 	 * ...
@@ -9,29 +11,23 @@ package com.lookmum.view
 	 */
 	public class TransitionerDecorator3d extends TransitionerDecorator 
 	{
+		
 		private var cacheX:Number;
 		private var cacheY:Number;
 		private var cacheRotationX:Number;
 		private var cacheRotationY:Number;
 		private var cacheZ:Number;
+		
 		private static const MAX_X_VAR:Number = 200;
 		private static const MAX_Y_VAR:Number = 200;
 		private static const MIN_Z_VAR:Number = 500;
 		private static const MAX_Z_VAR:Number = 1000;
 		private static const MAX_ROTATION_VAR:Number = 100;
+		private var cacheMatrix:Matrix;
 		public function TransitionerDecorator3d(target:MovieClip) 
 		{
 			
 			super(target);
-			
-			cacheX = target.x;
-			cacheY = target.y;
-			
-			cacheRotationX = target.rotationX;
-			cacheRotationY = target.rotationY;
-			
-			cacheZ = target.z;
-			
 		}
 		
 		override public function transitionIn():void 
@@ -66,10 +62,7 @@ package com.lookmum.view
 				alpha: 1,
 				time: time,
 				onComplete: function():void {
-					//remove the 3d transform (breaks any dragging)
-					this.transform.matrix3D = null;
-					x = cacheX;
-					y = cacheY;
+					reset();
 					transitioning = false;
 					onIn.dispatch();
 				}
@@ -80,11 +73,6 @@ package com.lookmum.view
 			reset();
 			transitioning = true;
 			if (!target.visible) return onOut.dispatch();
-			cacheX = target.x;
-			cacheY = target.y;
-			cacheZ = target.z;
-			cacheRotationX = target.rotationX;
-			cacheRotationY = target.rotationY;
 			var time:Number = minOutTime + (Math.random() * (maxOutTime-minOutTime));
 			var x:Number = target.x;
 			var y:Number = target.y;
@@ -109,11 +97,7 @@ package com.lookmum.view
 				rotationY:rotationY,
 				time: time,
 				onComplete:function():void {
-					target.x = cacheX;
-					target.y = cacheY;
-					target.z = cacheZ;
-					target.rotationX = cacheRotationX;
-					target.rotationY = cacheRotationY;
+					reset();
 					target.visible = false;
 					transitioning = false;
 					onOut.dispatch();
@@ -126,11 +110,17 @@ package com.lookmum.view
 			if (transitioning) {
 				transitioning = false;
 				Tweener.removeTweens(target);
-				target.x = cacheX;
-				target.y = cacheY;
-				target.z = cacheZ;
-				target.rotationX = cacheRotationX;
-				target.rotationY = cacheRotationY;
+				if (cacheMatrix) {
+					target.transform.matrix3D = null;
+					target.transform.matrix = cacheMatrix;
+				}
+			}
+			if(!cacheMatrix){
+				if (target.transform.matrix) {
+					cacheMatrix = target.transform.matrix.clone();
+				}else {
+					cacheMatrix = null;
+				}
 			}
 		}
 		

@@ -4,6 +4,7 @@ package com.lookmum.util
 	import com.lookmum.events.DragEvent;
 	import com.lookmum.view.IComponent;
 	import com.lookmum.view.IDraggable;
+	import com.lookmum.view.IDropLocation;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.geom.Point;
@@ -72,6 +73,7 @@ package com.lookmum.util
 			//check if hit drop location
 			for each (var location:IComponent in dropLocations) 
 			{
+				//trace( "location : " + location );
 				
 				reparentDragItem(dragItem, location.parent);
 				/*
@@ -81,6 +83,7 @@ package com.lookmum.util
 				dragItem.y = localCoords.y;
 				*/
 				var hit:Boolean = location.hitTestObject(dragItem.target);
+				//trace( "hit : " + hit );
 				if (hit) {
 					dropLocation = location;
 					break;
@@ -101,8 +104,9 @@ package com.lookmum.util
 			dropLocation = dropByDrag[dragItem];
 			if (!dropping && dropLocation) {
 				dropping = true;
-				reparentDragItem(dragItem, dropLocation.parent);
-				moveItemToLocation(dragItem, new Point(dropLocation.x, dropLocation.y));
+				//reparentDragItem(dragItem, dropLocation.parent);
+				//moveItemToLocation(dragItem, new Point(dropLocation.x, dropLocation.y));
+				moveDragItemToDropLocation(dragItem, dropLocation);
 				drop.dispatch(dragItem, false);
 			}
 			if (!dropping){
@@ -141,7 +145,11 @@ package com.lookmum.util
 			dragItem.x = localCoords.x;
 			dragItem.y = localCoords.y;
 			*/
-			moveItemToLocation(dragItem, new Point(dropLocation.x, dropLocation.y));
+			if (dropLocation is IDropLocation) {
+				moveItemToLocation(dragItem, IDropLocation(dropLocation).getDropSpot());
+			}else {
+				moveItemToLocation(dragItem, new Point(dropLocation.x, dropLocation.y));
+			}
 			//remove old associations
 			var oldLocation:IComponent = dropByDrag[dragItem];
 			if (oldLocation) {
