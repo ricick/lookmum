@@ -18,6 +18,7 @@ package com.lookmum.view
 		private var cacheRotationX:Number;
 		private var cacheRotationY:Number;
 		private var cacheZ:Number;
+		private var cacheMatrix:Matrix;
 		
 		private static const MAX_X_VAR:Number = 200;
 		private static const MAX_Y_VAR:Number = 200;
@@ -33,6 +34,7 @@ package com.lookmum.view
 			cacheZ = target.z;
 			cacheRotationX = target.rotationX;
 			cacheRotationY = target.rotationY;
+			cacheMatrix = target.transform.matrix;
 		}
 		
 		override public function transitionIn():void 
@@ -47,6 +49,7 @@ package com.lookmum.view
 			cacheZ = target.z;
 			cacheRotationX = target.rotationX;
 			cacheRotationY = target.rotationY;
+			cacheMatrix = target.transform.matrix;
 			var vert:Boolean = Math.random() > 0.5;
 			target.z += MIN_Z_VAR + (Math.random() * MAX_Z_VAR);
 			if(vert){
@@ -118,6 +121,7 @@ package com.lookmum.view
 				target.z = cacheZ;
 				target.rotationX = cacheRotationX;
 				target.rotationY = cacheRotationY;
+				target.transform.matrix = cacheMatrix;
 			}
 		}
 		
