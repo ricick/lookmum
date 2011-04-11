@@ -3,6 +3,7 @@ package com.lookmum.view
 	import caurina.transitions.Tweener;
 	import flash.display.MovieClip;
 	import flash.geom.Matrix;
+	import flash.geom.Matrix3D;
 	import flash.geom.Transform;
 	
 	/**
@@ -23,11 +24,15 @@ package com.lookmum.view
 		private static const MIN_Z_VAR:Number = 500;
 		private static const MAX_Z_VAR:Number = 1000;
 		private static const MAX_ROTATION_VAR:Number = 100;
-		private var cacheMatrix:Matrix;
+		
 		public function TransitionerDecorator3d(target:MovieClip) 
 		{
-			
 			super(target);
+			cacheX = target.x;
+			cacheY = target.y;
+			cacheZ = target.z;
+			cacheRotationX = target.rotationX;
+			cacheRotationY = target.rotationY;
 		}
 		
 		override public function transitionIn():void 
@@ -35,7 +40,7 @@ package com.lookmum.view
 			reset();
 			visible = true;
 			transitioning = true;
-			target.alpha = 0;
+			target.alpha = minAlpha;
 			var time:Number = minInTime + (Math.random() * (maxInTime-minInTime));
 			cacheX = target.x;
 			cacheY = target.y;
@@ -43,8 +48,7 @@ package com.lookmum.view
 			cacheRotationX = target.rotationX;
 			cacheRotationY = target.rotationY;
 			var vert:Boolean = Math.random() > 0.5;
-			//target.z += MIN_Z_VAR + (Math.random() * MAX_Z_VAR);
-			target.z = 1000;
+			target.z += MIN_Z_VAR + (Math.random() * MAX_Z_VAR);
 			if(vert){
 				target.y += (Math.random() * MAX_Y_VAR) - (MAX_Y_VAR / 2);
 				target.rotationX += (Math.random() * MAX_ROTATION_VAR) - (MAX_ROTATION_VAR / 2);
@@ -52,14 +56,13 @@ package com.lookmum.view
 				target.x += (Math.random() * MAX_X_VAR) - (MAX_X_VAR / 2);
 				target.rotationY += (Math.random() * MAX_ROTATION_VAR) - (MAX_ROTATION_VAR / 2);
 			}
-			//trace( "target.z : " + target.z );
 			Tweener.addTween(target, { 
 				x:cacheX,
 				y:cacheY,
 				z:cacheZ,
 				rotationX:cacheRotationX,
 				rotationY:cacheRotationY,
-				alpha: 1,
+				alpha: maxAlpha,
 				time: time,
 				onComplete: function():void {
 					reset();
@@ -89,12 +92,12 @@ package com.lookmum.view
 			}
 			z += MIN_Z_VAR + (Math.random() * MAX_Z_VAR);
 			Tweener.addTween(target, { 
-				alpha:0, 
 				x:x,
 				y:y,
 				z:z,
 				rotationX:rotationX,
 				rotationY:rotationY,
+				alpha:minAlpha, 
 				time: time,
 				onComplete:function():void {
 					reset();
@@ -109,18 +112,12 @@ package com.lookmum.view
 		{
 			if (transitioning) {
 				transitioning = false;
-				Tweener.removeTweens(target);
-				if (cacheMatrix) {
-					target.transform.matrix3D = null;
-					target.transform.matrix = cacheMatrix;
-				}
-			}
-			if(!cacheMatrix){
-				if (target.transform.matrix) {
-					cacheMatrix = target.transform.matrix.clone();
-				}else {
-					cacheMatrix = null;
-				}
+				Tweener.removeTweens(target, "x", "y", "z", "rotationX", "rotationY", "alpha");
+				target.x = cacheX;
+				target.y = cacheY;
+				target.z = cacheZ;
+				target.rotationX = cacheRotationX;
+				target.rotationY = cacheRotationY;
 			}
 		}
 		
