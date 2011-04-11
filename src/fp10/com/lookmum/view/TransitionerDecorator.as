@@ -28,26 +28,27 @@ package com.lookmum.view
 		private var cacheY:Number;
 		private static const MAX_X_VAR:Number = 200;
 		private static const MAX_Y_VAR:Number = 200;
-		private static const maxX:Number = MAX_X_VAR;
-		private static const maxY:Number = MAX_Y_VAR;
+		public var maxX:Number = MAX_X_VAR;
+		public var maxY:Number = MAX_Y_VAR;
+		private static const MIN_ALPHA:Number = 0;
+		private static const MAX_ALPHA:Number = 1;
+		public var minAlpha:Number = MIN_ALPHA;
+		public var maxAlpha:Number = MAX_ALPHA;
 		public function TransitionerDecorator(target:MovieClip) 
 		{
 			super(target);
-			
 			onIn = new Signal();
 			onOut = new Signal();
 			transitioning = false;
-			
 			cacheX = target.x;
 			cacheY = target.y;
-
 		}
 		
 		public function transitionIn():void 
 		{
 			reset();
 			transitioning = true;
-			target.alpha = 0;
+			target.alpha = minAlpha;
 			target.visible = true;
 			var time:Number = minInTime + (Math.random() * (maxInTime-minInTime));
 			cacheX = target.x;
@@ -61,11 +62,10 @@ package com.lookmum.view
 			Tweener.addTween(target, { 
 				x:cacheX,
 				y:cacheY,
-				alpha: 1,
+				alpha: maxAlpha,
 				time: time,
 				onComplete: function():void {
-					x = cacheX;
-					y = cacheY;
+					reset();
 					transitioning = false;
 					onIn.dispatch();
 				}
@@ -88,13 +88,12 @@ package com.lookmum.view
 				x += (Math.random() * maxX) - (maxX / 2);
 			}
 			Tweener.addTween(target, { 
-				alpha:0,
 				x:x,
 				y:y,
+				alpha:minAlpha,
 				time: time,
 				onComplete:function():void {
-					target.x = cacheX;
-					target.y = cacheY;
+					reset();
 					target.visible = false;
 					transitioning = false;
 					onOut.dispatch();
@@ -105,7 +104,7 @@ package com.lookmum.view
 		{
 			if (transitioning) {
 				transitioning = false;
-				Tweener.removeTweens(target);
+				Tweener.removeTweens(target, "x", "y", "alpha");
 				target.x = cacheX;
 				target.y = cacheY;
 			}
@@ -151,6 +150,7 @@ package com.lookmum.view
 		}
 		override public function destroy():void 
 		{
+			reset();
 			onIn.removeAll();
 			onOut.removeAll();
 			super.destroy();
