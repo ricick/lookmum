@@ -146,7 +146,8 @@ package com.lookmum.util
 			dragItem.y = localCoords.y;
 			*/
 			if (dropLocation is IDropLocation) {
-				moveItemToLocation(dragItem, IDropLocation(dropLocation).getDropSpot());
+				var p:Point = IDropLocation(dropLocation).getDropSpot();
+				moveItemToLocation(dragItem, new Point(dropLocation.x + p.x, dropLocation.y + p.y));
 			}else {
 				moveItemToLocation(dragItem, new Point(dropLocation.x, dropLocation.y));
 			}
