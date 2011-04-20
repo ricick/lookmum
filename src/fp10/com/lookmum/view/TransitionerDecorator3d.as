@@ -51,7 +51,6 @@ package com.lookmum.view
 			cacheRotationY = target.rotationY;
 			cacheMatrix = target.transform.matrix;
 			var vert:Boolean = Math.random() > 0.5;
-			target.z += MIN_Z_VAR + (Math.random() * MAX_Z_VAR);
 			if(vert){
 				target.y += (Math.random() * MAX_Y_VAR) - (MAX_Y_VAR / 2);
 				target.rotationX += (Math.random() * MAX_ROTATION_VAR) - (MAX_ROTATION_VAR / 2);
@@ -59,6 +58,7 @@ package com.lookmum.view
 				target.x += (Math.random() * MAX_X_VAR) - (MAX_X_VAR / 2);
 				target.rotationY += (Math.random() * MAX_ROTATION_VAR) - (MAX_ROTATION_VAR / 2);
 			}
+			target.z += MIN_Z_VAR + (Math.random() * MAX_Z_VAR);
 			Tweener.addTween(target, { 
 				x:cacheX,
 				y:cacheY,
