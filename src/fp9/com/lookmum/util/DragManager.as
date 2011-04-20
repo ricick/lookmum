@@ -4,16 +4,21 @@ package com.lookmum.util
 	import com.lookmum.events.DragEvent;
 	import com.lookmum.view.IComponent;
 	import com.lookmum.view.IDraggable;
+	import com.lookmum.view.IDropLocation;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
+	import org.osflash.signals.Signal;
 	/**
 	 * ...
 	 * @author Phil Douglas
 	 */
 	public class DragManager 
 	{
+		public var drop:Signal = new Signal(IDraggable, Boolean);
+		public var overlap:Signal = new Signal(IDraggable);
+		
 		private var dragItems:Array;
 		private var dropLocations:Array;
 		private var dragByDrop:Dictionary;
@@ -68,6 +73,7 @@ package com.lookmum.util
 			//check if hit drop location
 			for each (var location:IComponent in dropLocations) 
 			{
+				//trace( "location : " + location );
 				
 				reparentDragItem(dragItem, location.parent);
 				/*
@@ -77,6 +83,7 @@ package com.lookmum.util
 				dragItem.y = localCoords.y;
 				*/
 				var hit:Boolean = location.hitTestObject(dragItem.target);
+				//trace( "hit : " + hit );
 				if (hit) {
 					dropLocation = location;
 					break;
@@ -88,14 +95,19 @@ package com.lookmum.util
 					//drop to location
 					dropping = true;
 					moveDragItemToDropLocation(dragItem, dropLocation);
+					drop.dispatch(dragItem, true);
+				} else {
+					overlap.dispatch(dragItem, dropLocation);
 				}
 			}
 			//if not dropped check if previous drop location and move there
 			dropLocation = dropByDrag[dragItem];
 			if (!dropping && dropLocation) {
 				dropping = true;
-				reparentDragItem(dragItem, dropLocation.parent);
-				moveItemToLocation(dragItem, new Point(dropLocation.x,dropLocation.y));
+				//reparentDragItem(dragItem, dropLocation.parent);
+				//moveItemToLocation(dragItem, new Point(dropLocation.x, dropLocation.y));
+				moveDragItemToDropLocation(dragItem, dropLocation);
+				drop.dispatch(dragItem, false);
 			}
 			if (!dropping){
 				//move to start location
@@ -133,7 +145,12 @@ package com.lookmum.util
 			dragItem.x = localCoords.x;
 			dragItem.y = localCoords.y;
 			*/
+			if (dropLocation is IDropLocation) {
+				var p:Point = IDropLocation(dropLocation).getDropSpot();
+				moveItemToLocation(dragItem, new Point(dropLocation.x + p.x, dropLocation.y + p.y));
+			}else {
 			moveItemToLocation(dragItem, new Point(dropLocation.x, dropLocation.y));
+			}
 			//remove old associations
 			var oldLocation:IComponent = dropByDrag[dragItem];
 			if (oldLocation) {
@@ -143,6 +160,24 @@ package com.lookmum.util
 			dragByDrop[dropLocation] = dragItem;
 			dropByDrag[dragItem] = dropLocation;
 		}
+		
+		public function moveDragItemToStartLocation(dragItem:IDraggable):void 
+		{
+			//move to start location
+			var startLayer:DisplayObjectContainer = startLayerByDrag[dragItem];
+			
+			reparentDragItem(dragItem, startLayer);
+			moveItemToLocation(dragItem, startLocationByDrag[dragItem]);
+			
+			var oldLocation:IComponent = dropByDrag[dragItem];
+			if (oldLocation) {
+				dragByDrop[oldLocation] = null;
+			}
+			
+			//associate items
+			dropByDrag[dragItem] = null;
+		}
+		
 		private function reparentDragItem(dragItem:IDraggable, newParent:DisplayObjectContainer):void{
 			var globalCoords:Point = dragItem.parent.localToGlobal(new Point(dragItem.x, dragItem.y));
 			newParent.addChild(dragItem.target);
