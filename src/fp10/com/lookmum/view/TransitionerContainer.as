@@ -12,15 +12,12 @@ package com.lookmum.view
 	{
 		
 		private var transitionComponents:Array;
-		private var _onIn:Signal;
-		private var _onOut:Signal;
-		private var _isTransitioning:Boolean;
+		private var _onIn:Signal = new Signal();
+		private var _onOut:Signal = new Signal();
+		private var _isTransitioning:Boolean = false;
 		public function TransitionerContainer(target:MovieClip) 
 		{
 			super(target);
-			_onIn = new Signal();
-			_onOut = new Signal();
-			_isTransitioning = false;
 		}
 		override protected function createChildren():void 
 		{
