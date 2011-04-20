@@ -129,7 +129,7 @@ package com.lookmum.view
 		{
 			if (stage) stage.focus = textField;
 		}
-		private function getTextField():TextField
+		protected function getTextField():TextField
 		{
 			return target.textField;
 		}
