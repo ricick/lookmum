@@ -116,11 +116,12 @@ package com.lookmum.view
 			if (transitioning) {
 				transitioning = false;
 				Tweener.removeTweens(target, "x", "y", "z", "rotationX", "rotationY", "alpha");
-				target.x = cacheX;
+				/*target.x = cacheX;
 				target.y = cacheY;
 				target.z = cacheZ;
 				target.rotationX = cacheRotationX;
-				target.rotationY = cacheRotationY;
+				target.rotationY = cacheRotationY;*/
+				target.transform.matrix3D = null;
 				target.transform.matrix = cacheMatrix;
 			}
 		}
