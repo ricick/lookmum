@@ -10,7 +10,7 @@ package com.lookmum.view
 	 * ...
 	 * @author Phil Douglas
 	 */
-	public interface ITextComponent 
+	public interface ITextComponent extends IComponent
 	{
 		/**
 		 * When set to true and the text field is not in focus, Flash Player highlights the selection in the text field in gray.

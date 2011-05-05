@@ -52,6 +52,7 @@ package com.lookmum.view
 		private var _textFormatPress:TextFormat;
 		private var _textFormatDisable:TextFormat;
 		protected var currentTextFormat:TextFormat;
+		public var autosizeBackground:Boolean = true;
 		public function LabelButton(target:MovieClip) 
 		{
 			super(target);
@@ -80,8 +81,10 @@ package com.lookmum.view
 			super.arrangeComponents();
 			if (currentTextFormat) textField.setTextFormat(currentTextFormat);
 			if (!bg) return;
+			if(autosizeBackground){
 			bg.height = textField.height + (bgDimensions.height - textFieldDimensions.height);
 			bg.width = textField.width + (bgDimensions.width - textFieldDimensions.width);
+			}
 			dispatchEvent(new ComponentEvent(ComponentEvent.RESIZE));
 		}
 		/*

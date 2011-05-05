@@ -97,6 +97,9 @@ package com.lookmum.view
 			arrangeComponents();
 		}
 		
+		override public function get height () : Number{
+			return target.height;
+		}
 		override public function set height(value:Number):void {
 			//super.height = value;
 			var event:ComponentEvent = new ComponentEvent(ComponentEvent.RESIZE);
@@ -104,7 +107,9 @@ package com.lookmum.view
 			dispatchEvent(event);
 			arrangeComponents();
 		}
-		
+		override public function get width () : Number{
+			return target.width;
+		}
 		override public function set width(value:Number):void {
 			//super.width = value;
 			var event:ComponentEvent = new ComponentEvent(ComponentEvent.RESIZE);
@@ -129,7 +134,7 @@ package com.lookmum.view
 		{
 			if (stage) stage.focus = textField;
 		}
-		private function getTextField():TextField
+		protected function getTextField():TextField
 		{
 			return target.textField;
 		}

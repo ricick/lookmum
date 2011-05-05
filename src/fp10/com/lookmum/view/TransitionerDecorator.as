@@ -24,48 +24,25 @@ package com.lookmum.view
 		public var minOutTime:Number = MIN_OUT_TIME;
 		public var maxOutTime:Number = MAX_OUT_TIME;
 		private var _time:Number;
-		private var cacheX:Number;
-		private var cacheY:Number;
-		private static const MAX_X_VAR:Number = 200;
-		private static const MAX_Y_VAR:Number = 200;
-		public var maxX:Number = MAX_X_VAR;
-		public var maxY:Number = MAX_Y_VAR;
-		private static const MIN_ALPHA:Number = 0;
-		private static const MAX_ALPHA:Number = 1;
-		public var minAlpha:Number = MIN_ALPHA;
-		public var maxAlpha:Number = MAX_ALPHA;
 		public function TransitionerDecorator(target:MovieClip) 
 		{
 			super(target);
 			onIn = new Signal();
 			onOut = new Signal();
 			transitioning = false;
-			cacheX = target.x;
-			cacheY = target.y;
 		}
 		
 		public function transitionIn():void 
 		{
 			reset();
 			transitioning = true;
-			target.alpha = minAlpha;
+			target.alpha = 0;
 			target.visible = true;
 			var time:Number = minInTime + (Math.random() * (maxInTime-minInTime));
-			cacheX = target.x;
-			cacheY = target.y;
-			var vert:Boolean = Math.random() > 0.5;
-			if(vert){
-				target.y += (Math.random() * maxY) - (maxY / 2);
-			}else{
-				target.x += (Math.random() * maxX) - (maxX / 2);
-			}
 			Tweener.addTween(target, { 
-				x:cacheX,
-				y:cacheY,
-				alpha: maxAlpha,
+				alpha: 1,
 				time: time,
 				onComplete: function():void {
-					reset();
 					transitioning = false;
 					onIn.dispatch();
 				}
@@ -76,24 +53,11 @@ package com.lookmum.view
 			reset();
 			transitioning = true;
 			if (!target.visible) return onOut.dispatch();
-			cacheX = target.x;
-			cacheY = target.y;
 			var time:Number = minOutTime + (Math.random() * (maxOutTime-minOutTime));
-			var x:Number = target.x;
-			var y:Number = target.y;
-			var vert:Boolean = Math.random() > 0.5;
-			if(vert){
-				y += (Math.random() * maxY) - (maxY / 2);
-			}else{
-				x += (Math.random() * maxX) - (maxX / 2);
-			}
 			Tweener.addTween(target, { 
-				x:x,
-				y:y,
-				alpha:minAlpha,
+				alpha:0,
 				time: time,
 				onComplete:function():void {
-					reset();
 					target.visible = false;
 					transitioning = false;
 					onOut.dispatch();
@@ -104,9 +68,7 @@ package com.lookmum.view
 		{
 			if (transitioning) {
 				transitioning = false;
-				Tweener.removeTweens(target, "x", "y", "alpha");
-				target.x = cacheX;
-				target.y = cacheY;
+				Tweener.removeTweens(target);
 			}
 		}
 		
@@ -150,7 +112,6 @@ package com.lookmum.view
 		}
 		override public function destroy():void 
 		{
-			reset();
 			onIn.removeAll();
 			onOut.removeAll();
 			super.destroy();
