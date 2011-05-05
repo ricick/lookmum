@@ -5,12 +5,14 @@ package com.lookmum.view
 	import com.lookmum.events.DragEvent;
 	import com.lookmum.events.MediaPlayerEvent;
 	import com.lookmum.util.IMediaPlayer;
+	import com.lookmum.util.TimeCodeUtil;
 	import com.lookmum.view.FLVPlayer;
 	import com.lookmum.view.Slider;
 	import com.lookmum.view.ToggleButton;
 	import com.lookmum.view.VolumeSlider;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
+	import flash.text.TextField;
 	
 	[Event(name = 'end', type = 'com.lookmum.events.MediaPlayerEvent')]
 
@@ -29,6 +31,7 @@ package com.lookmum.view
 		protected var _isComplete:Boolean;
 		protected var playIcon:Button;
 		protected var loadIcon:MovieClip;
+		protected var textFieldTime:TextField;
 		
 		public function VideoPlayer(target:MovieClip) 
 		{
@@ -75,7 +78,9 @@ package com.lookmum.view
 			if (loadIcon) {
 				loadIcon.visible = false;
 			}
+			textFieldTime = getTextFieldTime();
 		}
+		
 		
 		private function onLoadProgress(e:MediaPlayerEvent):void 
 		{
@@ -159,6 +164,11 @@ package com.lookmum.view
 			if (!target.getChildByName('loadIcon')) return null;
 			return target.getChildByName('loadIcon') as MovieClip;
 		}
+		private function getTextFieldTime():TextField 
+		{
+			if (!target.getChildByName('textFieldTime')) return null;
+			return target.getChildByName('textFieldTime') as TextField;
+		}
 		
 		protected function onEnd(e:MediaPlayerEvent):void 
 		{
@@ -224,9 +234,17 @@ package com.lookmum.view
 			var level:Number = mediaPlayer.time / mediaPlayer.duration;
 			if (level > 1 || isNaN(level)) return;
 			videoSlider.level = (level);
+			if (textFieldTime) {
+				var timeText:String = getTimeText();
+				textFieldTime.text = timeText;
+			}
 			dispatchEvent(e.clone());
 		}
-		
+		protected function getTimeText():String {
+			var ms:int = mediaPlayer.time * 1000;
+			var timeText:String = TimeCodeUtil.toTimeCode(ms);
+			return timeText;
+		}
 		public function load(url:String, autoPlay:Boolean = true):void
 		{
 			isComplete = false;
