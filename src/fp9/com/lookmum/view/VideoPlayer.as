@@ -32,7 +32,7 @@ package com.lookmum.view
 		protected var playIcon:Button;
 		protected var loadIcon:MovieClip;
 		protected var textFieldTime:TextField;
-		
+		private var _mediaClickPlayPause:Boolean;
 		public function VideoPlayer(target:MovieClip) 
 		{
 			super(target);
@@ -226,6 +226,7 @@ package com.lookmum.view
 				seek(0);
 				play();
 			}
+			buttonPlayPause.toggle = !playing;
 		}
 		
 		protected function onUpdate(e:MediaPlayerEvent):void 
@@ -345,6 +346,21 @@ package com.lookmum.view
 		public function set isComplete(value:Boolean):void 
 		{
 			_isComplete = value;
+		}
+		
+		public function get mediaClickPlayPause():Boolean 
+		{
+			return _mediaClickPlayPause;
+		}
+		
+		public function set mediaClickPlayPause(value:Boolean):void 
+		{
+			_mediaClickPlayPause = value;
+			if (value) {
+				mediaPlayer.addEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
+			}else {
+				mediaPlayer.removeEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
+			}
 		}
 	}
 	
