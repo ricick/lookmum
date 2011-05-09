@@ -14,7 +14,7 @@ package com.lookmum.view
 		private var transitionComponents:Array;
 		private var _onIn:Signal = new Signal();
 		private var _onOut:Signal = new Signal();
-		private var _isTransitioning:Boolean = false;
+		protected var _isTransitioning:Boolean = false;
 		public function TransitionerContainer(target:MovieClip) 
 		{
 			super(target);
@@ -126,11 +126,14 @@ package com.lookmum.view
 		
 		protected function reset():void
 		{
-			_isTransitioning = false;
-			if (enabled)
-				onTransitionIn();
-			else
-				onTransitionOut();
+			if (isTransitioning)
+			{
+				if (enabled)
+					onTransitionIn();
+				else
+					onTransitionOut();
+				_isTransitioning = false;
+			}
 			for each (var item:ITransitioner in transitionComponents) 
 			{
 				if (enabled)
