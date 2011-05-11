@@ -20,11 +20,11 @@ package com.lookmum.util
 		public var overlap:Signal = new Signal(IDraggable);
 		
 		private var dragItems:Array;
-		private var dropLocations:Array;
-		private var dragByDrop:Dictionary;
-		private var dropByDrag:Dictionary;
-		private var startLocationByDrag:Dictionary;
-		private var startLayerByDrag:Dictionary;
+		protected var dropLocations:Array;
+		protected var dragByDrop:Dictionary;
+		protected var dropByDrag:Dictionary;
+		protected var startLocationByDrag:Dictionary;
+		protected var startLayerByDrag:Dictionary;
 		private var dragLayer:Sprite;
 		public function DragManager(dragLayer:Sprite) 
 		{
@@ -50,7 +50,7 @@ package com.lookmum.util
 			dragItem.addEventListener(DragEvent.START, onStartDrag);
 		}
 		
-		private function onStartDrag(e:DragEvent):void 
+		protected function onStartDrag(e:DragEvent):void 
 		{
 			//trace( "DragManager.onStartDrag > e : " + e );
 			var dragItem:IDraggable = e.target as IDraggable;
@@ -61,7 +61,7 @@ package com.lookmum.util
 			reparentDragItem(dragItem, dragLayer);
 			
 		}
-		private function onStopDrag(e:DragEvent):void 
+		protected function onStopDrag(e:DragEvent):void 
 		{
 			var dragItem:IDraggable = e.target as IDraggable;
 			//remove listener because of re-parenting
@@ -117,7 +117,7 @@ package com.lookmum.util
 				moveItemToLocation(dragItem, startLocationByDrag[dragItem]);
 			}
 		}
-		private function moveItemToLocation(item:IDraggable,point:Point):void{
+		protected function moveItemToLocation(item:IDraggable,point:Point):void{
 			Tweener.addTween(item, { x:point.x, y:point.y, time:0.5 } );
 		}
 		public function addDropLocation(dropLocation:IComponent):void 
@@ -178,7 +178,7 @@ package com.lookmum.util
 			dropByDrag[dragItem] = null;
 		}
 		
-		private function reparentDragItem(dragItem:IDraggable, newParent:DisplayObjectContainer):void{
+		protected function reparentDragItem(dragItem:IDraggable, newParent:DisplayObjectContainer):void{
 			var globalCoords:Point = dragItem.parent.localToGlobal(new Point(dragItem.x, dragItem.y));
 			newParent.addChild(dragItem.target);
 			var localCoords:Point = dragItem.parent.globalToLocal(globalCoords);
