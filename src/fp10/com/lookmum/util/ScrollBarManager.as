@@ -12,7 +12,7 @@ package com.lookmum.util {
 		private var _scrollBar:IScrollBar;
 		private var _component:IComponent;
 		private var _textField:TextField;
-		private var _displayObject:DisplayObject;
+		protected var _displayObject:DisplayObject;
 		private var _mask:DisplayObject;
 		private var _wheelSpeed:Number = DEFAULT_DISPLAY_OBJECT_WHEEL_SPEED;
 		public function ScrollBarManager(scrollBar:IScrollBar) {
@@ -70,7 +70,7 @@ package com.lookmum.util {
 			_displayObject.y += e.delta * wheelSpeed;
 			_scrollBar.level = -_displayObject.y;
 		}
-		private function onScrollDisplayObject(event:Event):void{
+		protected function onScrollDisplayObject(event:Event):void{
 			_displayObject.y = -_scrollBar.level;
 		}
 		/**
