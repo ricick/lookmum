@@ -1,7 +1,7 @@
 package com.lookmum.util
 {
 	import com.lookmum.view.MultipleChoiceStatement
-	import com.lookmum.vo.MultipleChoiceVO;
+	import com.lookmum.vo.QuestionOptionVO;
 	import flash.utils.Dictionary;
 	/**
 	 * ...
@@ -18,7 +18,7 @@ package com.lookmum.util
 		{
 			var isCorrect:Boolean = true;
 			
-			for each(var choice:MultipleChoiceVO in multipleChoiceVOs)
+			for each(var choice:QuestionOptionVO in multipleChoiceVOs)
 			{
 				if (choice.correct != choice.selected) 
 				{
@@ -33,7 +33,7 @@ package com.lookmum.util
 		{
 			var correctAnswers:Array = [];
 			
-			for each(var choice:MultipleChoiceVO in multipleChoiceVOs)
+			for each(var choice:QuestionOptionVO in multipleChoiceVOs)
 			{
 				if (choice.correct == choice.selected) 
 				{
@@ -48,7 +48,7 @@ package com.lookmum.util
 		{
 			var incorrectAnswers:Array = [];
 			
-			for each(var choice:MultipleChoiceVO in multipleChoiceVOs)
+			for each(var choice:QuestionOptionVO in multipleChoiceVOs)
 			{
 				if (!choice.correct) 
 				{
