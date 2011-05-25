@@ -110,6 +110,7 @@ package com.lookmum.view
 		
 		protected function onRewind(e:MouseEvent):void 
 		{
+			isComplete = false;
 			seek(0);
 			play();
 		}
@@ -234,7 +235,7 @@ package com.lookmum.view
 			if (videoSlider && videoSlider.getIsDragging()) return;
 			var level:Number = mediaPlayer.time / mediaPlayer.duration;
 			if (level > 1 || isNaN(level)) return;
-			videoSlider.level = (level);
+			if (videoSlider) videoSlider.level = (level);
 			if (textFieldTime) {
 				var timeText:String = getTimeText();
 				textFieldTime.text = timeText;
