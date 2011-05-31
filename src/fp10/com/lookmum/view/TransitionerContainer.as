@@ -11,7 +11,7 @@ package com.lookmum.view
 	public class TransitionerContainer extends Component implements ITransitioner
 	{
 		
-		private var transitionComponents:Array;
+		protected var transitionComponents:Array;
 		private var _onIn:Signal = new Signal();
 		private var _onOut:Signal = new Signal();
 		protected var _isTransitioning:Boolean = false;
@@ -24,7 +24,7 @@ package com.lookmum.view
 			transitionComponents = new Array();
 			super.createChildren();
 		}
-		protected function addTransitionItem(item:MovieClip):void {
+		public function addTransitionItem(item:MovieClip):void {
 			var transitioner:ITransitioner;
 			if (item is ITransitioner) {
 				transitioner = item as ITransitioner;
@@ -37,7 +37,7 @@ package com.lookmum.view
 		protected function getDefaultDecorator(item:MovieClip):ITransitioner {
 			return new TransitionerDecorator(item);
 		}
-		protected function removeTransitionItem(item:MovieClip):void {
+		public function removeTransitionItem(item:MovieClip):void {
 			var transitioner:ITransitioner;
 			for each (var itemCheck:ITransitioner in transitionComponents) 
 			{
@@ -77,7 +77,7 @@ package com.lookmum.view
 			}
 			return null;
 		}
-		private function onItemTransitionIn():void 
+		protected function onItemTransitionIn():void 
 		{
 			for each (var item:ITransitioner in transitionComponents) 
 			{
@@ -85,7 +85,7 @@ package com.lookmum.view
 			}
 			onTransitionIn();
 		}
-		private function onItemTransitionOut():void 
+		protected function onItemTransitionOut():void 
 		{
 			for each (var item:ITransitioner in transitionComponents) 
 			{
@@ -96,8 +96,8 @@ package com.lookmum.view
 		public function transitionIn():void
 		{
 			reset();
-			_isTransitioning = true;
 			if (!visible) visible = true;
+			_isTransitioning = true;
 			enabled = true;
 			mouseEnabled = true;
 			mouseChildren = true;
@@ -112,6 +112,7 @@ package com.lookmum.view
 		public function transitionOut():void
 		{
 			reset();
+			if (!visible) return onOut.dispatch();
 			_isTransitioning = true;
 			enabled = false;
 			mouseEnabled = false;
@@ -124,22 +125,19 @@ package com.lookmum.view
 			}
 		}
 		
-		protected function reset():void
+		public function reset():void
 		{
 			if (isTransitioning)
-			{
-				if (enabled)
-					onTransitionIn();
-				else
-					onTransitionOut();
+			{		
+				for each (var item:ITransitioner in transitionComponents) 
+				{
+					item.reset();
+					if (enabled)
+						item.onIn.remove(onItemTransitionIn);
+					else
+						item.onOut.remove(onItemTransitionOut);
+				}
 				_isTransitioning = false;
-			}
-			for each (var item:ITransitioner in transitionComponents) 
-			{
-				if (enabled)
-					item.onIn.remove(onItemTransitionIn);
-				else
-					item.onOut.remove(onItemTransitionOut);
 			}
 		}
 		
@@ -147,7 +145,7 @@ package com.lookmum.view
 		{
 			for each (var item:ITransitioner in transitionComponents) 
 			{
-				item.onIn.remove(onItemTransitionOut);
+				item.onIn.remove(onItemTransitionIn);
 			}
 			_isTransitioning = false;
 			onIn.dispatch();
