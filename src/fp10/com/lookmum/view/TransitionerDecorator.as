@@ -24,6 +24,7 @@ package com.lookmum.view
 		public var minOutTime:Number = MIN_OUT_TIME;
 		public var maxOutTime:Number = MAX_OUT_TIME;
 		private var _time:Number;
+		private var _delay:Number = 0;
 		public function TransitionerDecorator(target:MovieClip) 
 		{
 			super(target);
@@ -35,41 +36,55 @@ package com.lookmum.view
 		public function transitionIn():void 
 		{
 			reset();
+			if (!target.visible) target.visible = true;
 			transitioning = true;
+			//enabled = true;
+			//mouseEnabled = true;
+			//mouseChildren = true;
 			target.alpha = 0;
-			target.visible = true;
 			var time:Number = minInTime + (Math.random() * (maxInTime-minInTime));
 			Tweener.addTween(target, { 
+				delay: delay,
 				alpha: 1,
 				time: time,
-				onComplete: function():void {
-					transitioning = false;
-					onIn.dispatch();
-				}
+				onComplete: onTransitionIn
 			} );
 		}
 		public function transitionOut():void 
 		{
 			reset();
-			transitioning = true;
 			if (!target.visible) return onOut.dispatch();
+			transitioning = true;
+			//enabled = false;
+			//mouseEnabled = false;
+			//mouseChildren = false;
 			var time:Number = minOutTime + (Math.random() * (maxOutTime-minOutTime));
 			Tweener.addTween(target, { 
-				alpha:0,
+				delay: delay,
+				alpha: 0,
 				time: time,
-				onComplete:function():void {
-					target.visible = false;
-					transitioning = false;
-					onOut.dispatch();
-				}
+				onComplete:onTransitionOut
 			} );
 		}
-		protected function reset():void 
+		public function reset():void 
 		{
 			if (transitioning) {
-				transitioning = false;
 				Tweener.removeTweens(target);
+				transitioning = false;
 			}
+		}
+		
+		protected function onTransitionIn():void
+		{
+			transitioning = false;
+			onIn.dispatch();
+		}
+		
+		protected function onTransitionOut():void
+		{
+			target.visible = false;
+			transitioning = false;
+			onOut.dispatch();
 		}
 		
 		public function get onIn():Signal 
@@ -109,6 +124,13 @@ package com.lookmum.view
 			maxInTime = time;
 			minOutTime = time;
 			maxOutTime = time;
+		}
+		
+		public function get delay():Number { return _delay; }
+		
+		public function set delay(value:Number):void 
+		{
+			_delay = value;
 		}
 		override public function destroy():void 
 		{

@@ -22,11 +22,12 @@ package com.lookmum.view
 		protected const FRAME_PRESS:String = 'press';
 		protected const FRAME_DISABLE:String = 'disable';
 		
-		protected var isMouseOutside:Boolean = false;
+		private var _isMouseOutside:Boolean = false;
 		
 		public function Button(target:MovieClip) 
 		{
 			super(target);
+			hitArea = getHitspot();
 			buttonMode = true;
 			addEventListener(MouseEvent.ROLL_OVER, onRollOver);
 			addEventListener(MouseEvent.ROLL_OUT, onRollOut);
@@ -54,6 +55,14 @@ package com.lookmum.view
 				this.doDisable();
 			}
 		}
+		
+		protected function get isMouseOutside():Boolean { return _isMouseOutside; }
+		
+		protected function set isMouseOutside(value:Boolean):void 
+		{
+			_isMouseOutside = value;
+		}
+		
 		protected function doEnable():void {
 			ModalManager.getInstance().registerComponent(this, this.doDisable);
 			animationRollOut();
@@ -78,6 +87,7 @@ package com.lookmum.view
 		
 		protected function onRollOver(e:MouseEvent):void 
 		{
+			isMouseOutside = false;
 			if (!enabled) return;
 			animationRollOver();
 		}
@@ -101,7 +111,7 @@ package com.lookmum.view
 			animationRollOver();
 			if (isMouseOutside) 
 			{
-				isMouseOutside = false;
+				//isMouseOutside = false;
 				if (getHitspot().stage) getHitspot().stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 				animationRollOut();
 				dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.MOUSE_UP_OUTSIDE, true));
