@@ -7,6 +7,7 @@ package com.lookmum.vo
 	 */
 	public class QuestionOptionVO
 	{
+		public var numberText:String;
 		public var text:String;
 		public var correct:Boolean;
 		public var selected:Boolean;
@@ -19,6 +20,7 @@ package com.lookmum.vo
 		public static function fromXML(xml:XML):QuestionOptionVO 
 		{
 			var value:QuestionOptionVO = new QuestionOptionVO();
+			if (xml.@numberText != undefined) value.numberText = TextManager.getText(xml.@numberText);
 			value.text = TextManager.getText(xml.@text);
 			value.correct = xml.@correct == "true";
 			
