@@ -42,7 +42,8 @@ package com.lookmum.view
 			reset();
 			visible = true;
 			transitioning = true;
-			target.alpha = minAlpha;
+			//target.alpha = minAlpha;
+			target.alpha = 0;
 			var time:Number = minInTime + (Math.random() * (maxInTime-minInTime));
 			cacheX = target.x;
 			cacheY = target.y;
@@ -65,7 +66,8 @@ package com.lookmum.view
 				z:cacheZ,
 				rotationX:cacheRotationX,
 				rotationY:cacheRotationY,
-				alpha: maxAlpha,
+				//alpha: maxAlpha,
+				alpha: 1,
 				time: time,
 				onComplete: function():void {
 					reset();
@@ -100,7 +102,8 @@ package com.lookmum.view
 				z:z,
 				rotationX:rotationX,
 				rotationY:rotationY,
-				alpha:minAlpha, 
+				//alpha:minAlpha, 
+				alpha:0, 
 				time: time,
 				onComplete:function():void {
 					reset();
@@ -111,18 +114,22 @@ package com.lookmum.view
 			} );
 		}
 		
-		override protected function reset():void 
+		override public function reset():void 
 		{
 			if (transitioning) {
 				transitioning = false;
 				Tweener.removeTweens(target, "x", "y", "z", "rotationX", "rotationY", "alpha");
-				/*target.x = cacheX;
+				
+				target.transform.matrix3D = null;
+				
+				target.x = cacheX;
 				target.y = cacheY;
 				target.z = cacheZ;
 				target.rotationX = cacheRotationX;
-				target.rotationY = cacheRotationY;*/
-				target.transform.matrix3D = null;
+				target.rotationY = cacheRotationY;
+				
 				target.transform.matrix = cacheMatrix;
+				
 			}
 		}
 		
