@@ -53,7 +53,9 @@ package com.lookmum.view{
 		protected function doStopDrag(event:Event):void 
 		{
 			stopDrag();
-			stage.removeEventListener(MouseEvent.MOUSE_MOVE, onDrag);
+			if (stage != null) {
+				stage.removeEventListener(MouseEvent.MOUSE_MOVE, onDrag);
+			}
 			dispatchEvent(new DragEvent(DragEvent.STOP));
 			target.dispatchEvent(new DragEvent(DragEvent.STOP, true));
 		}
