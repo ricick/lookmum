@@ -25,6 +25,8 @@ package com.lookmum.view
 		public var maxOutTime:Number = MAX_OUT_TIME;
 		private var _time:Number;
 		private var _delay:Number = 0;
+		private var _minAlpha:Number = 0;
+		private var _maxAlpha:Number = 1;
 		public function TransitionerDecorator(target:MovieClip) 
 		{
 			super(target);
@@ -41,11 +43,11 @@ package com.lookmum.view
 			//enabled = true;
 			//mouseEnabled = true;
 			//mouseChildren = true;
-			target.alpha = 0;
+			target.alpha = minAlpha;
 			var time:Number = minInTime + (Math.random() * (maxInTime-minInTime));
 			Tweener.addTween(target, { 
 				delay: delay,
-				alpha: 1,
+				alpha: maxAlpha,
 				time: time,
 				onComplete: onTransitionIn
 			} );
@@ -61,7 +63,7 @@ package com.lookmum.view
 			var time:Number = minOutTime + (Math.random() * (maxOutTime-minOutTime));
 			Tweener.addTween(target, { 
 				delay: delay,
-				alpha: 0,
+				alpha: minAlpha,
 				time: time,
 				onComplete:onTransitionOut
 			} );
@@ -132,6 +134,21 @@ package com.lookmum.view
 		{
 			_delay = value;
 		}
+		
+		public function get maxAlpha():Number { return _maxAlpha; }
+		
+		public function set maxAlpha(value:Number):void 
+		{
+			_maxAlpha = value;
+		}
+		
+		public function get minAlpha():Number { return _minAlpha; }
+		
+		public function set minAlpha(value:Number):void 
+		{
+			_minAlpha = value;
+		}
+		
 		override public function destroy():void 
 		{
 			onIn.removeAll();
