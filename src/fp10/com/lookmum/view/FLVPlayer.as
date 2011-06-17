@@ -134,8 +134,8 @@ package com.lookmum.view{
 			e.liveDelay = _netStream.liveDelay;
 			e.time = _netStream.time;
 			
-			videoArea.width = videoWidth;
-			videoArea.height = videoHeight;
+			//videoArea.width = videoWidth;
+			//videoArea.height = videoHeight;
 			
 			dispatchEvent(e);
 			//trace( "getDuration() : " + getDuration() );
