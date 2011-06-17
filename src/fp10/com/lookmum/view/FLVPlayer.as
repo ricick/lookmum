@@ -145,9 +145,14 @@ package com.lookmum.view{
 			//trace( "FLVPlayer.onLoadProgress > event : " );
 			var loaded:Number = _netStream.bytesLoaded;
 			var total:Number = _netStream.bytesTotal;
-			if (loaded == total) removeEventListener(Event.ENTER_FRAME, onLoadProgress);
+			if (loaded == total)
+			{
+				var e:MediaPlayerEvent = new MediaPlayerEvent(MediaPlayerEvent.LOAD_COMPLETE);
+				dispatchEvent(e);
+				removeEventListener(Event.ENTER_FRAME, onLoadProgress);
+			}
 			
-			var e:MediaPlayerEvent = new MediaPlayerEvent(MediaPlayerEvent.LOAD_PROGRESS);
+			e = new MediaPlayerEvent(MediaPlayerEvent.LOAD_PROGRESS);
 			
 			e.bufferLength = _netStream.bufferLength;
 			e.bufferTime = _netStream.bufferTime;
