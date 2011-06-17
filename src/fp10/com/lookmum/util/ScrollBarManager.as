@@ -72,7 +72,8 @@ package com.lookmum.util {
 		private function onScrollInsideDisplayObject(e:MouseEvent):void 
 		{
 			_displayObject.y += e.delta * wheelSpeed;
-			_scrollBar.level = -_displayObject.y;
+			_scrollBar.level = -(_displayObject.y - contentDefaultY);
+			
 		}
 		protected function onScrollDisplayObject(event:Event):void{
 			_displayObject.y = -_scrollBar.level;
