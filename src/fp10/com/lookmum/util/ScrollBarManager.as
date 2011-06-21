@@ -10,13 +10,14 @@ package com.lookmum.util {
 	public class ScrollBarManager {
 		
 		private static const DEFAULT_DISPLAY_OBJECT_WHEEL_SPEED:int = 10;
-		protected var _scrollBar:IScrollBar;
+		private var _scrollBar:IScrollBar;
 		private var _component:IComponent;
 		private var _textField:TextField;
 		protected var _displayObject:DisplayObject;
 		private var _mask:DisplayObject;
 		private var _wheelSpeed:Number = DEFAULT_DISPLAY_OBJECT_WHEEL_SPEED;
-
+		private var contentDefaultY:int = 0;
+		
 		public function ScrollBarManager(scrollBar:IScrollBar) {
 			_scrollBar = scrollBar;
 		}
@@ -52,6 +53,7 @@ package com.lookmum.util {
 			//trace( "_textField.scrollV : " + _textField.scrollV );
 		}
 		public function associateDisplayObjectY(displayObject:DisplayObject, mask:DisplayObject = null):void {
+			contentDefaultY = displayObject.y;
 			_displayObject = displayObject;
 			_mask = mask;
 			_scrollBar.addEventListener(Event.SCROLL, onScrollDisplayObject);
@@ -67,12 +69,15 @@ package com.lookmum.util {
 			calculateScroll();
 		}
 		
-		protected function onScrollInsideDisplayObject(e:MouseEvent):void 
+		private function onScrollInsideDisplayObject(e:MouseEvent):void 
 		{
-			_displayObject.y += e.delta * wheelSpeed;			
+			_displayObject.y += e.delta * wheelSpeed;
+			_scrollBar.level = -(_displayObject.y - contentDefaultY);
+			
 		}
 		protected function onScrollDisplayObject(event:Event):void{
 			_displayObject.y = -_scrollBar.level;
+			//_displayObject.y += contentDefaultY;
 		}
 		/**
 		 * Pixels to move display object based on one mouse wheel click.
