@@ -18,7 +18,7 @@
 	
 	public class ComboBox  extends Component {
 
-		private var _selectedIndex:Number;
+		protected var _selectedIndex:Number;
 		protected var buttonOpen:LabelButton;
 		protected var _items:Array;
 		private var mouseMoveListener:Function;
@@ -26,9 +26,9 @@
 		private var closeInt:Number;
 		private var closeDelay:Number = 1000;
 		private var timer:Timer;
-		private var _isOpen:Boolean = false;
-		private var itemRenderer:Class;
-		private var holder:MovieClip;
+		protected var _isOpen:Boolean = false;
+		protected var itemRenderer:Class;
+		protected var holder:MovieClip;
 		protected var itemButtons:Array;
 		
 		public function ComboBox(target:MovieClip) {
@@ -49,7 +49,7 @@
 			return new LabelButton(clip);
 		}
 		
-		private function onMouseMove(event:MouseEvent):void{
+		protected function onMouseMove(event:MouseEvent):void{
 			if(!doHitTest()){
 				if(!timer.running){
 					timer.reset();
@@ -66,7 +66,7 @@
 			timer.stop();
 			this.close();
 		}
-		private function onMouseDown(event:MouseEvent):void{
+		protected function onMouseDown(event:MouseEvent):void{
 			if(!doHitTest())this.close();
 		}
 		private function doHitTest():Boolean {
