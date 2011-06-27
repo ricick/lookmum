@@ -10,6 +10,8 @@ package com.lookmum.view
 	import flash.events.FocusEvent;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	
 	/**
 	 * ...
@@ -58,7 +60,14 @@ package com.lookmum.view
 		
 		protected function get isMouseOutside():Boolean 
 		{
-			return !getHitspot().hitTestPoint(mouseX, mouseY); 
+			if (!stage) return true;
+			
+			var bounds:Rectangle = getHitspot().getBounds(stage);
+			var mx:Number = stage.mouseX;
+			var my:Number = stage.mouseY;
+			//trace(bounds, mx, my, bounds.x <= mx <= (bounds.x + bounds.width), bounds.y <= my <= (bounds.y + bounds.height));
+			return !(bounds.x <= mx <= (bounds.x + bounds.width) &&
+				   bounds.y <= my <= (bounds.y + bounds.height)); 
 		}
 		
 		//protected function set isMouseOutside(value:Boolean):void 
@@ -111,10 +120,10 @@ package com.lookmum.view
 		protected function onMouseUp(e:MouseEvent):void 
 		{
 			if (!enabled) return;
+			if (getHitspot().stage) getHitspot().stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 			if (isMouseOutside) 
 			{
 				//isMouseOutside = false;
-				if (getHitspot().stage) getHitspot().stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 				animationRollOut();
 				dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.MOUSE_UP_OUTSIDE, true));
 			}
