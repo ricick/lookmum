@@ -200,7 +200,8 @@ package com.lookmum.view
 		}
 		protected function onDragSlider(e:DragEvent):void 
 		{
-			mediaPlayer.seek(mediaPlayer.duration * videoSlider.level);
+			//mediaPlayer.seek(mediaPlayer.duration * videoSlider.level);
+			seek(mediaPlayer.duration * videoSlider.level);
 		}
 		protected function onStopDragSlider(e:DragEvent):void 
 		{
@@ -280,6 +281,7 @@ package com.lookmum.view
 		{
 			_playing = false;
 			mediaPlayer.pause();
+			buttonPlayPause.toggle = (true);
 			dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.STOP));
 		}
 		
@@ -296,7 +298,11 @@ package com.lookmum.view
 		public function seek(time:Number):void
 		{
 			mediaPlayer.seek(time);
-			if(videoSlider)videoSlider.level = (time/mediaPlayer.duration);
+			if (videoSlider) videoSlider.level = (time / mediaPlayer.duration);
+			if (textFieldTime) {
+				var timeText:String = getTimeText();
+				textFieldTime.text = timeText;
+			}
 		}
 		
 		public function get loadLevel():Number{
