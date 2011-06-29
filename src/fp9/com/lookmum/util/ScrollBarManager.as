@@ -47,7 +47,8 @@ package com.lookmum.util {
 		private function onScrollInsideTextField(e:Event):void 
 		{
 			_scrollBar.level = _textField.scrollV;
-			//trace( "_textField.scrollV : " + _textField.scrollV );
+			if (_scrollBar.level == 1)
+				_scrollBar.level = 0;
 		}
 		public function associateDisplayObjectY(displayObject:DisplayObject, mask:DisplayObject = null):void{
 			_displayObject = displayObject;
