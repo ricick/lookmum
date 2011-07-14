@@ -134,7 +134,7 @@ package com.lookmum.util {
 			if (soundChannelObject) {
 				var loops:int = 0;
 				if (_loop) loops = MAX_LOOPS;
-			//	trace( "_time : " + _time );
+				soundChannelObject.soundTransform = soundTransformObject;
 				soundChannelObject = this._sound.play(this._time, loops);
 				soundChannelObject.addEventListener(Event.SOUND_COMPLETE, onSoundComplete);
 			}
