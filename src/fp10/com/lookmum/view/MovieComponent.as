@@ -6,10 +6,10 @@ package com.lookmum.view
 	
 	public class MovieComponent extends Component {
 		
-		private static const DEFAULT_DURATION:Number = 1;
+		private static const DEFAUL_SPEED:Number = 1;
 		private static const DEFAULT_EASING:String = "linear";
 		
-		protected var _duration:Number = DEFAULT_DURATION;
+		protected var _speed:Number = DEFAUL_SPEED;
 		protected var _easing:String = DEFAULT_EASING;
 		protected var _delay:Number = 0;
 		
@@ -25,14 +25,14 @@ package com.lookmum.view
 		 * Getters and Setters
 		 */
 		
-		public function get duration():Number 
+		public function get speed():Number 
 		{
-			return _duration;
+			return _speed;
 		}
 		
-		public function set duration(value:Number):void
+		public function set speed(value:Number):void
 		{
-			_duration = value;
+			_speed = value;
 		}
 		
 		public function set delay(value:Number):void
@@ -67,11 +67,13 @@ package com.lookmum.view
 		 */
 		
 		public function frameTo(endFrame:int, callback:Function = null):void {
+			var duration:Number = speed * target.totalFrames / stage.frameRate;
 			Tweener.addTween (target, { _frame:endFrame, delay:delay, time:duration, transition:easing, onUpdate:onUpdate, onComplete:onComplete, overwrite:true } );
 			this.callback = callback;
 		}
 		
 		public function frameToFrom(startFrame:int, endFrame:int, callback:Function = null):void {
+			var duration:Number = speed * target.totalFrames / stage.frameRate;
 			target.gotoAndStop(startFrame);
 			Tweener.addTween (target, { _frame:endFrame, delay:delay, time:duration, transition:easing, onUpdate:onUpdate, onComplete:onComplete, overwrite:true } );
 			this.callback = callback;

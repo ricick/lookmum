@@ -18,7 +18,7 @@
 	
 	public class ComboBox  extends Component {
 
-		private var _selectedIndex:Number;
+		protected var _selectedIndex:Number;
 		protected var buttonOpen:LabelButton;
 		protected var _items:Array;
 		private var mouseMoveListener:Function;
@@ -26,9 +26,9 @@
 		private var closeInt:Number;
 		private var closeDelay:Number = 1000;
 		private var timer:Timer;
-		private var _isOpen:Boolean = false;
-		private var itemRenderer:Class;
-		private var holder:MovieClip;
+		protected var _isOpen:Boolean = false;
+		protected var itemRenderer:Class;
+		protected var holder:MovieClip;
 		protected var itemButtons:Array;
 		
 		public function ComboBox(target:MovieClip) {
@@ -49,7 +49,7 @@
 			return new LabelButton(clip);
 		}
 		
-		private function onMouseMove(event:MouseEvent):void{
+		protected function onMouseMove(event:MouseEvent):void{
 			if(!doHitTest()){
 				if(!timer.running){
 					timer.reset();
@@ -66,15 +66,15 @@
 			timer.stop();
 			this.close();
 		}
-		private function onMouseDown(event:MouseEvent):void{
+		protected function onMouseDown(event:MouseEvent):void{
 			if(!doHitTest())this.close();
 		}
 		private function doHitTest():Boolean {
 			// changed target.stage to root
 			var hitThis:Boolean = this.target.hitTestPoint(target.stage.mouseX, target.stage.mouseY, true);
-			trace("hitThis : " + hitThis);
+			//trace("hitThis : " + hitThis);
 			var hitHolder:Boolean = this.holder.hitTestPoint(holder.stage.mouseX, holder.stage.mouseY, true);
-			trace("hitHolder : " + hitHolder);
+			//trace("hitHolder : " + hitHolder);
 			var hit:Boolean = (hitThis||hitHolder);
 			return hit;
 		}
@@ -147,7 +147,7 @@
 			this.itemButtons = new Array();
 			this.target.removeChild(holder);
 		}
-		private function onItemSelect(event:MouseEvent):void {
+		protected function onItemSelect(event:MouseEvent):void {
 			var index:Number = 0;
 			for (var i:int = 0; i < this.itemButtons.length; i++) {
 				var button:LabelButton = this.itemButtons[i];

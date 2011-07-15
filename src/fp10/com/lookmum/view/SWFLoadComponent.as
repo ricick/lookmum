@@ -14,27 +14,25 @@ package com.lookmum.view
 	 * ...
 	 * @author 
 	 */
-	public class ImageLoadComponent extends Component
+	public class SWFLoadComponent extends Component
 	{
-		protected var loader:Loader;
-		
-		public var containsImage:Boolean;
-		protected var imageLoaderInfo:LoaderInfo;
+		protected var loader:Loader
+		protected var swfLoaderInfo:LoaderInfo;
+		public var containsSwf:Boolean;
 			
-		public function ImageLoadComponent(target:MovieClip) 
+		public function SWFLoadComponent(target:MovieClip) 
 		{
 			super(target);
-			containsImage = false;	
+			containsSwf = false;	
 			loader = new Loader();		
 		}
 		
-		public function load(imageURI:String, context:LoaderContext = null ):void {
-			if (containsImage) clearImage();
-			
+		public function load(swfURI:String, context:LoaderContext = null ):void {
+			if (containsSwf) clearSwf();
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteLoad);
 			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
-			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
-			loader.load(new URLRequest(imageURI), context);
+			loader.load(new URLRequest(swfURI), context);
 		}
 		
 		private function onIOError(e:IOErrorEvent):void 
@@ -47,22 +45,26 @@ package com.lookmum.view
 			dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS));
 		}
 		
-		protected function clearImage():void {
-			containsImage = false;
-			target.removeChild(loader);			
+		protected function clearSwf():void {
+			containsSwf = false;
+			loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onCompleteLoad);
+			loader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, onProgress);
+			target.removeChild(loader);	
 		}
-		public function setSmoothing(value:Boolean):void {
-			if (!containsImage) return;
-			Bitmap(Loader(target.getChildAt(1)).contentLoaderInfo.content).smoothing = value;
-		}
-		private function onCompleteLoad(e:Event):void 
+		
+		protected function onCompleteLoad(e:Event):void 
 		{
-			containsImage = true;
-			imageLoaderInfo = e.target as LoaderInfo;
+			containsSwf = true;
+			swfLoaderInfo = e.target as LoaderInfo;
 			target.addChild(loader);			
 			loader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, onProgress);
 			loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onCompleteLoad);
 			dispatchEvent(new Event(Event.COMPLETE));
+		}
+		
+		public function get content():MovieClip
+		{
+			return swfLoaderInfo.content as MovieClip;
 		}
 	}	
 }

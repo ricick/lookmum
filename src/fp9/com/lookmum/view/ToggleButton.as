@@ -40,38 +40,80 @@ package com.lookmum.view{
 			if (toggle) 
 			{
 				if (out)
-					target.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+				{
+					try {
+						target.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+					} catch (e:Error) {
+						trace(e);
+					}
+				}
 				else
-					target.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+				{
+					try {
+						target.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+					} catch (e:Error) {
+						trace(e);
+					}
+				}
 			}
 		}
 		override protected function onMouseDown(e:MouseEvent):void 
 		{
 			super.onMouseDown(e);
 			if (!enabled) return;
-			if (toggle) target.gotoAndStop(FRAME_PRESS_TOGGLE);
+			if (toggle) {
+				try {
+					target.gotoAndStop(FRAME_PRESS_TOGGLE);
+				} catch (e:Error) {
+					trace(e);
+				}
+			}
 		}
 		override protected function onRollOver(e:MouseEvent):void 
 		{
 			super.onRollOver(e);
 			if (!enabled) return;
-			if (toggle) target.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+			if (toggle) {
+				try {
+					target.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+				} catch (e:Error) {
+					trace(e);
+				}
+			}
 		}
 		override protected function onRollOut(e:MouseEvent):void 
 		{
 			super.onRollOut(e);
 			if (!enabled) return;
-			if (toggle) target.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+			if (toggle) {
+				try {
+					target.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+				} catch (e:Error) {
+					trace(e);
+				}
+			}
 		}
 		override protected function doEnable():void 
 		{
 			super.doEnable();
-			if (toggle) target.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+			if (toggle) {
+				try {
+					target.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+				} catch (e:Error) {
+					trace(e);
+				}
+			}
 		}
 		override protected function doDisable():void 
 		{
 			super.doDisable();
-			if (toggle) target.gotoAndStop(FRAME_DISABLE_TOGGLE);
+			if (toggle) {
+				try {
+					target.gotoAndStop(FRAME_DISABLE_TOGGLE);
+				} catch (e:Error) {
+					trace(e);
+				}
+			}
 		}
 	}
 }

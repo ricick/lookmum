@@ -1,4 +1,5 @@
-package com.lookmum.view {
+package com.lookmum.view 
+{
 	
 	import com.eclecticdesignstudio.motion.Actuate;
 	import com.eclecticdesignstudio.motion.easing.IEasing;

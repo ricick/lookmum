@@ -32,7 +32,7 @@ package com.lookmum.view
 		protected var playIcon:Button;
 		protected var loadIcon:MovieClip;
 		protected var textFieldTime:TextField;
-		
+		private var _mediaClickPlayPause:Boolean;
 		public function VideoPlayer(target:MovieClip) 
 		{
 			super(target);
@@ -61,14 +61,14 @@ package com.lookmum.view
 			videoSlider = getSlider();
 			if (videoSlider)
 			{
-			videoSlider.addEventListener(DragEvent.START, onStartDragSlider);
-			videoSlider.addEventListener(DragEvent.DRAG, onDragSlider);
+				videoSlider.addEventListener(DragEvent.START, onStartDragSlider);
+				videoSlider.addEventListener(DragEvent.DRAG, onDragSlider);
 				videoSlider.addEventListener(DragEvent.STOP, onStopDragSlider);
 			}
 			buttonPlayPause = getButtonPlayPause();
 			if (buttonPlayPause)
 			{
-			buttonPlayPause.addEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
+				buttonPlayPause.addEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
 			}
 			playIcon = getPlayIcon();
 			if (playIcon) {
@@ -110,6 +110,7 @@ package com.lookmum.view
 		
 		protected function onRewind(e:MouseEvent):void 
 		{
+			isComplete = false;
 			seek(0);
 			play();
 		}
@@ -227,6 +228,7 @@ package com.lookmum.view
 				seek(0);
 				play();
 			}
+			buttonPlayPause.toggle = !playing;
 		}
 		
 		protected function onUpdate(e:MediaPlayerEvent):void 
@@ -234,7 +236,7 @@ package com.lookmum.view
 			if (videoSlider && videoSlider.getIsDragging()) return;
 			var level:Number = mediaPlayer.time / mediaPlayer.duration;
 			if (level > 1 || isNaN(level)) return;
-			videoSlider.level = (level);
+			if (videoSlider) videoSlider.level = (level);
 			if (textFieldTime) {
 				var timeText:String = getTimeText();
 				textFieldTime.text = timeText;
@@ -249,7 +251,7 @@ package com.lookmum.view
 		public function load(url:String, autoPlay:Boolean = true):void
 		{
 			isComplete = false;
-			if(videoSlider)videoSlider.level = (0);
+			if (videoSlider) videoSlider.level = (0);
 			if (loadIcon) loadIcon.visible = true;
 			_playing = autoPlay;
 			mediaPlayer.load(url, autoPlay);
@@ -351,6 +353,21 @@ package com.lookmum.view
 		public function set isComplete(value:Boolean):void 
 		{
 			_isComplete = value;
+		}
+		
+		public function get mediaClickPlayPause():Boolean 
+		{
+			return _mediaClickPlayPause;
+		}
+		
+		public function set mediaClickPlayPause(value:Boolean):void 
+		{
+			_mediaClickPlayPause = value;
+			if (value) {
+				mediaPlayer.addEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
+			}else {
+				mediaPlayer.removeEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
+			}
 		}
 	}
 	

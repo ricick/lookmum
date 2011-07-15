@@ -5,6 +5,7 @@ package com.lookmum.view
 	import flash.display.LoaderInfo;
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.net.URLRequest;
 	import flash.system.LoaderContext;
@@ -32,7 +33,13 @@ package com.lookmum.view
 			
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteLoad);
 			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
 			loader.load(new URLRequest(imageURI), context);
+		}
+		
+		private function onIOError(e:IOErrorEvent):void 
+		{
+			trace(e);
 		}
 		
 		protected function onProgress(e:ProgressEvent):void 
