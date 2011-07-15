@@ -42,7 +42,7 @@ package com.lookmum.view{
 		{
 			target.dispatchEvent(new DragEvent(DragEvent.ROLLOVER_DRAG, true));
 		}
-		private function doStartDrag(event:MouseEvent):void {
+		protected function doStartDrag(event:MouseEvent):void {
 			startDrag(_lockCenter, _dragBounds);
 			stage.addEventListener(MouseEvent.MOUSE_MOVE,onDrag);
 			dispatchEvent(new DragEvent(DragEvent.START));
@@ -50,10 +50,12 @@ package com.lookmum.view{
 			target.dispatchEvent(new DragEvent(DragEvent.START, true));
 		}
 		
-		private function doStopDrag(event:Event):void 
+		protected function doStopDrag(event:Event):void 
 		{
 			stopDrag();
-			stage.removeEventListener(MouseEvent.MOUSE_MOVE, onDrag);
+			if (stage != null) {
+				stage.removeEventListener(MouseEvent.MOUSE_MOVE, onDrag);
+			}
 			dispatchEvent(new DragEvent(DragEvent.STOP));
 			target.dispatchEvent(new DragEvent(DragEvent.STOP, true));
 		}

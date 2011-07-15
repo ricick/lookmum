@@ -28,8 +28,8 @@ package com.lookmum.view{
 		private var _loadProgressTime:Number = 100;
 		private var _metaData:VideoMetaData;
 		private var _bufferTime:Number = 0;
-		private var videoWidth:Number;
-		private var videoHeight:Number;
+		private var _videoWidth:Number;
+		private var _videoHeight:Number;
 		public function FLVPlayer (target:MovieClip)
 		{
 			super (target);
@@ -145,9 +145,14 @@ package com.lookmum.view{
 			//trace( "FLVPlayer.onLoadProgress > event : " );
 			var loaded:Number = _netStream.bytesLoaded;
 			var total:Number = _netStream.bytesTotal;
-			if (loaded == total) removeEventListener(Event.ENTER_FRAME, onLoadProgress);
+			if (loaded == total)
+			{
+				var e:MediaPlayerEvent = new MediaPlayerEvent(MediaPlayerEvent.LOAD_COMPLETE);
+				dispatchEvent(e);
+				removeEventListener(Event.ENTER_FRAME, onLoadProgress);
+			}
 			
-			var e:MediaPlayerEvent = new MediaPlayerEvent(MediaPlayerEvent.LOAD_PROGRESS);
+			e = new MediaPlayerEvent(MediaPlayerEvent.LOAD_PROGRESS);
 			
 			e.bufferLength = _netStream.bufferLength;
 			e.bufferTime = _netStream.bufferTime;
@@ -324,6 +329,20 @@ package com.lookmum.view{
 		{
 			if (_netStream)_netStream.bufferTime = value;
 			_bufferTime = value;
+		}
+		
+		public function get videoWidth():Number { return _videoWidth; }
+		
+		public function set videoWidth(value:Number):void 
+		{
+			_videoWidth = value;
+		}
+		
+		public function get videoHeight():Number { return _videoHeight; }
+		
+		public function set videoHeight(value:Number):void 
+		{
+			_videoHeight = value;
 		}
 		
 	}

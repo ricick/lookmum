@@ -15,7 +15,7 @@ package com.lookmum.util
 				milliseconds = Math.abs(milliseconds);			
 			}
 			
-			var seconds:int = Math.round((milliseconds/1000) % 60);
+			var seconds:int = Math.round((milliseconds / 1000) % 60);
 			var strSeconds:String = (seconds < 10) ? ("0" + String(seconds)) : String(seconds);
 			if(seconds == 60) strMinutes = "00";
 			var minutes:int = Math.round(Math.floor((milliseconds / 1000) / 60));

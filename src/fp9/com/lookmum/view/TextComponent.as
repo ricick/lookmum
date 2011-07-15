@@ -63,11 +63,11 @@ package com.lookmum.view
 			super.arrangeComponents();
 			if (!bg) return ;
 			if(autosizeBackground){
-			bg.width = 2 * _padding + textField.width;
-			bg.height = 2 * _padding + textField.height;
-			textField.x = _padding;
-			textField.y = _padding;
-		}
+				bg.width = 2 * _padding + textField.width;
+				bg.height = 2 * _padding + textField.height;
+				textField.x = _padding;
+				textField.y = _padding;
+			}
 		}
 		
 		/*

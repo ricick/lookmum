@@ -136,27 +136,43 @@ package com.lookmum.view
 			if (isMouseOutside) 
 			{
 				//isMouseOutside = false;
-				animationRollOut();
 				if (getHitspot().stage) getHitspot().stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+				animationRollOut();
 				dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.MOUSE_UP_OUTSIDE, true));
 			}
 		}
 		//animations
 		protected function animationRollOver():void 
 		{
-			target.gotoAndStop(FRAME_ROLL_OVER);
+			try {
+				target.gotoAndStop(FRAME_ROLL_OVER);
+			} catch (e:Error) {
+				trace(e);
+			}
 		}
 		protected function animationRollOut():void 
 		{
-			target.gotoAndStop(FRAME_ROLL_OUT);
+			try {
+				target.gotoAndStop(FRAME_ROLL_OUT);
+			} catch (e:Error) {
+				trace(e);
+			}
 		}
 		protected function animationMouseDown():void 
 		{
-			target.gotoAndStop(FRAME_PRESS);
+			try {
+				target.gotoAndStop(FRAME_PRESS);
+			} catch (e:Error) {
+				trace(e);
+			}
 		}
 		protected function animationDisable():void 
 		{
-			target.gotoAndStop(FRAME_DISABLE);
+			try {
+				target.gotoAndStop(FRAME_DISABLE);
+			} catch (e:Error) {
+				trace(e);
+			}
 		}
 		
 		override public function destroy():void 
