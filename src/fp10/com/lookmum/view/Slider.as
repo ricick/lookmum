@@ -39,7 +39,7 @@ package com.lookmum.view{
 			this.tab.addEventListener(DragEvent.STOP, onStopDrag);
 			
 			this.tab.tabEnabled = (false);
-			this.track.addEventListener(MouseEvent.MOUSE_UP,onReleaseTrack);
+			this.track.addEventListener(MouseEvent.MOUSE_UP, onReleaseTrack);
 			this.track.tabEnabled = (false);
 			addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
 			
@@ -64,8 +64,8 @@ package com.lookmum.view{
 			if (vertical) {
 				return new Rectangle(this.tab.x, this.track.y, 0, this.track.height - this.tab.height);
 			}else{
-			return new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0);
-		}
+				return new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0);
+			}
 		}
 		
 		public function getTrack():Button {
@@ -95,12 +95,12 @@ package com.lookmum.view{
 					updateBar();
 				}
 			}else{
-			var destX:Number = this.tab.x+delta
-			if(destX<track.x)destX = track.x;
-			if(destX > track.x + track.width - tab.width)destX = track.x + track.width - tab.width;
-			this.tab.x = (destX);
-			if (bar)
-			{
+				var destX:Number = this.tab.x+delta
+				if(destX<track.x)destX = track.x;
+				if(destX > track.x + track.width - tab.width)destX = track.x + track.width - tab.width;
+				this.tab.x = (destX);
+				if (bar)
+				{
 					updateBar();
 				}
 			}
@@ -125,8 +125,8 @@ package com.lookmum.view{
 			this.dispatchEvent(new DragEvent(DragEvent.DRAG));
 			this.dispatchEvent(new Event(Event.CHANGE));
 			if (vertical) {
-			if (bar)
-			{
+				if (bar)
+				{
 					updateBar();
 				}
 			}else{
@@ -148,15 +148,15 @@ package com.lookmum.view{
 			if (vertical) {
 				super.width = value;
 			}else{
-			this.track.width = (value);
+				this.track.width = (value);
 				this.tab.dragBounds = getDragBounds();
-			
-			if (tab.x > this.track.width - this.tab.width) 
-			{
-				tab.x = this.track.width - this.tab.width;
-				this.dispatchEvent(new Event(Event.CHANGE));
+				
+				if (tab.x > this.track.width - this.tab.width) 
+				{
+					tab.x = this.track.width - this.tab.width;
+					this.dispatchEvent(new Event(Event.CHANGE));
+				}
 			}
-		}
 		}
 		override public function get width():Number
 		{
@@ -225,11 +225,11 @@ package com.lookmum.view{
 					updateBar();
 				}
 			}else {
-			if(value>1)value = 1;
-			if(value<0)value = 0;
-			this.tab.x = (this.track.x +(this.track.width-this.tab.width) * value);
-			if (bar)
-			{
+				if(value>1)value = 1;
+				if(value<0)value = 0;
+				this.tab.x = (this.track.x +(this.track.width-this.tab.width) * value);
+				if (bar)
+				{
 					updateBar();
 				}
 				
@@ -245,8 +245,8 @@ package com.lookmum.view{
 				trace( "this.tab.y : " + this.tab.y );
 				return 1 - ((this.tab.y - this.track.y) / (this.track.y + (this.track.height - this.tab.height)));
 			}else{
-			return (this.tab.x-this.track.x)/(this.track.x+(this.track.width-this.tab.width));
-		}
+				return (this.tab.x - this.track.x) / (this.track.x + (this.track.width - this.tab.width));
+			}
 		}
 		
 		protected function onReleaseTrack(event:MouseEvent):void
@@ -263,11 +263,11 @@ package com.lookmum.view{
 					updateBar();
 				}
 			}else{
-			this.tab.x = (mouseX-(this.tab.width/2));
-			if(this.tab.x<this.tab.dragBounds.left)this.tab.x = (this.tab.dragBounds.left);
-			if(this.tab.x>this.tab.dragBounds.right)this.tab.x = (this.tab.dragBounds.right);
-			if (bar)
-			{
+				this.tab.x = (mouseX-(this.tab.width/2));
+				if(this.tab.x<this.tab.dragBounds.left)this.tab.x = (this.tab.dragBounds.left);
+				if(this.tab.x>this.tab.dragBounds.right)this.tab.x = (this.tab.dragBounds.right);
+				if (bar)
+				{
 					updateBar();
 				}
 			}

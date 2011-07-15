@@ -44,13 +44,29 @@ package com.lookmum.view
 			super.onMouseUp(e);
 			
 			if (toggle) {
-				target.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+				try {
+					target.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+				} catch (e:Error) {
+					trace(e);
+				}
 				if (bg)
 				{
 					if (out)
-						bg.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+					{
+						try {
+							bg.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+						} catch (e:Error) {
+							trace(e);
+						}
+					}
 					else
-						bg.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+					{
+						try {
+							bg.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+						} catch (e:Error) {
+							trace(e);
+						}
+					}
 				}
 				if (_textFormatRollOutToggle) currentTextFormat = (_textFormatRollOutToggle);
 				arrangeComponents();
@@ -63,8 +79,18 @@ package com.lookmum.view
 			super.onMouseDown(e);
 			
 			if (toggle) {
-				target.gotoAndStop(FRAME_PRESS_TOGGLE);
-				if (bg) bg.gotoAndStop(FRAME_PRESS_TOGGLE);
+				try {
+					target.gotoAndStop(FRAME_PRESS_TOGGLE);
+				} catch (e:Error) {
+					trace(e);
+				}
+				if (bg) {
+					try {
+						bg.gotoAndStop(FRAME_PRESS_TOGGLE);
+					} catch (e:Error) {
+						trace(e);
+					}
+				}
 				if (_textFormatPressToggle) currentTextFormat = (_textFormatPressToggle);
 				arrangeComponents();
 			}
@@ -74,8 +100,18 @@ package com.lookmum.view
 			super.onRollOver(e);
 			if (!enabled) return;
 			if (toggle) {
-				target.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
-				if (bg) bg.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+				try {
+					target.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+				} catch (e:Error) {
+					trace(e);
+				}
+				if (bg) {
+					try {
+						bg.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+					} catch (e:Error) {
+						trace(e);
+					}
+				}
 				if (_textFormatRollOverToggle) currentTextFormat = (_textFormatRollOverToggle);
 				arrangeComponents();
 			}
@@ -87,8 +123,18 @@ package com.lookmum.view
 			super.onRollOut(e);
 			
 			if (toggle) {
-				target.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
-				if (bg) bg.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+				try {
+					target.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+				} catch (e:Error) {
+					trace(e);
+				}
+				if (bg) {
+					try {
+						bg.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+					} catch (e:Error) {
+						trace(e);
+					}
+				}
 				if (_textFormatRollOutToggle) currentTextFormat = (_textFormatRollOutToggle);
 				arrangeComponents();
 			}
@@ -97,8 +143,18 @@ package com.lookmum.view
 		{
 			super.doEnable();
 			if (toggle) {
-				target.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
-				if (bg) bg.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+				try {
+					target.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+				} catch (e:Error) {
+					trace(e);
+				}
+				if (bg) {
+					try {
+						bg.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+					} catch (e:Error) {
+						trace(e);
+					}
+				}
 				if (_textFormatRollOutToggle) currentTextFormat = (_textFormatRollOutToggle);
 				arrangeComponents();
 			}
@@ -107,8 +163,18 @@ package com.lookmum.view
 		{
 			super.doDisable();
 			if (toggle) {
-				target.gotoAndStop(FRAME_DISABLE_TOGGLE);
-				if (bg) bg.gotoAndStop(FRAME_DISABLE_TOGGLE);
+				try {
+					target.gotoAndStop(FRAME_DISABLE_TOGGLE);
+				} catch (e:Error) {
+					trace(e);
+				}
+				if (bg) {
+					try {
+						bg.gotoAndStop(FRAME_DISABLE_TOGGLE);
+					} catch (e:Error) {
+						trace(e);
+					}
+				}
 				if (_textFormatDisableToggle) currentTextFormat = (_textFormatDisableToggle);
 				arrangeComponents();
 			}

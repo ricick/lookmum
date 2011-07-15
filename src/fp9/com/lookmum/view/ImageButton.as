@@ -1,6 +1,7 @@
 package com.lookmum.view 
 {
 	import flash.display.MovieClip;
+	import flash.text.TextField;
 	
 	/**
 	 * ...
@@ -9,6 +10,8 @@ package com.lookmum.view
 	public class ImageButton extends Button 
 	{
 		private var image:ImageLoadComponent;
+		private var captionText:TextField;
+		
 		public function ImageButton(target:MovieClip) 
 		{
 			super(target);
@@ -18,7 +21,13 @@ package com.lookmum.view
 		{
 			super.createChildren();
 			image = new ImageLoadComponent(target.image);
+			captionText = target.captionText;
 		}
+		
+		public function setCaptionText(value:String):void {
+			captionText.htmlText = value;
+		}
+		
 		public function load(imageURI:String):void {
 			image.load(imageURI);
 		}

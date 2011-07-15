@@ -10,6 +10,8 @@ package com.lookmum.view
 	import flash.events.FocusEvent;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	
 	/**
 	 * ...
@@ -56,7 +58,29 @@ package com.lookmum.view
 			}
 		}
 		
-		protected function get isMouseOutside():Boolean { return _isMouseOutside; }
+		//protected function get isMouseOutside():Boolean 
+		//{
+			//if (!stage) return true;
+			//
+			//var bounds:Rectangle = getHitspot().getBounds(stage);
+			//var mx:Number = stage.mouseX;
+			//var my:Number = stage.mouseY;
+			//trace(bounds, mx, my, bounds.x <= mx <= (bounds.x + bounds.width), bounds.y <= my <= (bounds.y + bounds.height));
+			//return !(bounds.x <= mx <= (bounds.x + bounds.width) &&
+				   //bounds.y <= my <= (bounds.y + bounds.height)); 
+		//}
+		
+		override public function set visible(value:Boolean):void
+		{
+			super.visible = value;
+			if (!value)
+				isMouseOutside = true;
+		}
+		
+		protected function get isMouseOutside():Boolean
+		{
+			return _isMouseOutside;
+		}
 		
 		protected function set isMouseOutside(value:Boolean):void 
 		{
@@ -120,19 +144,35 @@ package com.lookmum.view
 		//animations
 		protected function animationRollOver():void 
 		{
-			target.gotoAndStop(FRAME_ROLL_OVER);
+			try {
+				target.gotoAndStop(FRAME_ROLL_OVER);
+			} catch (e:Error) {
+				trace(e);
+			}
 		}
 		protected function animationRollOut():void 
 		{
-			target.gotoAndStop(FRAME_ROLL_OUT);
+			try {
+				target.gotoAndStop(FRAME_ROLL_OUT);
+			} catch (e:Error) {
+				trace(e);
+			}
 		}
 		protected function animationMouseDown():void 
 		{
-			target.gotoAndStop(FRAME_PRESS);
+			try {
+				target.gotoAndStop(FRAME_PRESS);
+			} catch (e:Error) {
+				trace(e);
+			}
 		}
 		protected function animationDisable():void 
 		{
-			target.gotoAndStop(FRAME_DISABLE);
+			try {
+				target.gotoAndStop(FRAME_DISABLE);
+			} catch (e:Error) {
+				trace(e);
+			}
 		}
 		
 		override public function destroy():void 

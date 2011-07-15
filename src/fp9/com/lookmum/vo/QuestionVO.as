@@ -9,16 +9,26 @@ package com.lookmum.vo
 	{
 		public var text:String;
 		public var type:String;
+		
+		public var feedbackCorrectHeading:String;
 		public var feedbackCorrect:String;
+		
 		public var feedbackIncorrect:String;
+		public var feedbackIncorrectHeading:String;
+		
 		public var options:Array;
 		public static function fromXML(xml:XML):QuestionVO 
 		{
 			var value:QuestionVO = new QuestionVO();
 			value.type = xml.@type;
 			value.text = TextManager.getText(xml.@text);
+			
 			value.feedbackCorrect = TextManager.getText(xml.@feedbackCorrect);
+			if (xml.@feedbackCorrectHeading != undefined) value.feedbackCorrectHeading = TextManager.getText(xml.@feedbackCorrectHeading);
+			
 			value.feedbackIncorrect = TextManager.getText(xml.@feedbackIncorrect);
+			if (xml.@feedbackIncorrectHeading != undefined) value.feedbackIncorrectHeading = TextManager.getText(xml.@feedbackIncorrectHeading);
+			
 			value.options = new Array();
 			for each (var optionXML:XML in xml.options.option) 
 			{

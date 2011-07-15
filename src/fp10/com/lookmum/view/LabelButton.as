@@ -72,7 +72,11 @@ package com.lookmum.view
 			if (target.getChildByName('bg')) {
 				bg = target.getChildByName('bg') as MovieClip;
 				bgDimensions = bg.getBounds(target);
-				bg.gotoAndStop(FRAME_ROLL_OUT);
+				try {
+					bg.gotoAndStop(FRAME_ROLL_OUT);
+				} catch (e:Error) {
+					trace(e);
+				}
 			}
 			arrangeComponents();
 		}
@@ -137,7 +141,11 @@ package com.lookmum.view
 			super.doEnable();
 			if (_textFormatDisable) currentTextFormat = (_textFormatRollOut);
 			if (bg) {
-				bg.gotoAndStop(FRAME_ROLL_OUT);
+				try {
+					bg.gotoAndStop(FRAME_ROLL_OUT);
+				} catch (e:Error) {
+					trace(e);
+				}
 			}
 			arrangeComponents();
 		}
@@ -146,7 +154,11 @@ package com.lookmum.view
 			super.doDisable();
 			if (_textFormatDisable) currentTextFormat = (_textFormatDisable);
 			if (bg) {
-				bg.gotoAndStop(FRAME_DISABLE);
+				try {
+					bg.gotoAndStop(FRAME_DISABLE);
+				} catch (e:Error) {
+					trace(e);
+				}
 			}
 			arrangeComponents();
 		}
@@ -162,7 +174,11 @@ package com.lookmum.view
 			if (_textFormatRollOver) currentTextFormat = (_textFormatRollOver);
 			
 			if (bg) {
-				bg.gotoAndStop(FRAME_ROLL_OVER);
+				try {
+					bg.gotoAndStop(FRAME_ROLL_OVER);
+				} catch (e:Error) {
+					trace(e);
+				}
 			}
 			arrangeComponents();
 		}
@@ -178,7 +194,11 @@ package com.lookmum.view
 			if (_textFormatRollOut) currentTextFormat = (_textFormatRollOut);
 
 			if (bg) {
-				bg.gotoAndStop(FRAME_ROLL_OUT);
+				try {
+					bg.gotoAndStop(FRAME_ROLL_OUT);
+				} catch (e:Error) {
+					trace(e);
+				}
 			}
 			arrangeComponents();
 			
@@ -195,7 +215,11 @@ package com.lookmum.view
 			if (_textFormatPress) currentTextFormat = (_textFormatPress);
 
 			if (bg) {
-				bg.gotoAndStop(FRAME_PRESS);
+				try {
+					bg.gotoAndStop(FRAME_PRESS);
+				} catch (e:Error) {
+					trace(e);
+				}
 			}
 			arrangeComponents();
 			
@@ -214,9 +238,22 @@ package com.lookmum.view
 
 			if (bg) {
 				if (out)
-					bg.gotoAndStop(FRAME_ROLL_OUT);
+				{
+					try {
+						bg.gotoAndStop(FRAME_ROLL_OUT);
+					} catch (e:Error) {
+					trace(e);
+					}
+				}
 				else
-				bg.gotoAndStop(FRAME_ROLL_OVER);
+				{
+					try {
+						bg.gotoAndStop(FRAME_ROLL_OVER);
+					} catch (e:Error) {
+						trace(e);
+					}
+				}
+				
 			}
 			arrangeComponents();
 		}
