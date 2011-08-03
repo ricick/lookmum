@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'15/07/2011'</value>
+      <value>'18/07/2011'</value>
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
@@ -31,7 +31,7 @@
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>C:\projects\flash\lookmum\examples\ExampleAccordian.as</path-element>
+    <path-element>C:\projects\flash\lookmum\examples\ExampleToolTip.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>
