@@ -47,7 +47,7 @@ package com.lookmum.view
 				try {
 					target.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 				if (bg)
 				{
@@ -56,7 +56,7 @@ package com.lookmum.view
 						try {
 							bg.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
 						} catch (e:Error) {
-							trace(e);
+							//trace(e);
 						}
 					}
 					else
@@ -64,7 +64,7 @@ package com.lookmum.view
 						try {
 							bg.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
 						} catch (e:Error) {
-							trace(e);
+							//trace(e);
 						}
 					}
 				}
@@ -82,13 +82,13 @@ package com.lookmum.view
 				try {
 					target.gotoAndStop(FRAME_PRESS_TOGGLE);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 				if (bg) {
 					try {
 						bg.gotoAndStop(FRAME_PRESS_TOGGLE);
 					} catch (e:Error) {
-						trace(e);
+						//trace(e);
 					}
 				}
 				if (_textFormatPressToggle) currentTextFormat = (_textFormatPressToggle);
@@ -103,13 +103,13 @@ package com.lookmum.view
 				try {
 					target.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 				if (bg) {
 					try {
 						bg.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
 					} catch (e:Error) {
-						trace(e);
+						//trace(e);
 					}
 				}
 				if (_textFormatRollOverToggle) currentTextFormat = (_textFormatRollOverToggle);
@@ -126,13 +126,13 @@ package com.lookmum.view
 				try {
 					target.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 				if (bg) {
 					try {
 						bg.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
 					} catch (e:Error) {
-						trace(e);
+						//trace(e);
 					}
 				}
 				if (_textFormatRollOutToggle) currentTextFormat = (_textFormatRollOutToggle);
@@ -146,13 +146,13 @@ package com.lookmum.view
 				try {
 					target.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 				if (bg) {
 					try {
 						bg.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
 					} catch (e:Error) {
-						trace(e);
+						//trace(e);
 					}
 				}
 				if (_textFormatRollOutToggle) currentTextFormat = (_textFormatRollOutToggle);
@@ -166,13 +166,13 @@ package com.lookmum.view
 				try {
 					target.gotoAndStop(FRAME_DISABLE_TOGGLE);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 				if (bg) {
 					try {
 						bg.gotoAndStop(FRAME_DISABLE_TOGGLE);
 					} catch (e:Error) {
-						trace(e);
+						//trace(e);
 					}
 				}
 				if (_textFormatDisableToggle) currentTextFormat = (_textFormatDisableToggle);
