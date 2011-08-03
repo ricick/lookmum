@@ -85,9 +85,12 @@ package com.lookmum.view
 			super.arrangeComponents();
 			if (currentTextFormat) textField.setTextFormat(currentTextFormat);
 			if (!bg) return;
-			if(autosizeBackground){
+			if (autosizeBackground) {
 				bg.height = textField.height + (bgDimensions.height - textFieldDimensions.height);
 				bg.width = textField.width + (bgDimensions.width - textFieldDimensions.width);
+			} else {
+				bg.height = bgDimensions.height;
+				bg.width = bgDimensions.width;
 			}
 			dispatchEvent(new ComponentEvent(ComponentEvent.RESIZE));
 		}

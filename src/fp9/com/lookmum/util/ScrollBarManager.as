@@ -49,9 +49,10 @@ package com.lookmum.util {
 		}
 		private function onScrollInsideTextField(e:Event):void 
 		{
-			_scrollBar.level = _textField.scrollV;
-			if (_scrollBar.level == 1)
+			if (_textField.scrollV == 1)
 				_scrollBar.level = 0;
+			else
+				_scrollBar.level = _textField.scrollV;
 		}
 		public function associateDisplayObjectY(displayObject:DisplayObject, mask:DisplayObject = null):void {
 			contentDefaultY = displayObject.y;
@@ -73,8 +74,7 @@ package com.lookmum.util {
 		private function onScrollInsideDisplayObject(e:MouseEvent):void 
 		{
 			_displayObject.y += e.delta * wheelSpeed;
-			_scrollBar.level = -(_displayObject.y - contentDefaultY);
-			
+			_scrollBar.level = -(_displayObject.y - contentDefaultY);	
 		}
 		protected function onScrollDisplayObject(event:Event):void{
 			_displayObject.y = -_scrollBar.level;

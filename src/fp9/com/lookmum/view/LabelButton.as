@@ -75,7 +75,7 @@ package com.lookmum.view
 				try {
 					bg.gotoAndStop(FRAME_ROLL_OUT);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 			}
 			arrangeComponents();
@@ -144,7 +144,7 @@ package com.lookmum.view
 				try {
 					bg.gotoAndStop(FRAME_ROLL_OUT);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 			}
 			arrangeComponents();
@@ -157,7 +157,7 @@ package com.lookmum.view
 				try {
 					bg.gotoAndStop(FRAME_DISABLE);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 			}
 			arrangeComponents();
@@ -177,7 +177,7 @@ package com.lookmum.view
 				try {
 					bg.gotoAndStop(FRAME_ROLL_OVER);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 			}
 			arrangeComponents();
@@ -197,7 +197,7 @@ package com.lookmum.view
 				try {
 					bg.gotoAndStop(FRAME_ROLL_OUT);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 			}
 			arrangeComponents();
@@ -218,7 +218,7 @@ package com.lookmum.view
 				try {
 					bg.gotoAndStop(FRAME_PRESS);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 			}
 			arrangeComponents();
@@ -242,7 +242,7 @@ package com.lookmum.view
 					try {
 						bg.gotoAndStop(FRAME_ROLL_OUT);
 					} catch (e:Error) {
-					trace(e);
+					//trace(e);
 					}
 				}
 				else
@@ -250,7 +250,7 @@ package com.lookmum.view
 					try {
 						bg.gotoAndStop(FRAME_ROLL_OVER);
 					} catch (e:Error) {
-						trace(e);
+						//trace(e);
 					}
 				}
 				
