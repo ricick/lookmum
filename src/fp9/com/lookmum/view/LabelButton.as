@@ -163,6 +163,14 @@ package com.lookmum.view
 			arrangeComponents();
 		}
 		
+		override public function set visible(value:Boolean):void 
+		{
+			super.visible = value;
+			if (isMouseOutside)
+				currentTextFormat = (_textFormatRollOut);
+			arrangeComponents();
+		}
+		
 		override protected function onRollOver(e:MouseEvent):void 
 		{
 			if (!enabled) {
