@@ -174,7 +174,7 @@ package com.lookmum.view
 		protected function onEnd(e:MediaPlayerEvent):void 
 		{
 			isComplete = true;
-			buttonPlayPause.toggle = true;
+			if (buttonPlayPause) buttonPlayPause.toggle = true;
 			_playing = false;
 			if (_autoRewind)
 			{
@@ -228,7 +228,7 @@ package com.lookmum.view
 				seek(0);
 				play();
 			}
-			buttonPlayPause.toggle = !playing;
+			if (buttonPlayPause) buttonPlayPause.toggle = !playing;
 		}
 		
 		protected function onUpdate(e:MediaPlayerEvent):void 
@@ -255,7 +255,7 @@ package com.lookmum.view
 			if (loadIcon) loadIcon.visible = true;
 			_playing = autoPlay;
 			mediaPlayer.load(url, autoPlay);
-			buttonPlayPause.toggle = (!autoPlay);
+			if (buttonPlayPause) buttonPlayPause.toggle = (!autoPlay);
 			if (autoPlay) {
 				if (playIcon) {
 					playIcon.visible = false;
@@ -275,7 +275,7 @@ package com.lookmum.view
 			}
 			_playing = true;
 			mediaPlayer.play();
-			buttonPlayPause.toggle = (false);
+			if (buttonPlayPause) buttonPlayPause.toggle = (false);
 			dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.PLAY));
 		}
 		
@@ -283,7 +283,7 @@ package com.lookmum.view
 		{
 			_playing = false;
 			mediaPlayer.pause();
-			buttonPlayPause.toggle = (true);
+			if (buttonPlayPause) buttonPlayPause.toggle = (true);
 			dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.STOP));
 		}
 		
@@ -318,7 +318,7 @@ package com.lookmum.view
 		{
 			if(videoSlider)videoSlider.level = (0);
 			mediaPlayer.clear();
-			buttonPlayPause.toggle = (true);
+			if (buttonPlayPause) buttonPlayPause.toggle = (true);
 		}
 		public function get bufferTime():Number {
 			return mediaPlayer.bufferTime;

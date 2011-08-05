@@ -147,7 +147,7 @@ package com.lookmum.view
 			try {
 				target.gotoAndStop(FRAME_ROLL_OVER);
 			} catch (e:Error) {
-				trace(e);
+				//trace(e);
 			}
 		}
 		protected function animationRollOut():void 
@@ -155,7 +155,7 @@ package com.lookmum.view
 			try {
 				target.gotoAndStop(FRAME_ROLL_OUT);
 			} catch (e:Error) {
-				trace(e);
+				//trace(e);
 			}
 		}
 		protected function animationMouseDown():void 
@@ -163,7 +163,7 @@ package com.lookmum.view
 			try {
 				target.gotoAndStop(FRAME_PRESS);
 			} catch (e:Error) {
-				trace(e);
+				//trace(e);
 			}
 		}
 		protected function animationDisable():void 
@@ -171,7 +171,7 @@ package com.lookmum.view
 			try {
 				target.gotoAndStop(FRAME_DISABLE);
 			} catch (e:Error) {
-				trace(e);
+				//trace(e);
 			}
 		}
 		
