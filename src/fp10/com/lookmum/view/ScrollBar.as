@@ -77,7 +77,7 @@ package  com.lookmum.view {
 		 * sets the position back to min
 		 */
 		public function resetScroll():void{
-			this.tab.y = (this._minScroll);
+			this.tab.y = this.track.y + (this._minScroll);
 			doScroll(new DragEvent(DragEvent.DRAG));
 		}
 		override public function get width():Number { return super.width; }
@@ -125,11 +125,13 @@ package  com.lookmum.view {
 		}
 		public function set level(val:Number):void {
 			//trace( "level : " + val );
+			//trace( "_minScroll : " +_minScroll );
+			//trace( "_maxScroll : " +_maxScroll );
 			if (val < this._minScroll) val = this._minScroll;
 			if (val > this._maxScroll) val = this._maxScroll;
 			var scrollSpace:Number = this.scrollHeight-this.tab.height;
 			var scrollPos:Number = val / this._maxScroll;
-			this.tab.y = ((scrollPos*scrollSpace)+_minScroll);
+			this.tab.y = this.track.y + ((scrollPos * scrollSpace) + _minScroll);
 			this.doScroll(new DragEvent(DragEvent.STOP));
 		}
 		protected function setScroll():void{
@@ -173,7 +175,7 @@ package  com.lookmum.view {
 		}
 		protected function doScroll(event:DragEvent):void {
 			var scrollSpace:Number = this.scrollHeight-this.tab.height;
-			var scrollPos:Number = (scrollSpace != 0) ? (this.tab.y-_minScroll)/scrollSpace : 0;
+			var scrollPos:Number = (scrollSpace != 0) ? (this.tab.y - this.track.y -_minScroll)/scrollSpace : 0;
 			this._scroll = Math.ceil(this._maxScroll * scrollPos);
 			var outEvent:Event = new Event(Event.SCROLL);
 			this.dispatchEvent(outEvent);

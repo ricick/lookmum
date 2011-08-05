@@ -30,7 +30,7 @@ package com.lookmum.view
 			//enabled = true;
 			//mouseEnabled = true;
 			//mouseChildren = true;
-			target.alpha = 0;
+			target.alpha = minAlpha;
 			cacheX = target.x;
 			cacheY = target.y;
 			target.x -= slideInX;
@@ -38,7 +38,7 @@ package com.lookmum.view
 			var time:Number = minInTime + (Math.random() * (maxInTime-minInTime));
 			Tweener.addTween(target, { 
 				delay: delay,
-				alpha: 1,
+				alpha: maxAlpha,
 				time: time,
 				x: target.x + slideInX,
 				y: target.y + slideInY,
@@ -57,7 +57,7 @@ package com.lookmum.view
 			var time:Number = minOutTime + (Math.random() * (maxOutTime-minOutTime));
 			Tweener.addTween(target, { 
 				delay: delay,
-				alpha: 0,
+				alpha: minAlpha,
 				time: time,
 				x: target.x + slideOutX,
 				y: target.y + slideOutY,
