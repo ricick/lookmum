@@ -31,7 +31,7 @@
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>C:\projects\flash\lookmum\examples\ExampleToolTip.as</path-element>
+    <path-element>C:\projects\flash\lookmum\examples\ExampleScrollbar.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>
