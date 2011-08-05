@@ -75,7 +75,7 @@ package com.lookmum.view
 				try {
 					bg.gotoAndStop(FRAME_ROLL_OUT);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 			}
 			arrangeComponents();
@@ -85,12 +85,9 @@ package com.lookmum.view
 			super.arrangeComponents();
 			if (currentTextFormat) textField.setTextFormat(currentTextFormat);
 			if (!bg) return;
-			if (autosizeBackground) {
+			if(autosizeBackground){
 				bg.height = textField.height + (bgDimensions.height - textFieldDimensions.height);
 				bg.width = textField.width + (bgDimensions.width - textFieldDimensions.width);
-			} else {
-				bg.height = bgDimensions.height;
-				bg.width = bgDimensions.width;
 			}
 			dispatchEvent(new ComponentEvent(ComponentEvent.RESIZE));
 		}
@@ -147,7 +144,7 @@ package com.lookmum.view
 				try {
 					bg.gotoAndStop(FRAME_ROLL_OUT);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 			}
 			arrangeComponents();
@@ -160,9 +157,17 @@ package com.lookmum.view
 				try {
 					bg.gotoAndStop(FRAME_DISABLE);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 			}
+			arrangeComponents();
+		}
+		
+		override public function set visible(value:Boolean):void 
+		{
+			super.visible = value;
+			if (isMouseOutside)
+				currentTextFormat = (_textFormatRollOut);
 			arrangeComponents();
 		}
 		
@@ -180,7 +185,7 @@ package com.lookmum.view
 				try {
 					bg.gotoAndStop(FRAME_ROLL_OVER);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 			}
 			arrangeComponents();
@@ -200,7 +205,7 @@ package com.lookmum.view
 				try {
 					bg.gotoAndStop(FRAME_ROLL_OUT);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 			}
 			arrangeComponents();
@@ -221,7 +226,7 @@ package com.lookmum.view
 				try {
 					bg.gotoAndStop(FRAME_PRESS);
 				} catch (e:Error) {
-					trace(e);
+					//trace(e);
 				}
 			}
 			arrangeComponents();
@@ -245,7 +250,7 @@ package com.lookmum.view
 					try {
 						bg.gotoAndStop(FRAME_ROLL_OUT);
 					} catch (e:Error) {
-					trace(e);
+					//trace(e);
 					}
 				}
 				else
@@ -253,7 +258,7 @@ package com.lookmum.view
 					try {
 						bg.gotoAndStop(FRAME_ROLL_OVER);
 					} catch (e:Error) {
-						trace(e);
+						//trace(e);
 					}
 				}
 				
