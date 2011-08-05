@@ -2,6 +2,7 @@ package
 {
 	import com.lookmum.util.LayoutManager;
 	import com.lookmum.util.ScrollBarManager;
+	import com.lookmum.view.ButtonScrollBar;
 	import com.lookmum.view.ScrollBar;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -19,7 +20,7 @@ package
 		public function ExampleScrollbar() 
 		{
 			stage.scaleMode = StageScaleMode.NO_SCALE;
-			var scrollBar1:ScrollBar = new ScrollBar(new scrollBarClip());
+			var scrollBar1:ButtonScrollBar = new ButtonScrollBar(new buttonScrollBarClip());
 			scrollBar1.tabEnabled = false;
 			scrollBar1.tabChildren = false;
 			var textField:TextField  = new TextField();
@@ -32,7 +33,7 @@ package
 			var sbm1:ScrollBarManager = new ScrollBarManager(scrollBar1);
 			sbm1.associateTextFieldScroll(textField);
 		
-			var scrollBar2:ScrollBar = new ScrollBar(new scrollBarClip());
+			var scrollBar2:ButtonScrollBar= new ButtonScrollBar(new buttonScrollBarClip);
 			var clip:MovieClip = new scrollTestClip();
 			var maskClip:MovieClip = new MovieClip();
 			clip.x = 200;
