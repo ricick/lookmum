@@ -18,6 +18,7 @@ package com.lookmum.util
 	{
 		public var drop:Signal = new Signal(IDraggable, Boolean);
 		public var overlap:Signal = new Signal(IDraggable);
+		public var moved:Signal = new Signal(IDraggable);
 		
 		private var dragItems:Array;
 		protected var dropLocations:Array;
@@ -118,7 +119,9 @@ package com.lookmum.util
 			}
 		}
 		protected function moveItemToLocation(item:IDraggable,point:Point):void{
-			Tweener.addTween(item, { x:point.x, y:point.y, time:0.5 } );
+			Tweener.addTween(item, { x:point.x, y:point.y, time:0.5, onComplete:function():void {
+				moved.dispatch(item);
+			}} );
 		}
 		public function addDropLocation(dropLocation:IComponent):void 
 		{
