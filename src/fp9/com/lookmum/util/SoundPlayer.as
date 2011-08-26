@@ -126,18 +126,17 @@ package com.lookmum.util {
 			
 		}
 
-		public function play():void{
-
+		public function play():void {
+			if (_playing == true) return ;
+			
 			this._updateInterval = setInterval(this.onUpdate,this._updateTime);
 			_playing = true;
-
-			if (soundChannelObject) {
-				var loops:int = 0;
-				if (_loop) loops = MAX_LOOPS;
-				soundChannelObject.soundTransform = soundTransformObject;
-				soundChannelObject = this._sound.play(this._time, loops);
-				soundChannelObject.addEventListener(Event.SOUND_COMPLETE, onSoundComplete);
-			}
+			
+			soundChannelObject = this._sound.play(this._time, loops);
+			var loops:int = 0;
+			if (_loop) loops = MAX_LOOPS;
+			soundChannelObject.soundTransform = soundTransformObject;
+			soundChannelObject.addEventListener(Event.SOUND_COMPLETE, onSoundComplete);
 			
 		}
 		
@@ -179,8 +178,9 @@ package com.lookmum.util {
 		}
 		
 		public function get time():Number {
-			
-			return soundChannelObject.position;
+			if (soundChannelObject)
+				return soundChannelObject.position;
+			return 0;
 		}
 
 		public function seek(time:Number):void {
@@ -219,8 +219,8 @@ package com.lookmum.util {
 		}
 		
 		protected function onSoundComplete(e:Event):void {
-
-			soundChannelObject.removeEventListener(Event.SOUND_COMPLETE, onSoundComplete);
+			if (soundChannelObject)
+				soundChannelObject.removeEventListener(Event.SOUND_COMPLETE, onSoundComplete);
 			
 			clearInterval(this._updateInterval);
 			
