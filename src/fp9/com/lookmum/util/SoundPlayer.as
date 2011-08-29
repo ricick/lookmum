@@ -132,9 +132,9 @@ package com.lookmum.util {
 			this._updateInterval = setInterval(this.onUpdate,this._updateTime);
 			_playing = true;
 			
-			soundChannelObject = this._sound.play(this._time, loops);
 			var loops:int = 0;
 			if (_loop) loops = MAX_LOOPS;
+			soundChannelObject = this._sound.play(this._time, loops);
 			soundChannelObject.soundTransform = soundTransformObject;
 			soundChannelObject.addEventListener(Event.SOUND_COMPLETE, onSoundComplete);
 			
