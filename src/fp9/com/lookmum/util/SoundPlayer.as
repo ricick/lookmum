@@ -206,9 +206,11 @@ package com.lookmum.util {
 			var loaded:Number = this._sound.bytesLoaded;
 			var total:Number = this._sound.bytesTotal;
 			
-			if (loaded == total) clearInterval(this._loadProgressInterval);
+			if (loaded > 0 && loaded == total) clearInterval(this._loadProgressInterval);
 			
-			this.dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.LOAD_PROGRESS));
+			var e:MediaPlayerEvent = new MediaPlayerEvent(MediaPlayerEvent.LOAD_PROGRESS);
+			e.bytesLoaded = loaded;
+			this.dispatchEvent(e);
 			
 		}
 		
@@ -223,6 +225,7 @@ package com.lookmum.util {
 				soundChannelObject.removeEventListener(Event.SOUND_COMPLETE, onSoundComplete);
 			
 			clearInterval(this._updateInterval);
+			_playing = false;
 			
 			this.dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.STOP));
 			this.dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.COMPLETE));

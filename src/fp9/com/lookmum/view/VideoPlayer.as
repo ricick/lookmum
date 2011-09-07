@@ -81,15 +81,12 @@ package com.lookmum.view
 			textFieldTime = getTextFieldTime();
 		}
 		
-		
 		private function onLoadProgress(e:MediaPlayerEvent):void 
 		{
 			if (e.bytesLoaded > 0 && loadIcon && loadIcon.visible) {
 				loadIcon.visible = false;
 			}
 		}
-		
-		
 		
 		private function onReleasePlayIcon(e:MouseEvent):void 
 		{
@@ -165,7 +162,7 @@ package com.lookmum.view
 			if (!target.getChildByName('loadIcon')) return null;
 			return target.getChildByName('loadIcon') as MovieClip;
 		}
-		private function getTextFieldTime():TextField 
+		protected function getTextFieldTime():TextField 
 		{
 			if (!target.getChildByName('textFieldTime')) return null;
 			return target.getChildByName('textFieldTime') as TextField;
@@ -233,14 +230,26 @@ package com.lookmum.view
 		
 		protected function onUpdate(e:MediaPlayerEvent):void 
 		{
-			if (videoSlider && videoSlider.getIsDragging()) return;
-			var level:Number = mediaPlayer.time / mediaPlayer.duration;
-			if (level > 1 || isNaN(level)) return;
-			if (videoSlider) videoSlider.level = (level);
-			if (textFieldTime) {
+			if (videoSlider)
+			{
+				if (!videoSlider.getIsDragging())
+				{
+					var level:Number = mediaPlayer.time / mediaPlayer.duration;
+					if (!isNaN(level) && level <= 1)
+						videoSlider.level = level;
+					
+					var loaded:Number = mediaPlayer.loadLevel;
+					if (!isNaN(loaded) && loaded <= 1)
+						videoSlider.loadLevel = loaded;
+				}
+			}
+			
+			if (textFieldTime) 
+			{
 				var timeText:String = getTimeText();
 				textFieldTime.text = timeText;
 			}
+			
 			dispatchEvent(e.clone());
 		}
 		protected function getTimeText():String {
