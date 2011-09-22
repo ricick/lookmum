@@ -83,6 +83,10 @@ package com.lookmum.view
 		
 		private function onLoadProgress(e:MediaPlayerEvent):void 
 		{
+			var loaded:Number = mediaPlayer.loadLevel;
+			if (!isNaN(loaded) && loaded <= 1)
+				videoSlider.loadLevel = loaded;
+						
 			if (e.bytesLoaded > 0 && loadIcon && loadIcon.visible) {
 				loadIcon.visible = false;
 			}
@@ -237,10 +241,6 @@ package com.lookmum.view
 					var level:Number = mediaPlayer.time / mediaPlayer.duration;
 					if (!isNaN(level) && level <= 1)
 						videoSlider.level = level;
-					
-					var loaded:Number = mediaPlayer.loadLevel;
-					if (!isNaN(loaded) && loaded <= 1)
-						videoSlider.loadLevel = loaded;
 				}
 			}
 			
