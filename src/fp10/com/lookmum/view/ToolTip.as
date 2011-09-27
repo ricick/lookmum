@@ -275,7 +275,7 @@ package com.lookmum.view
 		public function attach(component:Component):void
 		{
 			var index:int = components.indexOf(component);
-			if (index >= 0) return;
+			if (index > 0) return;
 			components.push(component);
 			component.addEventListener(MouseEvent.ROLL_OUT, onRollOut);
 			component.addEventListener(MouseEvent.ROLL_OVER, onRollOver);
@@ -298,7 +298,6 @@ package com.lookmum.view
 		
 		protected function onRollOver(e:MouseEvent):void 
 		{
-			visible = true;
 			overComponent = e.target as Component;
 			arrangeComponents();
 			animateIn();
@@ -306,17 +305,17 @@ package com.lookmum.view
 		
 		protected function onRollOut(e:MouseEvent):void 
 		{
-			visible = false;
 			animateOut();
 		}
 		
 		public function detach(component:Component):void
 		{
 			var index:int = components.indexOf(component);
-			if (index >= 0) return;
-			components.push(component);
+			if (index < 0) return;
+			components.splice(index, 1);
 			component.removeEventListener(MouseEvent.ROLL_OUT, onRollOut);
 			component.removeEventListener(MouseEvent.ROLL_OVER, onRollOver);
+			overComponent = null;
 		}
 		
 		override public function destroy():void 
@@ -328,12 +327,12 @@ package com.lookmum.view
 		
 		protected function animateIn():void
 		{
-			
+			visible = true;
 		}
 		
 		protected function animateOut():void
 		{
-			
+			visible = false;
 		}
 		
 		protected function animateChange():void

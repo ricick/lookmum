@@ -118,8 +118,8 @@ package com.lookmum.view
 		
 		override public function set visible(value:Boolean):void 
 		{
-			if (!value) pause();
 			super.visible = value;
+			//if (!value) pause();
 		}
 		
 		protected function getMediaPlayer():IMediaPlayer
