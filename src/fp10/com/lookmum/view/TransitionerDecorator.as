@@ -23,7 +23,7 @@ package com.lookmum.view
 		public var maxInTime:Number = MAX_IN_TIME;
 		public var minOutTime:Number = MIN_OUT_TIME;
 		public var maxOutTime:Number = MAX_OUT_TIME;
-		private var _time:Number;
+		private var _time:Number = 1;
 		private var _delay:Number = 0;
 		private var _minAlpha:Number = 0;
 		private var _maxAlpha:Number = 1;
