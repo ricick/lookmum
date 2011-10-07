@@ -299,8 +299,8 @@ package com.lookmum.view
 		protected function onRollOver(e:MouseEvent):void 
 		{
 			overComponent = e.target as Component;
-			arrangeComponents();
 			animateIn();
+			arrangeComponents();
 		}
 		
 		protected function onRollOut(e:MouseEvent):void 
