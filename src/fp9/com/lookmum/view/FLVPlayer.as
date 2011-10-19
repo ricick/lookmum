@@ -28,16 +28,12 @@ package com.lookmum.view{
 		private var _loadProgressTime:Number = 100;
 		private var _metaData:VideoMetaData;
 		private var _bufferTime:Number = 0;
-		private var _videoWidth:Number;
-		private var _videoHeight:Number;
 		public function FLVPlayer (target:MovieClip)
 		{
 			super (target);
 			_nc = new NetConnection();
 			_nc.connect(null);
-			videoArea = new Video(1, 1);
-			videoWidth = width;
-			videoHeight = height;
+			videoArea = new Video(width, height);
 			addChild(videoArea);
 		}
 		/**
@@ -73,18 +69,6 @@ package com.lookmum.view{
 			onLoadProgress(new Event(Event.ENTER_FRAME));
 		}
 		
-		/*public function getVideoWidth():int {
-			return videoArea.videoWidth;
-		}
-		public function getVideoHeight():int {
-			return videoArea.videoHeight;
-		}*/
-		/*
-		public function unLoad():void
-		{
-			videoArea.clear();
-		}
-		*/
 		/*
 		 * Play the currently loading video
 		 */
@@ -116,7 +100,6 @@ package com.lookmum.view{
 		*/
 		public function seek(time:Number):void
 		{
-			
 			//trace('trying to seek');
 			//if (time > _metaData.lastkeyframetimestamp) time = _metaData.lastkeyframetimestamp;
 			if (_netStream)_netStream.seek(time);
@@ -134,11 +117,7 @@ package com.lookmum.view{
 			e.liveDelay = _netStream.liveDelay;
 			e.time = _netStream.time;
 			
-			videoArea.width = videoWidth;
-			videoArea.height = videoHeight;
-			
 			dispatchEvent(e);
-			//trace( "getDuration() : " + getDuration() );
 		}
 		
 		private function onLoadProgress(event:Event):void {
@@ -170,7 +149,6 @@ package com.lookmum.view{
 		}
 		protected function onStatus(event:NetStatusEvent):void
 		{
-			
 			//trace( "FLVPlayer.onStatus > event : " + event.info.code );
 			//for( var i:String in event ) trace( "key : " + i + ", value : " + event[ i ] );
 			//dispatchEvent(event);
@@ -229,7 +207,6 @@ package com.lookmum.view{
 			_metaData.videoDataRate = metadata.videodatarate;
 			_metaData.canSeekToEnd = metadata.canSeekToEnd;
 			_metaData.frameRate = metadata.framerate;
-			
 			
 			var event:MediaPlayerEvent = new MediaPlayerEvent(MediaPlayerEvent.META_DATA);
 			
@@ -331,18 +308,18 @@ package com.lookmum.view{
 			_bufferTime = value;
 		}
 		
-		public function get videoWidth():Number { return _videoWidth; }
+		public function get videoWidth():Number { return videoArea.width; }
 		
 		public function set videoWidth(value:Number):void 
 		{
-			_videoWidth = value;
+			videoArea.width = value;
 		}
 		
-		public function get videoHeight():Number { return _videoHeight; }
+		public function get videoHeight():Number { return videoArea.height; }
 		
 		public function set videoHeight(value:Number):void 
 		{
-			_videoHeight = value;
+			videoArea.height = value;
 		}
 		
 	}
