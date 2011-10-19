@@ -8,8 +8,7 @@ Components can either wrap movieclips attached from the library, or movieclips t
 This prevents having to state what component a particular library item is.
 
 The following example demonstrates a base component being created with a library clip, then with a clip already on the stage, then a different subclass of component being created, that uses the same library symbol.
-{{{
-package  
+ <nowiki>package  
 {
 	import com.lookmum.view.Component;
 	import com.lookmum.view.Button;
@@ -27,5 +26,4 @@ package
 			addChild(button);
 		}	
 	}
-}
-}}}
+}</nowiki>
