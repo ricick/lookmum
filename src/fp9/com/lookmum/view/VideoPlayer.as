@@ -84,7 +84,7 @@ package com.lookmum.view
 		private function onLoadProgress(e:MediaPlayerEvent):void 
 		{
 			var loaded:Number = mediaPlayer.loadLevel;
-			if (!isNaN(loaded) && loaded <= 1)
+			if (!isNaN(loaded) && loaded <= 1 && videoSlider)
 				videoSlider.loadLevel = loaded;
 						
 			if (e.bytesLoaded > 0 && loadIcon && loadIcon.visible) {
@@ -119,7 +119,7 @@ package com.lookmum.view
 		
 		override public function set visible(value:Boolean):void 
 		{
-			if (!value) pause();
+			//if (!value) pause();
 			super.visible = value;
 		}
 		
@@ -203,7 +203,7 @@ package com.lookmum.view
 		protected function onDragSlider(e:DragEvent):void 
 		{
 			//mediaPlayer.seek(mediaPlayer.duration * videoSlider.level);
-			seek(mediaPlayer.duration * videoSlider.level);
+			if (videoSlider) seek(mediaPlayer.duration * videoSlider.level);
 		}
 		protected function onStopDragSlider(e:DragEvent):void 
 		{
