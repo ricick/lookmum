@@ -14,6 +14,7 @@ package com.lookmum.view
 		private var scrollBar:ScrollBar;
 		private var buttonScrollUp:Button;
 		private var buttonScrollDown:Button;
+		private var _scrollDelta:Number;
 		public function ButtonScrollBar(target:MovieClip) 
 		{
 			super(target);
@@ -37,12 +38,12 @@ package com.lookmum.view
 		
 		private function onClickDown(e:MouseEvent):void 
 		{
-			scrollBar.level += scrollBar.scrollSize;
+			scrollBar.level += scrollDelta;
 		}
 		
 		private function onClickUp(e:MouseEvent):void 
 		{
-			scrollBar.level -= scrollBar.scrollSize;
+			scrollBar.level -= scrollDelta;
 		}
 		
 		public function set maxScroll(num:Number):void 
@@ -88,6 +89,16 @@ package com.lookmum.view
 		public function get level():Number 
 		{
 			return scrollBar.level;
+		}
+		
+		public function get scrollDelta():Number 
+		{
+			return _scrollDelta;
+		}
+		
+		public function set scrollDelta(value:Number):void 
+		{
+			_scrollDelta = value;
 		}
 		
 	}
