@@ -84,9 +84,9 @@ package com.lookmum.view
 		private function onLoadProgress(e:MediaPlayerEvent):void 
 		{
 			var loaded:Number = mediaPlayer.loadLevel;
-			if (!isNaN(loaded) && loaded <= 1 && videoSlider)
+			if (!isNaN(loaded) && loaded <= 1 && videoSlider){
 				videoSlider.loadLevel = loaded;
-						
+			}
 			if (e.bytesLoaded > 0 && loadIcon && loadIcon.visible) {
 				loadIcon.visible = false;
 			}
