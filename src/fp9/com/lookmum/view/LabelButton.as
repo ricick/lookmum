@@ -107,7 +107,7 @@ package com.lookmum.view
 			}
 		}
 		*/
-		private function getTextField():TextField
+		protected function getTextField():TextField
 		{
 			return target.textField;
 		}
