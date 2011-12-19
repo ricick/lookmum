@@ -239,13 +239,9 @@ package com.lookmum.view{
 		public function get level():Number 
 		{
 			if (vertical) {
-				trace( "this.tab.height : " + this.tab.height );
-				trace( "this.track.height : " + this.track.height );
-				trace( "this.track.y : " + this.track.y );
-				trace( "this.tab.y : " + this.tab.y );
-				return 1 - ((this.tab.y - this.track.y) / (this.track.y + (this.track.height - this.tab.height)));
+				return 1 - ((this.tab.y - this.track.y) / (this.track.height - this.tab.height));
 			}else{
-				return (this.tab.x - this.track.x) / (this.track.x + (this.track.width - this.tab.width));
+				return (this.tab.x - this.track.x) / (this.track.width - this.tab.width);
 			}
 		}
 		
