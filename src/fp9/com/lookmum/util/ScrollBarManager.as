@@ -76,7 +76,7 @@ package com.lookmum.util {
 			_displayObject.y += e.delta * wheelSpeed;
 			_scrollBar.level = -(_displayObject.y - contentDefaultY);	
 		}
-		protected function onScrollDisplayObject(event:Event):void {
+		protected function onScrollDisplayObject(event:Event):void{
 			_displayObject.y = -_scrollBar.level;
 			//_displayObject.y += contentDefaultY;
 		}

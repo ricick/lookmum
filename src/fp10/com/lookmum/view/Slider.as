@@ -264,7 +264,7 @@ package com.lookmum.view{
 				//trace( "this.tab.y : " + this.tab.y );
 				return 1 - ((this.tab.y - this.track.y) / (this.track.y + (this.track.height - this.tab.height)));
 			}else{
-				return (this.tab.x - this.track.x) / (this.track.x + (this.track.width - this.tab.width));
+				return (this.tab.x - this.track.x) / (this.track.width - this.tab.width);
 			}
 		}
 		
