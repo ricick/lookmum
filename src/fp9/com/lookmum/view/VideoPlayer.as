@@ -44,6 +44,8 @@ package com.lookmum.view
 			mediaPlayer.addEventListener(MediaPlayerEvent.UPDATE, onUpdate);
 			mediaPlayer.addEventListener(MediaPlayerEvent.END, onEnd);
 			mediaPlayer.addEventListener(MediaPlayerEvent.LOAD_PROGRESS, onLoadProgress);
+			mediaPlayer.addEventListener(MediaPlayerEvent.BUFFER_EMPTY, onBufferEmpty);
+			mediaPlayer.addEventListener(MediaPlayerEvent.BUFFER_FULL, onBufferFull);
 			volumeSlider = getVolumeSlider();
 			if (volumeSlider)
 			{
@@ -79,6 +81,16 @@ package com.lookmum.view
 				loadIcon.visible = false;
 			}
 			textFieldTime = getTextFieldTime();
+
+		}
+		
+		protected function onBufferFull(e:MediaPlayerEvent):void 
+		{
+			mediaPlayer.bufferTime *= 2
+		}
+		
+		protected function onBufferEmpty(e:MediaPlayerEvent):void 
+		{
 		}
 		
 		private function onLoadProgress(e:MediaPlayerEvent):void 
@@ -119,8 +131,8 @@ package com.lookmum.view
 		
 		override public function set visible(value:Boolean):void 
 		{
-			//if (!value) pause();
 			super.visible = value;
+			//if (!value) pause();
 		}
 		
 		protected function getMediaPlayer():IMediaPlayer
