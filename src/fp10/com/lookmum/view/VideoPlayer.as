@@ -44,6 +44,8 @@ package com.lookmum.view
 			mediaPlayer.addEventListener(MediaPlayerEvent.UPDATE, onUpdate);
 			mediaPlayer.addEventListener(MediaPlayerEvent.END, onEnd);
 			mediaPlayer.addEventListener(MediaPlayerEvent.LOAD_PROGRESS, onLoadProgress);
+			mediaPlayer.addEventListener(MediaPlayerEvent.BUFFER_EMPTY, onBufferEmpty);
+			mediaPlayer.addEventListener(MediaPlayerEvent.BUFFER_FULL, onBufferFull);
 			volumeSlider = getVolumeSlider();
 			if (volumeSlider)
 			{
@@ -79,17 +81,28 @@ package com.lookmum.view
 				loadIcon.visible = false;
 			}
 			textFieldTime = getTextFieldTime();
+
 		}
 		
+		protected function onBufferFull(e:MediaPlayerEvent):void 
+		{
+			mediaPlayer.bufferTime *= 2
+		}
+		
+		protected function onBufferEmpty(e:MediaPlayerEvent):void 
+		{
+		}
 		
 		private function onLoadProgress(e:MediaPlayerEvent):void 
 		{
+			var loaded:Number = mediaPlayer.loadLevel;
+			if (!isNaN(loaded) && loaded <= 1 && videoSlider)
+				videoSlider.loadLevel = loaded;
+						
 			if (e.bytesLoaded > 0 && loadIcon && loadIcon.visible) {
 				loadIcon.visible = false;
 			}
 		}
-		
-		
 		
 		private function onReleasePlayIcon(e:MouseEvent):void 
 		{
@@ -165,7 +178,7 @@ package com.lookmum.view
 			if (!target.getChildByName('loadIcon')) return null;
 			return target.getChildByName('loadIcon') as MovieClip;
 		}
-		private function getTextFieldTime():TextField 
+		protected function getTextFieldTime():TextField 
 		{
 			if (!target.getChildByName('textFieldTime')) return null;
 			return target.getChildByName('textFieldTime') as TextField;
@@ -202,7 +215,7 @@ package com.lookmum.view
 		protected function onDragSlider(e:DragEvent):void 
 		{
 			//mediaPlayer.seek(mediaPlayer.duration * videoSlider.level);
-			seek(mediaPlayer.duration * videoSlider.level);
+			if (videoSlider) seek(mediaPlayer.duration * videoSlider.level);
 		}
 		protected function onStopDragSlider(e:DragEvent):void 
 		{
@@ -233,14 +246,22 @@ package com.lookmum.view
 		
 		protected function onUpdate(e:MediaPlayerEvent):void 
 		{
-			if (videoSlider && videoSlider.getIsDragging()) return;
-			var level:Number = mediaPlayer.time / mediaPlayer.duration;
-			if (level > 1 || isNaN(level)) return;
-			if (videoSlider) videoSlider.level = (level);
-			if (textFieldTime) {
+			if (videoSlider)
+			{
+				if (!videoSlider.getIsDragging())
+				{
+					var level:Number = mediaPlayer.time / mediaPlayer.duration;
+					if (!isNaN(level) && level <= 1)
+						videoSlider.level = level;
+				}
+			}
+			
+			if (textFieldTime) 
+			{
 				var timeText:String = getTimeText();
 				textFieldTime.text = timeText;
 			}
+			
 			dispatchEvent(e.clone());
 		}
 		protected function getTimeText():String {
