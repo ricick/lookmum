@@ -86,11 +86,13 @@ package com.lookmum.view
 		
 		protected function onBufferFull(e:MediaPlayerEvent):void 
 		{
-			mediaPlayer.bufferTime *= 2
+			
 		}
 		
 		protected function onBufferEmpty(e:MediaPlayerEvent):void 
 		{
+			mediaPlayer.bufferTime *= 2
+			//trace("buffer time:", mediaPlayer.bufferTime);
 		}
 		
 		private function onLoadProgress(e:MediaPlayerEvent):void 
