@@ -1,6 +1,5 @@
 package  
 {
-	import com.lookmum.view.StandardVideoPlayer;
 	import com.lookmum.view.VideoPlayer;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -13,17 +12,13 @@ package
 	 */
 	public class ExampleVideoPlayer extends Sprite
 	{
-		private var vp:VideoPlayer;
-		
+		private var videoPlayer:VideoPlayer;
 		public function ExampleVideoPlayer() 
 		{
-			stage.scaleMode = StageScaleMode.NO_SCALE;
-			
-			//vp = new VideoPlayer(new videoPlayerClip());
-			vp = new StandardVideoPlayer(new updatedVideoPlayerClip());
-			addChild(vp);
-			
-			vp.load('video/stockland_diversity_preview.flv', false);
+			videoPlayer = new VideoPlayer(new videoPlayerClip);
+			addChild(videoPlayer);
+			videoPlayer.bufferTime = 1;
+			videoPlayer.load('video/AMCA_HVAC.flv');
 		}
 		
 	}

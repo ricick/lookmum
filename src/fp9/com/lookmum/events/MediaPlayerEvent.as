@@ -16,9 +16,9 @@ package com.lookmum.events {
 		
 		public static var META_DATA : String = "metaData";
 		public static var BUFFER_FULL : String = "bufferFull";
-		/*public static var STREAM : String = 'stream';
+		/*public static var STREAM : String = 'stream';*/
 		public static var BUFFER_EMPTY : String = 'bufferEmpty';
-		
+		/*
 		public static var INVALID_TIME : String = 'invalidTime';
 		public static var PAUSE : String = 'pause';
 		public static var RESIZE : String = 'resize';
