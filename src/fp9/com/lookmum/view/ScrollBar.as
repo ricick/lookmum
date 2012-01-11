@@ -1,5 +1,5 @@
 package  com.lookmum.view {
-	import com.lookmum.events.ComponentEvent;
+	
 	import com.lookmum.events.DragEvent;
 	import com.lookmum.view.Component;
 	import com.lookmum.view.ILevelComponent;
@@ -12,7 +12,7 @@ package  com.lookmum.view {
 	import flash.geom.Rectangle;
 	
 	[Event(name = "scroll", type = "flash.events.Event")]
-	[Event(name = "resize", type = "com.lookmum.events.ComponentEvent")]
+	[Event(name = "resize", type = "com.lookmum.events.Event")]
 	
 	public class ScrollBar extends Component implements IScrollBar
 	{
@@ -88,7 +88,7 @@ package  com.lookmum.view {
 			this.track.width = (value);
 			this.tab.width = (value);
 			this.setScroll();
-			this.dispatchEvent(new ComponentEvent(ComponentEvent.RESIZE));
+			this.dispatchEvent(new Event(Event.RESIZE));
 		}
 		override public function get height():Number { return super.height; }
 		
@@ -97,7 +97,7 @@ package  com.lookmum.view {
 			this._height = value;
 			this.track.height = (value);
 			this.setScroll();
-			this.dispatchEvent(new ComponentEvent(ComponentEvent.RESIZE));
+			this.dispatchEvent(new Event(Event.RESIZE));
 		}
 		/**
 		 * for a movieclip the height of the masked clip
