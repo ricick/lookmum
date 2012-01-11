@@ -171,7 +171,7 @@ package com.lookmum.view{
 		protected function onStatus(event:NetStatusEvent):void
 		{
 			
-			//trace( "FLVPlayer.onStatus > event : " + event.info.code );
+			trace( "FLVPlayer.onStatus > event : " + event.info.code );
 			//for( var i:String in event ) trace( "key : " + i + ", value : " + event[ i ] );
 			//dispatchEvent(event);
 			switch (event.info.code){
@@ -188,9 +188,22 @@ package com.lookmum.view{
 					play();
 				}
 				break;
+				case 'NetStream.Buffer.Empty':
+					var e:MediaPlayerEvent = new MediaPlayerEvent(MediaPlayerEvent.BUFFER_EMPTY);
+			
+					e.bufferLength = _netStream.bufferLength;
+					e.bufferTime = _netStream.bufferTime;
+					e.bytesLoaded = _netStream.bytesLoaded;
+					e.bytesTotal = _netStream.bytesTotal;
+					e.currentFPS = _netStream.currentFPS;
+					e.liveDelay = _netStream.liveDelay;
+					e.time = _netStream.time;
+						
+					dispatchEvent(e);
+				break;
 				case 'NetStream.Buffer.Full':
 				
-				var e:MediaPlayerEvent = new MediaPlayerEvent(MediaPlayerEvent.BUFFER_FULL);
+				e = new MediaPlayerEvent(MediaPlayerEvent.BUFFER_FULL);
 			
 				e.bufferLength = _netStream.bufferLength;
 				e.bufferTime = _netStream.bufferTime;
