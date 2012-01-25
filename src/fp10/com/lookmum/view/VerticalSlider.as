@@ -29,9 +29,9 @@ package com.lookmum.view
 			if (this.tab.y > this.tab.dragBounds.bottom) this.tab.y = (this.tab.dragBounds.bottom);
 			if (this.tab.y < this.tab.dragBounds.top) this.tab.y = (this.tab.dragBounds.top);
 			
-			if (bar)
+			if (progressBar)
 			{
-				bar.height = tab.y - bar.y + tab.height;
+				progressBar.height = tab.y - progressBar.y + tab.height;
 			}
 			
 			this.dispatchEvent(new DragEvent(DragEvent.DRAG));
@@ -44,9 +44,9 @@ package com.lookmum.view
 			this.dispatchEvent(new DragEvent(DragEvent.DRAG));
 			this.dispatchEvent(new Event(Event.CHANGE));
 			
-			if (bar)
+			if (progressBar)
 			{
-				bar.height = tab.y - bar.y + tab.height;
+				progressBar.height = tab.y - progressBar.y + tab.height;
 			}
 		}
 		
@@ -58,9 +58,9 @@ package com.lookmum.view
 			if(destY > track.y + track.height - tab.height)destY = track.y + track.height - tab.height;
 			this.tab.y = (destY);
 			
-			if (bar)
+			if (progressBar)
 			{
-				bar.height = tab.y - bar.y + tab.height;
+				progressBar.height = tab.y - progressBar.y + tab.height;
 			}
 			
 			this.dispatchEvent(new Event(Event.CHANGE));
@@ -73,9 +73,9 @@ package com.lookmum.view
 			
 			this.tab.y = (this.track.y +(this.track.height-this.tab.height) * (1 - value));
 			
-			if (bar)
+			if (progressBar)
 			{
-				bar.height = tab.y - bar.y + tab.height;
+				progressBar.height = tab.y - progressBar.y + tab.height;
 			}
 		}
 		
