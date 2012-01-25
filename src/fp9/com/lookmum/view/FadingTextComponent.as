@@ -1,7 +1,9 @@
 package com.lookmum.view 
 {
 	
-	import com.lookmum.events.TweenableEvent;
+	import com.lookmum.events.ComponentEvent;
+	import com.lookmum.events.TweenableComponentEvent;
+	import com.lookmum.events.TweenableComponentEvent;
 	import flash.display.MovieClip;
 	
 	[Event(name = "show", type = "com.lookmum.events.Event")]
@@ -33,8 +35,8 @@ package com.lookmum.view
 				if (this.alpha == 1 && super.visible) return;
 				if(!super.visible)this.alpha = (0);
 				super.visible = true;
-				this.tweenDecorator.removeEventListener(TweenableEvent.FADE_TO,this.onHide);
-				this.tweenDecorator.addEventListener(TweenableEvent.FADE_TO,this.onShow);
+				this.tweenDecorator.removeEventListener(TweenableComponentEvent.FADE_TO,this.onHide);
+				this.tweenDecorator.addEventListener(TweenableComponentEvent.FADE_TO,this.onShow);
 				this.tweenDecorator.alphaTo(1);
 			}else {
 				this.tweenDecorator.stopTween();
@@ -42,17 +44,17 @@ package com.lookmum.view
 					super.visible = false;
 					return;
 				}
-				this.tweenDecorator.removeEventListener(TweenableEvent.FADE_TO,this.onShow);
-				this.tweenDecorator.addEventListener(TweenableEvent.FADE_TO,this.onHide);
+				this.tweenDecorator.removeEventListener(TweenableComponentEvent.FADE_TO,this.onShow);
+				this.tweenDecorator.addEventListener(TweenableComponentEvent.FADE_TO,this.onHide);
 				this.tweenDecorator.alphaTo(0);
 			}
 		}
-		private function onShow(e:TweenableEvent):void
+		private function onShow(e:TweenableComponentEvent):void
 		{
-			this.dispatchEvent(new Event(Event.SHOW));
+			this.dispatchEvent(new ComponentEvent(ComponentEvent.SHOW));
 		}
-		protected function onHide(e:TweenableEvent):void {
-			this.tweenDecorator.removeEventListener(TweenableEvent.FADE_TO,this.onHide);
+		protected function onHide(e:TweenableComponentEvent):void {
+			this.tweenDecorator.removeEventListener(TweenableComponentEvent.FADE_TO,this.onHide);
 			super.visible = false;
 		}
 		public function set duration(value:Number):void{
