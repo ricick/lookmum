@@ -181,7 +181,8 @@ package com.lookmum.util
 			dropByDrag[dragItem] = null;
 		}
 		
-		protected function reparentDragItem(dragItem:IDraggable, newParent:DisplayObjectContainer):void{
+		protected function reparentDragItem(dragItem:IDraggable, newParent:DisplayObjectContainer):void {
+			Tweener.removeTweens(dragItem);
 			var globalCoords:Point = dragItem.parent.localToGlobal(new Point(dragItem.x, dragItem.y));
 			newParent.addChild(dragItem.target);
 			var localCoords:Point = dragItem.parent.globalToLocal(globalCoords);
