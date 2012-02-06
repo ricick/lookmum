@@ -5,12 +5,14 @@
 */
 package com.lookmum.view {
 //import com.dynamicflash.utils.Delegate;
+
 import com.lookmum.events.ComponentEvent;
 import com.lookmum.events.TweenableComponentEvent;
 import com.lookmum.view.Component;
 import flash.display.MovieClip;
+import flash.events.Event;
 
-[Event(name = "show", type = "com.lookmum.events.ComponentEvent")]
+[Event(name = "show", type = "com.lookmum.events.Event")]
 
 public class FadingComponent extends Component{
 

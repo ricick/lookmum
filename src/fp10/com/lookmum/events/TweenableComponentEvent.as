@@ -26,7 +26,7 @@ package com.lookmum.events {
 		
 		public override function toString():String 
 		{ 
-			return formatToString("TweenableComponentEvent", "type", "bubbles", "cancelable", "eventPhase"); 
+			return formatToString("TweenableEvent", "type", "bubbles", "cancelable", "eventPhase"); 
 		}
 		
 		
