@@ -1,5 +1,5 @@
 package com.lookmum.view{
-	import com.lookmum.events.ComponentEvent;
+	
 	import com.lookmum.events.MediaPlayerEvent;
 	import com.lookmum.util.IMediaPlayer;
 	import com.lookmum.vo.VideoMetaData;
