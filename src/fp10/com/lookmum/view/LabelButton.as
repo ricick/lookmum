@@ -1,6 +1,5 @@
 package com.lookmum.view 
 {
-	import com.lookmum.events.ComponentEvent;
 	import com.lookmum.view.Button;
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
@@ -89,7 +88,7 @@ package com.lookmum.view
 				bg.height = textField.height + (bgDimensions.height - textFieldDimensions.height);
 				bg.width = textField.width + (bgDimensions.width - textFieldDimensions.width);
 			}
-			dispatchEvent(new ComponentEvent(ComponentEvent.RESIZE));
+			dispatchEvent(new Event(Event.RESIZE));
 		}
 		/*
 		override protected function addEventListeners():void 

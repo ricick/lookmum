@@ -5,6 +5,7 @@ package com.lookmum.view{
 	* @version 0.1
 	*/
 
+	
 	import com.lookmum.events.ComponentEvent;
 	import com.lookmum.events.DragEvent;
 	import com.lookmum.events.InteractiveComponentEvent;

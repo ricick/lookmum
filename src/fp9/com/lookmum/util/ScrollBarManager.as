@@ -1,6 +1,6 @@
 
 package com.lookmum.util {
-	import com.lookmum.events.ComponentEvent;
+	
 	import com.lookmum.view.IComponent;
 	import com.lookmum.view.IScrollBar;
 	import flash.display.DisplayObject;
@@ -60,13 +60,13 @@ package com.lookmum.util {
 			_mask = mask;
 			_scrollBar.addEventListener(Event.SCROLL, onScrollDisplayObject);
 			_displayObject.addEventListener(MouseEvent.MOUSE_WHEEL, onScrollInsideDisplayObject);
-			_displayObject.addEventListener(ComponentEvent.RESIZE,onResize);
-			if (_mask)_mask.addEventListener(ComponentEvent.RESIZE, onResize);
+			_displayObject.addEventListener(Event.RESIZE,onResize);
+			if (_mask)_mask.addEventListener(Event.RESIZE, onResize);
 			_scrollBar.wheelSpeed = _wheelSpeed;
 			calculateScroll();
 		}
 		
-		private function onResize(e:ComponentEvent):void 
+		private function onResize(e:Event):void 
 		{
 			calculateScroll();
 		}
