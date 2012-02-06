@@ -20,13 +20,14 @@ package com.lookmum.util
 		public var overlap:Signal = new Signal(IDraggable);
 		public var moved:Signal = new Signal(IDraggable);
 		
-		private var dragItems:Array;
-		protected var dropLocations:Array;
+		protected var _dragItems:Array;
+		protected var _dropLocations:Array;
 		protected var dragByDrop:Dictionary;
 		protected var dropByDrag:Dictionary;
 		protected var startLocationByDrag:Dictionary;
 		protected var startLayerByDrag:Dictionary;
-		private var dragLayer:Sprite;
+		protected var dragLayer:Sprite;
+		protected var _dragTime:Number = 0.5;
 		public function DragManager(dragLayer:Sprite) 
 		{
 			this.dragLayer = dragLayer;
@@ -51,6 +52,20 @@ package com.lookmum.util
 			dragItem.addEventListener(DragEvent.START, onStartDrag);
 		}
 		
+		public function removeDragItem(dragItem:IDraggable):void
+		{
+			var index:int = dragItems.indexOf(dragItem);
+			if (index < 0) return;
+			
+			delete startLocationByDrag[dragItem];
+			delete startLayerByDrag[dragItem];
+			
+			dragItems.splice(index, 1);
+			
+			dragItem.removeEventListener(DragEvent.START, onStartDrag);
+			dragItem.removeEventListener(DragEvent.STOP, onStopDrag);
+		}
+		
 		protected function onStartDrag(e:DragEvent):void 
 		{
 			//trace( "DragManager.onStartDrag > e : " + e );
@@ -59,6 +74,7 @@ package com.lookmum.util
 			dragItem.removeEventListener(DragEvent.START, onStartDrag);
 			dragItem.addEventListener(DragEvent.STOP, onStopDrag);
 			
+			Tweener.removeTweens(dragItem);
 			reparentDragItem(dragItem, dragLayer);
 			
 		}
@@ -75,7 +91,7 @@ package com.lookmum.util
 			for each (var location:IComponent in dropLocations) 
 			{
 				//trace( "location : " + location );
-				
+				if (!location) continue;
 				reparentDragItem(dragItem, location.parent);
 				/*
 				location.parent.addChild(dragItem.target);
@@ -119,7 +135,7 @@ package com.lookmum.util
 			}
 		}
 		protected function moveItemToLocation(item:IDraggable,point:Point):void{
-			Tweener.addTween(item, { x:point.x, y:point.y, time:0.5, onComplete:function():void {
+			Tweener.addTween(item, { x:point.x, y:point.y, time:dragTime, onComplete:function():void {
 				moved.dispatch(item);
 			}} );
 		}
@@ -187,6 +203,36 @@ package com.lookmum.util
 			var localCoords:Point = dragItem.parent.globalToLocal(globalCoords);
 			dragItem.x = localCoords.x;
 			dragItem.y = localCoords.y;
+		}
+		
+		public function get dragTime():Number 
+		{
+			return _dragTime;
+		}
+		
+		public function set dragTime(value:Number):void 
+		{
+			_dragTime = value;
+		}
+		
+		public function get dragItems():Array 
+		{
+			return _dragItems;
+		}
+		
+		public function set dragItems(value:Array):void 
+		{
+			_dragItems = value;
+		}
+		
+		public function get dropLocations():Array 
+		{
+			return _dropLocations;
+		}
+		
+		public function set dropLocations(value:Array):void 
+		{
+			_dropLocations = value;
 		}
 		
 	}
