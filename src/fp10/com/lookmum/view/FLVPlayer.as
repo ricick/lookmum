@@ -171,7 +171,7 @@ package com.lookmum.view{
 		protected function onStatus(event:NetStatusEvent):void
 		{
 			
-			trace( "FLVPlayer.onStatus > event : " + event.info.code );
+			//trace( "FLVPlayer.onStatus > event : " + event.info.code );
 			//for( var i:String in event ) trace( "key : " + i + ", value : " + event[ i ] );
 			//dispatchEvent(event);
 			switch (event.info.code){
