@@ -19,7 +19,7 @@ package com.lookmum.view
 	
 		override protected function getDragBounds():Rectangle 
 		{
-			return new Rectangle(this.track.x, this.track.y, 0, this.track.height - this.tab.height);
+			return new Rectangle(this.tab.x, this.track.y, 0, this.track.height - this.tab.height);
 		}
 		
 		override protected function onReleaseTrack(event:MouseEvent):void 

@@ -5,7 +5,6 @@ package com.lookmum.events {
 
 	public class ComponentEvent extends Event{
 		public static const MOVE:String = "move";
-		public static const RESIZE:String = "resize";
 		public static const SHOW:String = "show";
 		public static const HIDE:String = "hide";
 		public function ComponentEvent(type:String, bubbles:Boolean =  false, cancelable:Boolean =  false) {
@@ -20,7 +19,7 @@ package com.lookmum.events {
 		
 		public override function toString():String 
 		{ 
-			return formatToString("ComponentEvent", "type", "bubbles", "cancelable", "eventPhase"); 
+			return formatToString("Event", "type", "bubbles", "cancelable", "eventPhase"); 
 		}
 	}
 	
