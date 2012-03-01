@@ -4,20 +4,20 @@ package com.lookmum.view
 	import com.eclecticdesignstudio.motion.Actuate;
 	import com.eclecticdesignstudio.motion.easing.IEasing;
 	import com.eclecticdesignstudio.motion.easing.Linear;
-	import com.lookmum.events.TweenableComponentEvent;
+	import com.lookmum.events.TweenableEvent;
 	import com.lookmum.view.IComponent;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import com.lookmum.view.Component;
 	
 	[Event(name = "complete", type = "flash.events.Event")]
-	[Event(name = "update", type = "com.lookmum.events.TweenableComponentEvent")]
-	[Event(name = "widthTo", type = "com.lookmum.events.TweenableComponentEvent")]
-	[Event(name = "heightTo", type = "com.lookmum.events.TweenableComponentEvent")]
-	[Event(name = "rotateTo", type = "com.lookmum.events.TweenableComponentEvent")]
-	[Event(name = "fadeTo", type = "com.lookmum.events.TweenableComponentEvent")]
-	[Event(name = "moveTo", type = "com.lookmum.events.TweenableComponentEvent")]
-	[Event(name = "scaleTo", type = "com.lookmum.events.TweenableComponentEvent")]
+	[Event(name = "update", type = "com.lookmum.events.TweenableEvent")]
+	[Event(name = "widthTo", type = "com.lookmum.events.TweenableEvent")]
+	[Event(name = "heightTo", type = "com.lookmum.events.TweenableEvent")]
+	[Event(name = "rotateTo", type = "com.lookmum.events.TweenableEvent")]
+	[Event(name = "fadeTo", type = "com.lookmum.events.TweenableEvent")]
+	[Event(name = "moveTo", type = "com.lookmum.events.TweenableEvent")]
+	[Event(name = "scaleTo", type = "com.lookmum.events.TweenableEvent")]
 	
 	public class TweenableComponent extends Component implements ITweenableComponent {
 		
@@ -227,49 +227,49 @@ package com.lookmum.view
 		
 		protected function onStart():void
 		{
-			dispatchEvent(new TweenableComponentEvent(TweenableComponentEvent.START));
+			dispatchEvent(new TweenableEvent(TweenableEvent.START));
 		}
 		
 		protected function onUpdate():void
 		{
-			dispatchEvent(new TweenableComponentEvent(TweenableComponentEvent.UPDATE));
+			dispatchEvent(new TweenableEvent(TweenableEvent.UPDATE));
 		}
 		/*
 		 * onCompleteListeners
 		 */
 		private function onCompleteScaleTween():void 
 		{
-			dispatchEvent(new TweenableComponentEvent(TweenableComponentEvent.SCALE_TO));
+			dispatchEvent(new TweenableEvent(TweenableEvent.SCALE_TO));
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		protected function onCompleteRotationTween():void 
 		{
-			dispatchEvent(new TweenableComponentEvent(TweenableComponentEvent.ROTATE_TO));
+			dispatchEvent(new TweenableEvent(TweenableEvent.ROTATE_TO));
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		private function onCompleteAlphaTween():void 
 		{
-			dispatchEvent(new TweenableComponentEvent(TweenableComponentEvent.FADE_TO));
+			dispatchEvent(new TweenableEvent(TweenableEvent.FADE_TO));
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		private function onCompleteHeightTween():void 
 		{
-			dispatchEvent(new TweenableComponentEvent(TweenableComponentEvent.HEIGHT_TO));
+			dispatchEvent(new TweenableEvent(TweenableEvent.HEIGHT_TO));
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		private function onCompleteWidthTween():void 
 		{
-			dispatchEvent(new TweenableComponentEvent(TweenableComponentEvent.WIDTH_TO));
+			dispatchEvent(new TweenableEvent(TweenableEvent.WIDTH_TO));
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		private function onCompletePositionTween():void 
 		{
-			dispatchEvent(new TweenableComponentEvent(TweenableComponentEvent.MOVE_TO));
+			dispatchEvent(new TweenableEvent(TweenableEvent.MOVE_TO));
 			dispatchEvent(new Event(Event.COMPLETE));
 		}
 		 

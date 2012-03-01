@@ -1,6 +1,6 @@
 package com.lookmum.view 
 {
-	import com.lookmum.events.ComponentEvent;
+	
 	import com.lookmum.view.Component;
 	import com.lookmum.view.FadingComponent;
 	import flash.display.Bitmap;
