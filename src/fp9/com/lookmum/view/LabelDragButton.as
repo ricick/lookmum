@@ -1,6 +1,6 @@
 package com.lookmum.view 
 {
-	import com.lookmum.events.ComponentEvent;
+	
 	import com.lookmum.events.DragEvent;
 	import com.lookmum.events.InteractiveComponentEvent;
 	import flash.display.MovieClip;
@@ -62,7 +62,7 @@ package com.lookmum.view
 		private function onDrag(event:MouseEvent):void {
 			dispatchEvent(new DragEvent(DragEvent.DRAG));
 			target.dispatchEvent(new DragEvent(DragEvent.DRAG));
-			dispatchEvent(new ComponentEvent(ComponentEvent.MOVE));
+			dispatchEvent(new Event(Event.MOVE));
 		}
 		
 		public function get lockCenter():Boolean { return _lockCenter; }

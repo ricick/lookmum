@@ -1,5 +1,6 @@
 package com.lookmum.view 
 {
+	
 	import com.lookmum.events.ComponentEvent;
 	import flash.accessibility.AccessibilityImplementation;
 	import flash.accessibility.AccessibilityProperties;
@@ -28,27 +29,27 @@ package com.lookmum.view
 	
 	/**
 	 * Dispatched after a component changes size
-	 * @eventType com.lookmum.events.ComponentEvent.RESIZE
+	 * @eventType com.lookmum.events.Event.RESIZE
 	 */
-	[Event(name="resize", type="com.lookmum.events.ComponentEvent")]
+	[Event(name="resize", type="com.lookmum.events.Event")]
 	
 	/**
 	 * Dispatched after a component changes size
-	 * @eventType com.lookmum.events.ComponentEvent.MOVE
+	 * @eventType com.lookmum.events.Event.MOVE
 	 */
-	[Event(name="move", type="com.lookmum.events.ComponentEvent")]
+	[Event(name="move", type="com.lookmum.events.Event")]
 	
 	/**
 	 * Dispatched after a component shows
-	 * @eventType com.lookmum.events.ComponentEvent.SHOW
+	 * @eventType com.lookmum.events.Event.SHOW
 	 */
-	[Event(name="show", type="com.lookmum.events.ComponentEvent")]
+	[Event(name="show", type="com.lookmum.events.Event")]
 	
 	/**
 	 * Dispatched after a component hides
-	 * @eventType com.lookmum.events.ComponentEvent.HIDE
+	 * @eventType com.lookmum.events.Event.HIDE
 	 */
-	[Event(name="hide", type="com.lookmum.events.ComponentEvent")]
+	[Event(name="hide", type="com.lookmum.events.Event")]
 	
 	/**
 	 * ...
@@ -626,7 +627,7 @@ package com.lookmum.view
 			return target.height;
 		}
 		override public function set height (value:Number) : void {
-			var event:ComponentEvent = new ComponentEvent(ComponentEvent.RESIZE);
+			var event:Event = new Event(Event.RESIZE);
 			target.height = value;
 			dispatchEvent(event);
 		}
@@ -746,7 +747,7 @@ package com.lookmum.view
 			return target.scaleX;
 		}
 		override public function set scaleX (value:Number) : void{
-			var event:ComponentEvent = new ComponentEvent(ComponentEvent.RESIZE);
+			var event:Event = new Event(Event.RESIZE);
 			target.scaleX = value;
 			dispatchEvent(event);
 		}
@@ -758,7 +759,7 @@ package com.lookmum.view
 			return target.scaleY;
 		}
 		override public function set scaleY (value:Number) : void{
-			var event:ComponentEvent = new ComponentEvent(ComponentEvent.RESIZE);
+			var event:Event = new Event(Event.RESIZE);
 			target.scaleY = value;
 			dispatchEvent(event);
 		}
@@ -797,7 +798,7 @@ package com.lookmum.view
 			return target.width;
 		}
 		override public function set width (value:Number) : void{
-			var event:ComponentEvent = new ComponentEvent(ComponentEvent.RESIZE);
+			var event:Event = new Event(Event.RESIZE);
 			target.width = value;
 			dispatchEvent(event);
 		}

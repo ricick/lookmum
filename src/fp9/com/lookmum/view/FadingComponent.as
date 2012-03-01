@@ -5,12 +5,12 @@
 */
 package com.lookmum.view {
 //import com.dynamicflash.utils.Delegate;
-import com.lookmum.events.ComponentEvent;
-import com.lookmum.events.TweenableComponentEvent;
+
+import com.lookmum.events.TweenableEvent;
 import com.lookmum.view.Component;
 import flash.display.MovieClip;
 
-[Event(name = "show", type = "com.lookmum.events.ComponentEvent")]
+[Event(name = "show", type = "com.lookmum.events.Event")]
 
 public class FadingComponent extends Component{
 
@@ -34,8 +34,8 @@ public class FadingComponent extends Component{
 			if (this.alpha == 1 && super.visible) return;
 			if(!super.visible)this.alpha = (0);
 			super.visible = true;
-			this.tweenDecorator.removeEventListener(TweenableComponentEvent.FADE_TO,this.onHide);
-			this.tweenDecorator.addEventListener(TweenableComponentEvent.FADE_TO,this.onShow);
+			this.tweenDecorator.removeEventListener(TweenableEvent.FADE_TO,this.onHide);
+			this.tweenDecorator.addEventListener(TweenableEvent.FADE_TO,this.onShow);
 			this.tweenDecorator.alphaTo(1);
 		}else {
 			this.tweenDecorator.stopTween();
@@ -43,17 +43,17 @@ public class FadingComponent extends Component{
 				super.visible = false;
 				return;
 			}
-			this.tweenDecorator.removeEventListener(TweenableComponentEvent.FADE_TO,this.onShow);
-			this.tweenDecorator.addEventListener(TweenableComponentEvent.FADE_TO,this.onHide);
+			this.tweenDecorator.removeEventListener(TweenableEvent.FADE_TO,this.onShow);
+			this.tweenDecorator.addEventListener(TweenableEvent.FADE_TO,this.onHide);
 			this.tweenDecorator.alphaTo(0);
 		}
 	}
-	private function onShow(e:TweenableComponentEvent):void
+	private function onShow(e:TweenableEvent):void
 	{
-		this.dispatchEvent(new ComponentEvent(ComponentEvent.SHOW));
+		this.dispatchEvent(new Event(Event.SHOW));
 	}
-	protected function onHide(e:TweenableComponentEvent):void {
-		this.tweenDecorator.removeEventListener(TweenableComponentEvent.FADE_TO,this.onHide);
+	protected function onHide(e:TweenableEvent):void {
+		this.tweenDecorator.removeEventListener(TweenableEvent.FADE_TO,this.onHide);
 		super.visible = false;
 	}
 	public function set duration(value:Number):void{

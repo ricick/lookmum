@@ -1,6 +1,6 @@
 package com.lookmum.view 
 {
-	import com.lookmum.events.ComponentEvent;
+	
 	import com.lookmum.view.Component;
 	import flash.display.MovieClip;
 	import flash.display.DisplayObject;
@@ -102,7 +102,7 @@ package com.lookmum.view
 		}
 		override public function set height(value:Number):void {
 			//super.height = value;
-			var event:ComponentEvent = new ComponentEvent(ComponentEvent.RESIZE);
+			var event:Event = new Event(Event.RESIZE);
 			textField.height = value;
 			dispatchEvent(event);
 			arrangeComponents();
@@ -112,7 +112,7 @@ package com.lookmum.view
 		}
 		override public function set width(value:Number):void {
 			//super.width = value;
-			var event:ComponentEvent = new ComponentEvent(ComponentEvent.RESIZE);
+			var event:Event = new Event(Event.RESIZE);
 			textField.width = value;
 			dispatchEvent(event);
 			arrangeComponents();
