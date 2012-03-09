@@ -120,7 +120,11 @@ package com.lookmum.util {
 		
 		private function id3Handler(e:Event):void {
 			//trace( "SoundPlayer.id3Handler > e : " + e );
-			id3 = e.target.id3; 
+			try {
+				id3 = e.target.id3; 
+			} catch (e:Error) {
+				
+			}
 			//for (var propName:String in id3)
 			//{
 				//trace(propName, id3[propName]);
