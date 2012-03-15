@@ -30,7 +30,7 @@ package  com.lookmum.view {
 		protected var _width:Number;
 		protected var _height:Number;
 		protected var _minimumTabSize:Number;
-		public function ScrollBar(target:MovieClip)
+		public function ScrollBar (target:MovieClip)
 		{
 			super (target);
 			this.track = this.getScrollTrack();

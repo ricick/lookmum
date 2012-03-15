@@ -3,8 +3,8 @@ package com.lookmum.view
 	
 	import com.lookmum.events.ComponentEvent;
 	import com.lookmum.events.TweenableComponentEvent;
-	import com.lookmum.events.TweenableComponentEvent;
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	
 	[Event(name = "show", type = "com.lookmum.events.Event")]
 	/**

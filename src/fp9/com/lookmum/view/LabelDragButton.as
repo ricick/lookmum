@@ -62,7 +62,7 @@ package com.lookmum.view
 		private function onDrag(event:MouseEvent):void {
 			dispatchEvent(new DragEvent(DragEvent.DRAG));
 			target.dispatchEvent(new DragEvent(DragEvent.DRAG));
-			//dispatchEvent(new Event(Event.MOVE));
+			dispatchEvent(new Event(Event.MOVE));
 		}
 		
 		public function get lockCenter():Boolean { return _lockCenter; }

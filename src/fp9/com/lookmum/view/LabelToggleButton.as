@@ -45,7 +45,14 @@ package com.lookmum.view
 			
 			if (toggle) {
 				try {
-					target.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+					if (out)
+					{
+						target.gotoAndStop(FRAME_ROLL_OUT_TOGGLE);
+					}
+					else
+					{
+						target.gotoAndStop(FRAME_ROLL_OVER_TOGGLE);
+					}
 				} catch (e:Error) {
 					//trace(e);
 				}

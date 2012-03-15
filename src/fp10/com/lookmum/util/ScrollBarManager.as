@@ -39,7 +39,7 @@ package com.lookmum.util {
 				_scrollBar.scrollSize = _textField.bottomScrollV;
 			}else if (_displayObject) {
 				if (_mask)_scrollBar.maxScroll = _displayObject.height - _mask.height;
-				_scrollBar.scrollSize = _displayObject.height;
+				_scrollBar.scrollSize = _mask.height;
 			}
 		}
 		private function onScrollTextField(event:Event):void {
