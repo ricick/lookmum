@@ -9,7 +9,7 @@ package com.lookmum.view
 	 */
 	public class DropLocation extends Component implements IDropLocation
 	{
-		private var dropSpot:MovieClip;
+		protected var dropSpot:MovieClip;
 		public function DropLocation(target:MovieClip) 
 		{
 			super(target);
@@ -23,7 +23,7 @@ package com.lookmum.view
 		public function getDropSpot():Point 
 		{
 			if (dropSpot) return new Point(dropSpot.x, dropSpot.y);
-			return new Point(x, y);
+			return new Point(0, 0);
 		}
 		
 	}

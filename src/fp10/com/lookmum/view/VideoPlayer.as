@@ -40,6 +40,8 @@ package com.lookmum.view
 		
 		override protected function createChildren():void 
 		{
+			super.createChildren();
+			
 			mediaPlayer = getMediaPlayer();
 			mediaPlayer.addEventListener(MediaPlayerEvent.UPDATE, onUpdate);
 			mediaPlayer.addEventListener(MediaPlayerEvent.END, onEnd);
@@ -86,21 +88,19 @@ package com.lookmum.view
 		
 		protected function onBufferFull(e:MediaPlayerEvent):void 
 		{
-			
+			mediaPlayer.bufferTime *= 2
 		}
 		
 		protected function onBufferEmpty(e:MediaPlayerEvent):void 
 		{
-			mediaPlayer.bufferTime *= 2
-			//trace("buffer time:", mediaPlayer.bufferTime);
 		}
 		
 		private function onLoadProgress(e:MediaPlayerEvent):void 
 		{
 			var loaded:Number = mediaPlayer.loadLevel;
-			if (!isNaN(loaded) && loaded <= 1 && videoSlider)
+			if (!isNaN(loaded) && loaded <= 1 && videoSlider){
 				videoSlider.loadLevel = loaded;
-						
+			}
 			if (e.bytesLoaded > 0 && loadIcon && loadIcon.visible) {
 				loadIcon.visible = false;
 			}

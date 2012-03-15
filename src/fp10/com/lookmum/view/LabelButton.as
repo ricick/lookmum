@@ -51,7 +51,7 @@ package com.lookmum.view
 		private var _textFormatPress:TextFormat;
 		private var _textFormatDisable:TextFormat;
 		protected var currentTextFormat:TextFormat;
-		public var autosizeBackground:Boolean = true;
+		public var autosizeBackground:Boolean = false;
 		public function LabelButton(target:MovieClip) 
 		{
 			super(target);
@@ -77,7 +77,7 @@ package com.lookmum.view
 					//trace(e);
 				}
 			}
-			arrangeComponents();
+			//arrangeComponents();
 		}
 		override protected function arrangeComponents():void 
 		{
@@ -106,7 +106,7 @@ package com.lookmum.view
 			}
 		}
 		*/
-		private function getTextField():TextField
+		protected function getTextField():TextField
 		{
 			return target.textField;
 		}

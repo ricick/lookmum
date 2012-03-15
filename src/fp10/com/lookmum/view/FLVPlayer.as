@@ -30,6 +30,7 @@ package com.lookmum.view{
 		private var _bufferTime:Number = 0;
 		private var _videoWidth:Number;
 		private var _videoHeight:Number;
+		private var _autoSize:Boolean = false;
 		public function FLVPlayer (target:MovieClip)
 		{
 			super (target);
@@ -133,9 +134,6 @@ package com.lookmum.view{
 			e.currentFPS = _netStream.currentFPS;
 			e.liveDelay = _netStream.liveDelay;
 			e.time = _netStream.time;
-			
-			videoArea.width = videoWidth;
-			videoArea.height = videoHeight;
 			
 			dispatchEvent(e);
 			//trace( "getDuration() : " + getDuration() );
@@ -243,7 +241,6 @@ package com.lookmum.view{
 			_metaData.canSeekToEnd = metadata.canSeekToEnd;
 			_metaData.frameRate = metadata.framerate;
 			
-			
 			var event:MediaPlayerEvent = new MediaPlayerEvent(MediaPlayerEvent.META_DATA);
 			
 			event.bufferLength = _netStream.bufferLength;
@@ -255,6 +252,12 @@ package com.lookmum.view{
 			event.time = _netStream.time;
 			
 			event.metaData = _metaData;
+			
+			if (autoSize)
+			{
+				videoWidth = _metaData.videoWidth;
+				videoHeight = _metaData.videoHeight;
+			}
 			
 			dispatchEvent(event);
 		}
@@ -349,6 +352,7 @@ package com.lookmum.view{
 		public function set videoWidth(value:Number):void 
 		{
 			_videoWidth = value;
+			videoArea.width = value;
 		}
 		
 		public function get videoHeight():Number { return _videoHeight; }
@@ -356,6 +360,17 @@ package com.lookmum.view{
 		public function set videoHeight(value:Number):void 
 		{
 			_videoHeight = value;
+			videoArea.height = value;
+		}
+		
+		public function get autoSize():Boolean 
+		{
+			return _autoSize;
+		}
+		
+		public function set autoSize(value:Boolean):void 
+		{
+			_autoSize = value;
 		}
 		
 	}
