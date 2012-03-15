@@ -11,8 +11,8 @@ package com.lookmum.view
 	public class TiltingComponent extends Component
 	{
 		
-		private var destRotationX:Number;
-		private var destRotationY:Number;
+		protected var destRotationX:Number;
+		protected var destRotationY:Number;
 		private var _turnToMouse:Boolean;
 		public var xRotationScale:Number = 0.07;
 		public var yRotationScale:Number = 0.02;
