@@ -47,13 +47,14 @@ package com.lookmum.view
 			dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS));
 		}
 		
-		protected function clearImage():void {
+		public function clearImage():void {
+			if (containsImage)
+				target.removeChild(loader);
 			containsImage = false;
-			target.removeChild(loader);			
 		}
 		public function setSmoothing(value:Boolean):void {
 			if (!containsImage) return;
-			Bitmap(Loader(target.getChildAt(1)).contentLoaderInfo.content).smoothing = value;
+			Bitmap(Loader(target.getChildAt(0)).contentLoaderInfo.content).smoothing = value;
 		}
 		private function onCompleteLoad(e:Event):void 
 		{
