@@ -153,7 +153,6 @@ package com.lookmum.view
 		
 		protected function onTransitionOut():void
 		{
-			//trace( "TransitionerContainer.onTransitionOut" );
 			for each (var item:ITransitioner in transitionComponents) 
 			{
 				item.onOut.remove(onItemTransitionOut);

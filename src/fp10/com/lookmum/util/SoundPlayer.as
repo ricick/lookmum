@@ -5,6 +5,7 @@ package com.lookmum.util {
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
+	import flash.media.ID3Info;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
@@ -37,6 +38,7 @@ package com.lookmum.util {
 		protected var _url:String;
 		protected var _sound:Sound;
 		protected var _time:Number = 0.1;
+		protected var _id3:ID3Info;
 		protected var _playing:Boolean = false;
 
 		protected var _updateInterval:Number;
@@ -118,7 +120,15 @@ package com.lookmum.util {
 		
 		private function id3Handler(e:Event):void {
 			//trace( "SoundPlayer.id3Handler > e : " + e );
-			
+			try {
+				id3 = e.target.id3; 
+			} catch (e:Error) {
+				
+			}
+			//for (var propName:String in id3)
+			//{
+				//trace(propName, id3[propName]);
+			//}
 		}
 		
 		private function completeHandler(e:Event):void {
@@ -126,18 +136,17 @@ package com.lookmum.util {
 			
 		}
 
-		public function play():void{
-
+		public function play():void {
+			if (_playing == true) return ;
+			
 			this._updateInterval = setInterval(this.onUpdate,this._updateTime);
 			_playing = true;
-
-			if (soundChannelObject) {
-				var loops:int = 0;
-				if (_loop) loops = MAX_LOOPS;
-				soundChannelObject.soundTransform = soundTransformObject;
-				soundChannelObject = this._sound.play(this._time, loops);
-				soundChannelObject.addEventListener(Event.SOUND_COMPLETE, onSoundComplete);
-			}
+			
+			var loops:int = 0;
+			if (_loop) loops = MAX_LOOPS;
+			soundChannelObject = this._sound.play(this._time, loops);
+			soundChannelObject.soundTransform = soundTransformObject;
+			soundChannelObject.addEventListener(Event.SOUND_COMPLETE, onSoundComplete);
 			
 		}
 		
@@ -158,7 +167,7 @@ package com.lookmum.util {
 				
 		public function get duration():Number
 		{
-			return _sound.length;
+			return id3 ? id3['TLEN'] : _sound.length;
 		}
 
 		public function pause():void {
@@ -179,8 +188,9 @@ package com.lookmum.util {
 		}
 		
 		public function get time():Number {
-			
-			return soundChannelObject.position;
+			if (soundChannelObject)
+				return soundChannelObject.position;
+			return 0;
 		}
 
 		public function seek(time:Number):void {
@@ -191,6 +201,7 @@ package com.lookmum.util {
 			{
 				soundChannelObject.stop();
 				soundChannelObject = this._sound.play(this._time, 0);
+				soundChannelObject.addEventListener(Event.SOUND_COMPLETE, onSoundComplete);
 			}
 		}
 		
@@ -206,9 +217,11 @@ package com.lookmum.util {
 			var loaded:Number = this._sound.bytesLoaded;
 			var total:Number = this._sound.bytesTotal;
 			
-			if (loaded == total) clearInterval(this._loadProgressInterval);
+			if (loaded > 0 && loaded == total) clearInterval(this._loadProgressInterval);
 			
-			this.dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.LOAD_PROGRESS));
+			var e:MediaPlayerEvent = new MediaPlayerEvent(MediaPlayerEvent.LOAD_PROGRESS);
+			e.bytesLoaded = loaded;
+			this.dispatchEvent(e);
 			
 		}
 		
@@ -219,10 +232,11 @@ package com.lookmum.util {
 		}
 		
 		protected function onSoundComplete(e:Event):void {
-
-			soundChannelObject.removeEventListener(Event.SOUND_COMPLETE, onSoundComplete);
+			if (soundChannelObject)
+				soundChannelObject.removeEventListener(Event.SOUND_COMPLETE, onSoundComplete);
 			
 			clearInterval(this._updateInterval);
+			_playing = false;
 			
 			this.dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.STOP));
 			this.dispatchEvent(new MediaPlayerEvent(MediaPlayerEvent.COMPLETE));
@@ -267,6 +281,16 @@ package com.lookmum.util {
 			}else {
 				soundsLookup = null;
 			}
+		}
+		
+		public function get id3():ID3Info 
+		{
+			return _id3;
+		}
+		
+		public function set id3(value:ID3Info):void 
+		{
+			_id3 = value;
 		}
 		
 		

@@ -11,7 +11,7 @@ package com.lookmum.view{
 	import flash.media.SoundMixer;
 	import flash.media.SoundTransform;
 
-	public class VolumeSlider extends Slider {
+	public class VolumeSlider extends Slider{
 
 		public function VolumeSlider(target:MovieClip) {
 			super(target);

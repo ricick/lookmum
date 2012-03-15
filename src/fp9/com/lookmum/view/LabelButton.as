@@ -1,6 +1,5 @@
 package com.lookmum.view 
 {
-	
 	import com.lookmum.view.Button;
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
@@ -242,7 +241,7 @@ package com.lookmum.view
 			var out:Boolean = isMouseOutside;
 			super.onMouseUp(e);
 			
-			if (_textFormatRollOver) currentTextFormat = (_textFormatRollOver);
+			if (!out && _textFormatRollOver) currentTextFormat = (_textFormatRollOver);
 
 			if (bg) {
 				if (out)
