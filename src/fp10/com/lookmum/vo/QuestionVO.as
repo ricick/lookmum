@@ -13,6 +13,8 @@ package com.lookmum.vo
 		public var feedbackCorrectHeading:String;
 		public var feedbackCorrect:String;
 		
+		public var feedbackText:String;
+		
 		public var feedbackIncorrect:String;
 		public var feedbackIncorrectHeading:String;
 		
@@ -25,6 +27,8 @@ package com.lookmum.vo
 			
 			value.feedbackCorrect = TextManager.getText(xml.@feedbackCorrect);
 			if (xml.@feedbackCorrectHeading != undefined) value.feedbackCorrectHeading = TextManager.getText(xml.@feedbackCorrectHeading);
+			
+			if (xml.@feedbackText != undefined) value.feedbackText = TextManager.getText(xml.@feedbackText);
 			
 			value.feedbackIncorrect = TextManager.getText(xml.@feedbackIncorrect);
 			if (xml.@feedbackIncorrectHeading != undefined) value.feedbackIncorrectHeading = TextManager.getText(xml.@feedbackIncorrectHeading);

@@ -40,6 +40,8 @@ package com.lookmum.view
 		
 		override protected function createChildren():void 
 		{
+			super.createChildren();
+			
 			mediaPlayer = getMediaPlayer();
 			mediaPlayer.addEventListener(MediaPlayerEvent.UPDATE, onUpdate);
 			mediaPlayer.addEventListener(MediaPlayerEvent.END, onEnd);
