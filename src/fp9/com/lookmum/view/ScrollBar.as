@@ -56,7 +56,7 @@ package  com.lookmum.view {
 		
 		protected function onClickTrack(e:MouseEvent):void 
 		{
-			if (e.localY < tab.y) {
+			if (e.localY * track.scaleY < tab.y) {
 				level -= scrollSize;
 			}else {
 				level += scrollSize;
