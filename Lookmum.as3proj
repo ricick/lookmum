@@ -16,6 +16,7 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src\fp10" />
+    <class path="src\common" />
     <class path="..\actuate" />
     <class path="..\lib_as3" />
   </classpaths>
