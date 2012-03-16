@@ -16,11 +16,12 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'20/12/2011'</value>
+      <value>'16/03/2012'</value>
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
       <path-element>C:\projects\flash\lookmum\src\fp10</path-element>
+      <path-element>C:\projects\flash\lookmum\src\common</path-element>
       <path-element>C:\projects\flash\actuate</path-element>
       <path-element>C:\projects\flash\lib_as3</path-element>
       <path-element>C:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
