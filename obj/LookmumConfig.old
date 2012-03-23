@@ -21,6 +21,7 @@
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
       <path-element>C:\projects\flash\lookmum\src\fp10</path-element>
+      <path-element>C:\projects\flash\lookmum\src\common</path-element>
       <path-element>C:\projects\flash\actuate</path-element>
       <path-element>C:\projects\flash\lib_as3</path-element>
       <path-element>C:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
