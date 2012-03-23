@@ -1,5 +1,6 @@
 package  
 {
+	import com.lookmum.util.TimeCodeUtil;
 	import com.lookmum.view.VideoPlayer;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -19,6 +20,7 @@ package
 			addChild(videoPlayer);
 			videoPlayer.bufferTime = 1;
 			videoPlayer.load('video/AMCA_HVAC.flv');
+			trace(TimeCodeUtil.toTimeCode(123001, "HH:MM:SS:mmm"));
 		}
 		
 	}
