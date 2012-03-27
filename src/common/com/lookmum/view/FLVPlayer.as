@@ -1,6 +1,7 @@
 package com.lookmum.view{
 	
 	import com.lookmum.events.MediaPlayerEvent;
+	import com.lookmum.util.DisplayUtil;
 	import com.lookmum.util.IMediaPlayer;
 	import com.lookmum.vo.VideoMetaData;
 	import flash.display.MovieClip;
@@ -31,6 +32,7 @@ package com.lookmum.view{
 		private var _videoWidth:Number;
 		private var _videoHeight:Number;
 		private var _autoSize:Boolean = false;
+		private var _autoStopOnInvisible:Boolean = true;
 		public function FLVPlayer (target:MovieClip)
 		{
 			super (target);
@@ -134,7 +136,9 @@ package com.lookmum.view{
 			e.currentFPS = _netStream.currentFPS;
 			e.liveDelay = _netStream.liveDelay;
 			e.time = _netStream.time;
-			
+			if (autoStopOnInvisible) {
+				if (!DisplayUtil.isVisible(target)) pause();
+			}
 			dispatchEvent(e);
 			//trace( "getDuration() : " + getDuration() );
 		}
@@ -371,6 +375,16 @@ package com.lookmum.view{
 		public function set autoSize(value:Boolean):void 
 		{
 			_autoSize = value;
+		}
+		
+		public function get autoStopOnInvisible():Boolean 
+		{
+			return _autoStopOnInvisible;
+		}
+		
+		public function set autoStopOnInvisible(value:Boolean):void 
+		{
+			_autoStopOnInvisible = value;
 		}
 		
 	}
