@@ -33,6 +33,7 @@ package com.lookmum.view
 		protected var loadIcon:MovieClip;
 		protected var textFieldTime:TextField;
 		private var _mediaClickPlayPause:Boolean;
+		
 		public function VideoPlayer(target:MovieClip) 
 		{
 			super(target);
@@ -394,6 +395,22 @@ package com.lookmum.view
 				mediaPlayer.addEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
 			}else {
 				mediaPlayer.removeEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
+			}
+		}
+		
+		public function get autoStopOnInvisible():Boolean 
+		{
+			if(mediaPlayer is FLVPlayer){
+				return FLVPlayer(mediaPlayer).autoStopOnInvisible;
+			}else {
+				return false;
+			}
+		}
+		
+		public function set autoStopOnInvisible(value:Boolean):void 
+		{
+			if(mediaPlayer is FLVPlayer){
+				FLVPlayer(mediaPlayer).autoStopOnInvisible = value;
 			}
 		}
 	}
