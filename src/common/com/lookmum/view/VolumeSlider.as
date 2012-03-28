@@ -24,7 +24,7 @@ package com.lookmum.view{
 			soundManager = SoundManager.getInstance();
 			soundManager.addEventListener(Event.CHANGE, onChangeLevel);
 			this.addEventListener(DragEvent.DRAG,onSlide);
-			this.level = (1);
+			this.level = soundManager.level;
 		}
 		
 		private function onChangeLevel(e:Event):void 

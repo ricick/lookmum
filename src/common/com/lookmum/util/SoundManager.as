@@ -10,7 +10,7 @@ package com.lookmum.util
 	 */
 	public class SoundManager extends EventDispatcher
 	{
-		private var _level:Number;
+		private var _level:Number = 1;
 		static private var instance:SoundManager;
 		private var cacheLevel:Number = 1;
 		

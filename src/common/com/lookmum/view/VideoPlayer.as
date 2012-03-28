@@ -85,6 +85,7 @@ package com.lookmum.view
 				buttonMute.addEventListener(MouseEvent.CLICK, onReleaseButtonMute);
 				soundManager = SoundManager.getInstance();
 				soundManager.addEventListener(Event.CHANGE, onChangeVolume);
+				buttonMute.toggle = soundManager.mute;
 			}
 			playIcon = getPlayIcon();
 			if (playIcon) {
