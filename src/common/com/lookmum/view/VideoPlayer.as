@@ -105,14 +105,14 @@ package com.lookmum.view
 		protected function onBufferFull(e:MediaPlayerEvent):void 
 		{
 			mediaPlayer.bufferTime *= 2
-			if (loadIcon)
-				loadIcon.visible = true;
+			//if (loadIcon)
+				//loadIcon.visible = true;
 		}
 		
 		protected function onBufferEmpty(e:MediaPlayerEvent):void 
 		{
-			if (loadIcon)
-				loadIcon.visible = false;
+			//if (loadIcon)
+				//loadIcon.visible = false;
 		}
 		
 		private function onLoadProgress(e:MediaPlayerEvent):void 
