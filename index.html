@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Lookmum by ricick</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/ricick/lookmum">Fork On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/ricick/lookmum/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/ricick/lookmum/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Lookmum</h1>
+          <p>Lookmum component framework</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/ricick">ricick</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>Lookmum component framework</h1>
+
+<p>ActionScript 3 component framework based on MovieClip composition over inheritance.</p>
+
+<h2>Basic usage</h2>
+
+<p>Components can either wrap movieclips attached from the library, or movieclips that are already in the display list.</p>
+
+<p>This prevents having to state what component a particular library item is.</p>
+
+<p>The following example demonstrates a base component being created with a library clip, then with a clip already on the stage, then a different subclass of component being created, that uses the same library symbol.</p>
+
+<pre><code>package  
+{
+    import com.lookmum.view.Component;
+    import com.lookmum.view.Button;
+    import flash.display.Sprite;
+    public class ExampleComponent extends Sprite
+    {
+        public function ExampleComponent() 
+        {
+            var libraryComponent:Component = new Component(new libraryClip());
+            addChild(libraryComponent);
+
+            var stageComponent:Component = new Component(this.stageComponentClip);
+
+            var button:Button = new Button(new libraryClip());
+            addChild(button);
+        }   
+    }
+}
+</code></pre>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
