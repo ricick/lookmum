@@ -5,12 +5,14 @@ package com.lookmum.view
 	import com.lookmum.events.DragEvent;
 	import com.lookmum.events.MediaPlayerEvent;
 	import com.lookmum.util.IMediaPlayer;
+	import com.lookmum.util.SoundManager;
 	import com.lookmum.util.TimeCodeUtil;
 	import com.lookmum.view.FLVPlayer;
 	import com.lookmum.view.Slider;
 	import com.lookmum.view.ToggleButton;
 	import com.lookmum.view.VolumeSlider;
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	
@@ -25,6 +27,7 @@ package com.lookmum.view
 		protected var buttonPlayPause:ToggleButton;
 		protected var buttonRewind:Button;
 		protected var buttonFastForward:Button;
+		protected var buttonMute:ToggleButton;
 		protected var _playing:Boolean;
 		protected var _autoRewind:Boolean = true;
 		private var videoSliderDisabled:Boolean;
@@ -33,6 +36,7 @@ package com.lookmum.view
 		protected var loadIcon:MovieClip;
 		protected var textFieldTime:TextField;
 		private var _mediaClickPlayPause:Boolean;
+		private var soundManager:SoundManager;
 		
 		public function VideoPlayer(target:MovieClip) 
 		{
@@ -75,6 +79,14 @@ package com.lookmum.view
 			{
 				buttonPlayPause.addEventListener(MouseEvent.CLICK, onReleaseButtonPlayPause);
 			}
+			buttonMute = getButtonMute();
+			if (buttonMute)
+			{
+				buttonMute.addEventListener(MouseEvent.CLICK, onReleaseButtonMute);
+				soundManager = SoundManager.getInstance();
+				soundManager.addEventListener(Event.CHANGE, onChangeVolume);
+				buttonMute.toggle = soundManager.mute;
+			}
 			playIcon = getPlayIcon();
 			if (playIcon) {
 				playIcon.addEventListener(MouseEvent.CLICK, onReleasePlayIcon);
@@ -86,6 +98,9 @@ package com.lookmum.view
 			textFieldTime = getTextFieldTime();
 
 		}
+		
+		
+		
 		
 		protected function onBufferFull(e:MediaPlayerEvent):void 
 		{
@@ -159,6 +174,11 @@ package com.lookmum.view
 			return new ToggleButton(target.getChildByName('buttonPlayPause') as MovieClip);
 		}
 		
+		protected function getButtonMute():ToggleButton 
+		{
+			if (!target.getChildByName('buttonMute')) return null;
+			return new ToggleButton(target.getChildByName('buttonMute') as MovieClip);	
+		}
 		protected function getButtonRewind():Button
 		{
 			if (!target.getChildByName('buttonRewind')) return null;
@@ -251,6 +271,14 @@ package com.lookmum.view
 			if (buttonPlayPause) buttonPlayPause.toggle = !playing;
 		}
 		
+		protected function onReleaseButtonMute(e:MouseEvent):void 
+		{
+			soundManager.mute = buttonMute.toggle;
+		}
+		private function onChangeVolume(e:Event):void 
+		{
+			buttonMute.toggle = soundManager.level == 0;
+		}
 		protected function onUpdate(e:MediaPlayerEvent):void 
 		{
 			if (videoSlider)

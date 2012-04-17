@@ -43,7 +43,7 @@ package com.lookmum.view
 	public class TextComponent extends Component implements ITextComponent
 	{
 		private var _padding:Number = 0;
-		protected var textField:TextField;
+		protected var textField:AdvancedTextField;
 		protected var bg:MovieClip;
 		public var autosizeBackground:Boolean = false;
 		public function TextComponent(target:MovieClip) 
@@ -53,7 +53,7 @@ package com.lookmum.view
 		override protected function createChildren():void 
 		{
 			super.createChildren();
-			textField = getTextField();
+			textField = new AdvancedTextField(getTextField());
 			if (target.getChildByName("bg"))
 				bg = target.getChildByName("bg") as MovieClip;
 		}
@@ -641,6 +641,19 @@ package com.lookmum.view
 		public function setTextFormat (format:TextFormat, beginIndex:int = -1, endIndex:int = -1) : void {
 			textField.setTextFormat(format, beginIndex, endIndex);
 			arrangeComponents();
+		}
+		
+		public function get orphan():int 
+		{
+			return textField.orphanNumber;
+		}
+		
+		/**
+		 * Sets the number of words in the last line.
+		 */
+		public function set orphan(value:int):void 
+		{
+			textField.orphanNumber = value;
 		}
 		
 		//}
