@@ -13,13 +13,13 @@ package com.lookmum.view
 	 * ...
 	 * @author Phil Douglas
 	 */
-	public class TextDropLocaton extends DropLocation implements ITextComponent 
+	public class TextDropLocation extends DropLocation implements ITextComponent 
 	{
 		private var _padding:Number = 0;
 		protected var textField:TextField;
 		protected var bg:MovieClip;
 		public var autosizeBackground:Boolean = false;
-		public function TextDropLocaton(target:MovieClip) 
+		public function TextDropLocation(target:MovieClip) 
 		{
 			super(target);
 		}

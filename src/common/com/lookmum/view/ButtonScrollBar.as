@@ -11,9 +11,9 @@ package com.lookmum.view
 	 */
 	public class ButtonScrollBar extends Component implements IScrollBar 
 	{
-		private var scrollBar:ScrollBar;
-		private var buttonScrollUp:Button;
-		private var buttonScrollDown:Button;
+		protected var scrollBar:ScrollBar;
+		protected var buttonScrollUp:Button;
+		protected var buttonScrollDown:Button;
 		public function ButtonScrollBar(target:MovieClip) 
 		{
 			super(target);
@@ -30,17 +30,17 @@ package com.lookmum.view
 			buttonScrollDown.addEventListener(MouseEvent.CLICK, onClickDown);
 		}
 		
-		private function onScroll(e:Event):void 
+		protected function onScroll(e:Event):void 
 		{
 			dispatchEvent(e.clone());
 		}
 		
-		private function onClickDown(e:MouseEvent):void 
+		protected function onClickDown(e:MouseEvent):void 
 		{
 			scrollBar.level += scrollBar.scrollSize;
 		}
 		
-		private function onClickUp(e:MouseEvent):void 
+		protected function onClickUp(e:MouseEvent):void 
 		{
 			scrollBar.level -= scrollBar.scrollSize;
 		}
