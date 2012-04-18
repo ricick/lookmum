@@ -103,6 +103,7 @@ package com.lookmum.view
 			mouseEnabled = false;
 			super.enabled = false;
 			mouseChildren = false;
+			if (getHitspot().stage) getHitspot().stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 			animationDisable();
 			this.dispatchEvent(new InteractiveComponentEvent(InteractiveComponentEvent.DISABLE));
 		}
