@@ -56,6 +56,26 @@ package com.lookmum.view
 			textField.width = value;
 		}
 		
+		override public function get x():Number 
+		{
+			return textField.x;
+		}
+		
+		override public function set x(value:Number):void 
+		{
+			textField.x = value;
+		}
+		
+		override public function get y():Number 
+		{
+			return textField.y;
+		}
+		
+		override public function set y(value:Number):void 
+		{
+			textField.y = value;
+		}
+		
 		override public function get tabEnabled():Boolean { return textField.tabEnabled; }
 		
 		override public function set tabEnabled(value:Boolean):void 
