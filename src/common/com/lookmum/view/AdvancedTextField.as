@@ -601,7 +601,6 @@ package com.lookmum.view
 			breaklimit = textField.width;
 			createBreaker(breaklimit);
 			newText = textField.text;
-			//trace('newText', newText);
 			
 			spaceReplacement = new RegExp("&nbsp;", 'g');
 			_spaceReplacement = new RegExp("&nbsp; ", 'g');
