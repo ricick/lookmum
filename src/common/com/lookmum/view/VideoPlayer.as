@@ -105,14 +105,16 @@ package com.lookmum.view
 		protected function onBufferFull(e:MediaPlayerEvent):void 
 		{
 			mediaPlayer.bufferTime *= 2
-			//if (loadIcon)
-				//loadIcon.visible = true;
+			if (loadIcon){
+				loadIcon.visible = false;
+			}
 		}
 		
 		protected function onBufferEmpty(e:MediaPlayerEvent):void 
 		{
-			//if (loadIcon)
-				//loadIcon.visible = false;
+			if (loadIcon){
+				loadIcon.visible = true;
+			}
 		}
 		
 		private function onLoadProgress(e:MediaPlayerEvent):void 
@@ -121,9 +123,9 @@ package com.lookmum.view
 			if (!isNaN(loaded) && loaded <= 1 && videoSlider){
 				videoSlider.loadLevel = loaded;
 			}
-			if (e.bytesLoaded > 0 && loadIcon && loadIcon.visible) {
+			/*if (e.bytesLoaded > 0 && loadIcon && loadIcon.visible) {
 				loadIcon.visible = false;
-			}
+			}*/
 		}
 		
 		private function onReleasePlayIcon(e:MouseEvent):void 
