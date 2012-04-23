@@ -230,8 +230,9 @@ package com.lookmum.view
 			return textField.htmlText;
 		}
 		override public function set htmlText (value:String) : void {
-			textField.htmlText = value;
+			textField.text = value;
 			processOrphan();
+			
 		}
 
 		/**
@@ -600,6 +601,7 @@ package com.lookmum.view
 			breaklimit = textField.width;
 			createBreaker(breaklimit);
 			newText = textField.text;
+			//trace('newText', newText);
 			
 			spaceReplacement = new RegExp("&nbsp;", 'g');
 			_spaceReplacement = new RegExp("&nbsp; ", 'g');
