@@ -59,6 +59,8 @@ package com.lookmum.view
 	{
 		
 		private var _target:MovieClip;
+		private var frameCounter: int;
+
 		public function Component(target:MovieClip) 
 		{
 			if (!target) 
@@ -67,9 +69,20 @@ package com.lookmum.view
 			}
 			_target = target;
 			createChildren();
+			frameCounter = 0;
 			//addEventListeners();
+			target.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			super.addEventListener(Event.ADDED, onAdded);
 			arrangeComponents();
+		}
+		
+		private function onEnterFrame(e:Event):void 
+		{
+			frameCounter++;
+			if (frameCounter == totalFrames)
+			{
+				dispatchEvent(new Event(Event.COMPLETE));
+			}
 		}
 		/**
 		 * Listen for added to stage. If component itself is added, swap with target.
