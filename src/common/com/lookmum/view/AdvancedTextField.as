@@ -230,8 +230,9 @@ package com.lookmum.view
 			return textField.htmlText;
 		}
 		override public function set htmlText (value:String) : void {
-			textField.htmlText = value;
+			textField.text = value;
 			processOrphan();
+			
 		}
 
 		/**
