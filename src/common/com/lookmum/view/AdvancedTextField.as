@@ -592,6 +592,16 @@ package com.lookmum.view
 			textField.setTextFormat(format, beginIndex, endIndex);
 		}
 		
+		override public function get visible():Boolean 
+		{
+			return textField.visible;
+		}
+		
+		override public function set visible(value:Boolean):void 
+		{
+			textField.visible = value;
+		}
+		
 		/**
 		 * Ajusts the number of words in the last line.
 		 */
