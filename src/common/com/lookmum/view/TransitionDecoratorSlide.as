@@ -13,8 +13,8 @@ package com.lookmum.view
 		public var slideOutX:Number = 10;
 		public var slideInY:Number = 10;
 		public var slideOutY:Number = 10;
-		private var cacheX:Number;
-		private var cacheY:Number;
+		protected var cacheX:Number;
+		protected var cacheY:Number;
 		public function TransitionDecoratorSlide(target:MovieClip) 
 		{
 			super(target);
