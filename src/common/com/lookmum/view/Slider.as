@@ -31,18 +31,21 @@ package com.lookmum.view{
 			super.createChildren();
 			this.track = createTrack();
 			this.tab = createTab();
-			tabStartX = tab.x;
-			tabStartY = tab.y;
-			this.tab.dragBounds = getDragBounds();
-			
-			this.tab.addEventListener(DragEvent.START, onStartDrag);
-			this.tab.addEventListener(DragEvent.DRAG, onDrag);
-			this.tab.addEventListener(DragEvent.STOP, onStopDrag);
-			
-			this.tab.tabEnabled = (false);
-			this.track.addEventListener(MouseEvent.MOUSE_UP, onReleaseTrack);
-			this.track.tabEnabled = (false);
-			addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
+			if (this.tab)
+			{
+				tabStartX = tab.x;
+				tabStartY = tab.y;
+				this.tab.dragBounds = getDragBounds();
+				
+				this.tab.addEventListener(DragEvent.START, onStartDrag);
+				this.tab.addEventListener(DragEvent.DRAG, onDrag);
+				this.tab.addEventListener(DragEvent.STOP, onStopDrag);
+				
+				this.tab.tabEnabled = (false);
+				this.track.addEventListener(MouseEvent.MOUSE_UP, onReleaseTrack);
+				this.track.tabEnabled = (false);
+				addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
+			}
 			
 			progressBar = createProgessBar();
 			if (progressBar)
@@ -60,6 +63,7 @@ package com.lookmum.view{
 			return new Button(target.getChildByName('track') as MovieClip);
 		}
 		protected function createTab():DragButton {
+			if (!target.getChildByName('tab')) return null;
 			return new DragButton(target.getChildByName('tab') as MovieClip);
 		}
 		protected function createProgessBar():Component {
@@ -71,11 +75,16 @@ package com.lookmum.view{
 		
 		protected function getDragBounds():Rectangle
 		{
-			if (vertical) {
-				return new Rectangle(this.tab.x, this.track.y, 0, this.track.height - this.tab.height);
-			}else{
-				return new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0);
+			if (this.tab) 
+			{
+				if (vertical) {
+					return new Rectangle(this.tab.x, this.track.y, 0, this.track.height - this.tab.height);
+				}else{
+					return new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0);
+				}
 			}
+			
+			return null;
 		}
 		
 		public function getTrack():Button {
@@ -83,7 +92,8 @@ package com.lookmum.view{
 		}
 		
 		public function getTab():DragButton {
-			return tab;
+			if (tab) return tab;
+			else return null;
 		}
 		
 		public function getIsDragging():Boolean
@@ -94,36 +104,44 @@ package com.lookmum.view{
 		protected function onMouseWheel(event:MouseEvent):void
 		{
 			var delta:int = event.delta;
-			if (vertical) {
-				var destY:Number = this.tab.y - delta;
-				if(destY < track.y) destY = track.y;
-				if(destY > track.y + track.height - tab.height)destY = track.y + track.height - tab.height;
-				this.tab.y = (destY);
-				
-				if (progressBar)
-				{
-					updateProgressBar();
-				}
-			}else{
-				var destX:Number = this.tab.x+delta
-				if(destX<track.x)destX = track.x;
-				if(destX > track.x + track.width - tab.width)destX = track.x + track.width - tab.width;
-				this.tab.x = (destX);
-				
-				if (progressBar)
-				{
-					updateProgressBar();
+			if (this.tab)
+			{
+				if (vertical) {
+					var destY:Number = this.tab.y - delta;
+					if(destY < track.y) destY = track.y;
+					if(destY > track.y + track.height - tab.height)destY = track.y + track.height - tab.height;
+					this.tab.y = (destY);
+					
+					if (progressBar)
+					{
+						updateProgressBar();
+					}
+				}else{
+					var destX:Number = this.tab.x+delta
+					if(destX<track.x)destX = track.x;
+					if(destX > track.x + track.width - tab.width)destX = track.x + track.width - tab.width;
+					this.tab.x = (destX);
+					
+					if (progressBar)
+					{
+						updateProgressBar();
+					}
 				}
 			}
+			
 			this.dispatchEvent(new Event(Event.CHANGE));
 		}
-		private function updateProgressBar():void{
-			if (vertical) {
-				progressBar.y = tab.y;
-				progressBar.height = track.height - tab.y;
-			}else {
-				progressBar.width = tab.x - progressBar.x + tab.width * 0.5;
+		private function updateProgressBar():void {
+			if (tab)
+			{
+				if (vertical) {
+					progressBar.y = tab.y;
+					progressBar.height = track.height - tab.y;
+				}else {
+					progressBar.width = tab.x - progressBar.x + tab.width * 0.5;
+				}
 			}
+			
 		}
 		private function updateBufferBar(value:Number):void{
 			if (vertical) {
@@ -168,13 +186,17 @@ package com.lookmum.view{
 				super.width = value;
 			}else{
 				this.track.width = (value);
-				this.tab.dragBounds = getDragBounds();
-				
-				if (tab.x > this.track.width - this.tab.width) 
-				{
-					tab.x = this.track.width - this.tab.width;
-					this.dispatchEvent(new Event(Event.CHANGE));
+				if (this.tab)
+				{	
+					this.tab.dragBounds = getDragBounds();
+					
+					if (tab.x > this.track.width - this.tab.width) 
+					{
+						tab.x = this.track.width - this.tab.width;
+						this.dispatchEvent(new Event(Event.CHANGE));
+					}
 				}
+				
 			}
 		}
 		override public function get width():Number
@@ -185,13 +207,17 @@ package com.lookmum.view{
 		{
 			if (vertical) {
 				this.track.height = (value);
-				this.tab.dragBounds = (new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0));
 				
-				if (tab.y > this.track.height - this.tab.height) 
+				if (this.tab)
 				{
-					tab.y = this.track.height - this.tab.height;
-					this.dispatchEvent(new Event(Event.CHANGE));
+					this.tab.dragBounds = (new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0));
+					if (tab.y > this.track.height - this.tab.height) 
+					{
+						tab.y = this.track.height - this.tab.height;
+						this.dispatchEvent(new Event(Event.CHANGE));
+					}
 				}
+				
 			}else{
 				super.height = value;
 			}
@@ -207,13 +233,13 @@ package com.lookmum.view{
 		{
 			if (value) 
 			{
-				this.tab.enabled = true;
+				if (this.tab) this.tab.enabled = true;
 				this.track.enabled = true;
 				this.track.tabEnabled = (false);
 			}
 			else 
 			{
-				this.tab.enabled = false;
+				if (this.tab) this.tab.enabled = false;
 				this.track.enabled = false;
 			}
 		}
@@ -221,7 +247,7 @@ package com.lookmum.view{
 		
 		override public function set useHandCursor(value:Boolean):void 
 		{
-			this.tab.useHandCursor = (value);
+			if (this.tab) this.tab.useHandCursor = (value);
 			this.track.useHandCursor = (value);
 		}
 		
@@ -237,17 +263,23 @@ package com.lookmum.view{
 				if (value > 1 ) value = 1;
 				if (value < 0) value = 0;
 				
-				this.tab.y = (this.track.y +(this.track.height-this.tab.height) * (1 - value));
-				
+				if (this.tab)
+				{ 
+					this.tab.y = (this.track.y +(this.track.height-this.tab.height) * (1 - value));
+				}
 				if (progressBar)
 				{
 					updateProgressBar();
 				}
 			}else {
 				if(value>1)value = 1;
-				if(value<0)value = 0;
-				this.tab.x = (this.track.x +(this.track.width - this.tab.width) * value);
+				if (value < 0) value = 0;
 				
+				if (this.tab)
+				{
+					this.tab.x = (this.track.x +(this.track.width - this.tab.width) * value);
+				}
+								
 				if (progressBar)
 				{
 					updateProgressBar();
@@ -257,34 +289,39 @@ package com.lookmum.view{
 		
 		public function get level():Number 
 		{
-			if (vertical) {
-				//trace( "this.tab.height : " + this.tab.height );
-				//trace( "this.track.height : " + this.track.height );
-				//trace( "this.track.y : " + this.track.y );
-				//trace( "this.tab.y : " + this.tab.y );
-				return 1 - ((this.tab.y - this.track.y) / (this.track.y + (this.track.height - this.tab.height)));
-			}else{
-				return (this.tab.x - this.track.x) / (this.track.x + (this.track.width - this.tab.width));
-			}
+				if (vertical) {
+					//trace( "this.tab.height : " + this.tab.height );
+					//trace( "this.track.height : " + this.track.height );
+					//trace( "this.track.y : " + this.track.y );
+					//trace( "this.tab.y : " + this.tab.y );
+					return 1 - ((this.tab.y - this.track.y) / (this.track.y + (this.track.height - this.tab.height)));
+				}else{
+					return (this.tab.x - this.track.x) / (this.track.x + (this.track.width - this.tab.width));
+				}				
 		}
 		
 		protected function onReleaseTrack(event:MouseEvent):void
 		{
 			if (vertical) {
-				
-				this.tab.y = (mouseY + ( this.tab.height / 2 ));
-				
-				if (this.tab.y > this.tab.dragBounds.bottom) this.tab.y = (this.tab.dragBounds.bottom);
-				if (this.tab.y < this.tab.dragBounds.top) this.tab.y = (this.tab.dragBounds.top);
-				
+				if (this.tab)
+				{
+					this.tab.y = (mouseY + ( this.tab.height / 2 ));
+					
+					if (this.tab.y > this.tab.dragBounds.bottom) this.tab.y = (this.tab.dragBounds.bottom);
+					if (this.tab.y < this.tab.dragBounds.top) this.tab.y = (this.tab.dragBounds.top);
+				}
+								
 				if (progressBar)
 				{
 					updateProgressBar();
 				}
-			}else{
-				this.tab.x = (mouseX - (this.tab.width / 2));
-				if (this.tab.x < this.tab.dragBounds.left) this.tab.x = (this.tab.dragBounds.left);
-				if (this.tab.x > this.tab.dragBounds.right) this.tab.x = (this.tab.dragBounds.right);
+			}else {
+				if (this.tab)
+				{
+					this.tab.x = (mouseX - (this.tab.width / 2));
+					if (this.tab.x < this.tab.dragBounds.left) this.tab.x = (this.tab.dragBounds.left);
+					if (this.tab.x > this.tab.dragBounds.right) this.tab.x = (this.tab.dragBounds.right);
+				}
 				
 				if (progressBar)
 				{
@@ -296,11 +333,19 @@ package com.lookmum.view{
 			this.dispatchEvent(new Event(Event.CHANGE));
 			
 		}
-		override public function setFocus():void{
-			this.tab.setFocus();
+		override public function setFocus():void {
+			if (this.tab)
+			{
+				this.tab.setFocus();
+			}
+			
 		}
 		override public function set doubleClickEnabled(value:Boolean):void {
-			this.tab.doubleClickEnabled =(value);
+			if (this.tab)
+			{
+				this.tab.doubleClickEnabled =(value);
+			}
+			
 		}
 		override public function get doubleClickEnabled():Boolean {
 			return this.tab.doubleClickEnabled;
@@ -314,13 +359,22 @@ package com.lookmum.view{
 		public function set vertical(value:Boolean):void 
 		{
 			_vertical = value;
-			tab.x = tabStartX;
-			tab.y = tabStartY;
-			this.tab.dragBounds = getDragBounds();
+			if (this.tab)
+			{
+				tab.x = tabStartX;
+				tab.y = tabStartY;
+				this.tab.dragBounds = getDragBounds();
+			}			
 			level = this.level;
 		}
+		
 		override public function getIsFocus():Boolean {
-			return this.tab.getIsFocus();
+			if (this.tab)
+			{
+				return this.tab.getIsFocus();
+			} else {
+				return false;	
+			}	
 		}
 		
 		public function set loadLevel(value:Number):void {
