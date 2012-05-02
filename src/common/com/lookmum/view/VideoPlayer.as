@@ -244,7 +244,7 @@ package com.lookmum.view
 		protected function onDragSlider(e:DragEvent):void 
 		{
 			//mediaPlayer.seek(mediaPlayer.duration * videoSlider.level);
-			if (videoSlider) seek(mediaPlayer.duration * videoSlider.level);
+			seek(mediaPlayer.duration * videoSlider.level);
 		}
 		protected function onStopDragSlider(e:DragEvent):void 
 		{
@@ -358,7 +358,7 @@ package com.lookmum.view
 		public function seek(time:Number):void
 		{
 			mediaPlayer.seek(time);
-			if (videoSlider) videoSlider.level = (time / mediaPlayer.duration);
+			if (videoSlider && !videoSlider.getIsDragging()) videoSlider.level = (time / mediaPlayer.duration);
 			if (textFieldTime) {
 				var timeText:String = getTimeText();
 				textFieldTime.text = timeText;
