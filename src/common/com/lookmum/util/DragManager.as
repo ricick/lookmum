@@ -1,13 +1,16 @@
 package com.lookmum.util 
 {
 	import caurina.transitions.Tweener;
+	import com.adobe.cairngorm.commands.ICommand;
 	import com.lookmum.events.DragEvent;
+	import com.lookmum.view.Component;
 	import com.lookmum.view.IComponent;
 	import com.lookmum.view.IDraggable;
 	import com.lookmum.view.IDropLocation;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 	import org.osflash.signals.Signal;
 	/**
@@ -60,6 +63,10 @@ package com.lookmum.util
 			delete startLocationByDrag[dragItem];
 			delete startLayerByDrag[dragItem];
 			
+			var dropLocation:IDropLocation = dropByDrag[dragItem];
+			delete dragByDrop[dropLocation];
+			delete dropByDrag[dragItem];
+			
 			dragItems.splice(index, 1);
 			
 			dragItem.removeEventListener(DragEvent.START, onStartDrag);
@@ -102,7 +109,22 @@ package com.lookmum.util
 				var hit:Boolean = location.hitTestObject(dragItem.target);
 				//trace( "hit : " + hit );
 				if (hit) {
+					// if multiple drop locations then find the closest to the center for the drag object
+					var dragBounds:Rectangle = dragItem.getBounds(null);
+					var minDistance:Number = getDistance(location, dragItem);
 					dropLocation = location;
+					for each (var loc:IComponent in dropLocations)
+					{
+						if (loc.hitTestObject(dragItem.target))
+						{
+							var distance:Number = getDistance(loc, dragItem);
+							if (distance < minDistance)
+							{
+								dropLocation = loc;
+								minDistance = distance;
+							}
+						}
+					}
 					break;
 				}
 			}
@@ -134,6 +156,15 @@ package com.lookmum.util
 				moveItemToLocation(dragItem, startLocationByDrag[dragItem]);
 			}
 		}
+		
+		protected function getDistance(dropLocation:IComponent, dragItem:IDraggable):Number 
+		{
+			// todo: take into account the bounding rectangle of both objects
+			var dx:Number = (dropLocation.x - dragItem.x);
+			var dy:Number = (dropLocation.y - dragItem.y);
+			return Math.sqrt(dx * dx + dy * dy);
+		}
+		
 		protected function moveItemToLocation(item:IDraggable,point:Point):void{
 			Tweener.addTween(item, { x:point.x, y:point.y, time:dragTime, onComplete:function():void {
 				moved.dispatch(item);

@@ -1,6 +1,7 @@
 package com.lookmum.view 
 {
 	import flash.display.Bitmap;
+	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
 	import flash.display.MovieClip;
@@ -16,6 +17,7 @@ package com.lookmum.view
 	 */
 	public class ImageLoadComponent extends Component
 	{
+		protected var bitmap:Bitmap;
 		protected var loader:Loader;
 		
 		public var containsImage:Boolean;
@@ -54,12 +56,13 @@ package com.lookmum.view
 		}
 		public function setSmoothing(value:Boolean):void {
 			if (!containsImage) return;
-			Bitmap(Loader(target.getChildAt(0)).contentLoaderInfo.content).smoothing = value;
+			bitmap.smoothing = value;
 		}
 		private function onCompleteLoad(e:Event):void 
 		{
 			containsImage = true;
 			imageLoaderInfo = e.target as LoaderInfo;
+			bitmap = loader.content as Bitmap;
 			target.addChild(loader);			
 			loader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, onProgress);
 			loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onCompleteLoad);
