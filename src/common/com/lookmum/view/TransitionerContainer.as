@@ -15,6 +15,8 @@ package com.lookmum.view
 		private var _onIn:Signal = new Signal();
 		private var _onOut:Signal = new Signal();
 		protected var _isTransitioning:Boolean = false;
+		protected var _isTranstionIn:Boolean = false;
+		protected var _isTranstionOut:Boolean = false;
 		public function TransitionerContainer(target:MovieClip) 
 		{
 			super(target);
@@ -81,7 +83,7 @@ package com.lookmum.view
 		{
 			for each (var item:ITransitioner in transitionComponents) 
 			{
-				if (item.isTransitioning) return;
+				if (!item.isTranstionIn) return;
 			}
 			onTransitionIn();
 		}
@@ -89,7 +91,7 @@ package com.lookmum.view
 		{
 			for each (var item:ITransitioner in transitionComponents) 
 			{
-				if (item.isTransitioning) return;
+				if (!item.isTranstionOut) return;
 			}
 			onTransitionOut();
 		}
@@ -148,6 +150,8 @@ package com.lookmum.view
 				item.onIn.remove(onItemTransitionIn);
 			}
 			_isTransitioning = false;
+			_isTranstionIn = true;
+			_isTranstionOut = false;
 			onIn.dispatch();
 		}
 		
@@ -159,6 +163,8 @@ package com.lookmum.view
 			}
 			_isTransitioning = false;
 			if (visible) visible = false;
+			_isTranstionIn = false;
+			_isTranstionOut = true;
 			onOut.dispatch();
 		}
 		
@@ -180,6 +186,16 @@ package com.lookmum.view
 		public function get isTransitioning():Boolean
 		{
 			return _isTransitioning;
+		}
+		
+		public function get isTranstionIn():Boolean 
+		{
+			return _isTranstionIn;
+		}
+		
+		public function get isTranstionOut():Boolean
+		{
+			return _isTranstionOut;
 		}
 		
 	}

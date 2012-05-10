@@ -15,6 +15,8 @@ package com.lookmum.view
 		private var _onIn:Signal;
 		private var _onOut:Signal;
 		protected var transitioning:Boolean;
+		protected var _isTranstionedIn:Boolean;
+		protected var _isTranstionedOut:Boolean;
 		private static const MIN_IN_TIME:Number = 1;
 		private static const MAX_IN_TIME:Number = 2;
 		private static const MIN_OUT_TIME:Number = 1;
@@ -33,6 +35,8 @@ package com.lookmum.view
 			onIn = new Signal();
 			onOut = new Signal();
 			transitioning = false;
+			_isTranstionedIn = visible;
+			_isTranstionedOut = !visible;
 		}
 		
 		public function transitionIn():void 
@@ -79,6 +83,8 @@ package com.lookmum.view
 		protected function onTransitionIn():void
 		{
 			transitioning = false;
+			_isTranstionedIn = true;
+			_isTranstionedOut = false;
 			onIn.dispatch();
 		}
 		
@@ -86,6 +92,8 @@ package com.lookmum.view
 		{
 			target.visible = false;
 			transitioning = false;
+			_isTranstionedOut = true;
+			_isTranstionedIn = false;
 			onOut.dispatch();
 		}
 		
@@ -155,6 +163,17 @@ package com.lookmum.view
 			onOut.removeAll();
 			super.destroy();
 		}
+		
+		public function get isTranstionIn():Boolean 
+		{
+			return _isTranstionedIn;
+		}
+		
+		public function get isTranstionOut():Boolean
+		{
+			return _isTranstionedOut;
+		}
+		
 		
 	}
 
