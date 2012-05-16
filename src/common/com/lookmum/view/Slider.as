@@ -63,7 +63,13 @@ package com.lookmum.view{
 			return new Button(target.getChildByName('track') as MovieClip);
 		}
 		protected function createTab():DragButton {
-			if (!target.getChildByName('tab')) return null;
+			if (!target.getChildByName('tab')) {
+				var emptyClip:MovieClip = new MovieClip();
+				emptyClip.mouseEnabled = false;
+				emptyClip.mouseChildren = false;
+				addChild(emptyClip);
+				return new DragButton(emptyClip);
+			}
 			return new DragButton(target.getChildByName('tab') as MovieClip);
 		}
 		protected function createProgessBar():Component {
@@ -141,7 +147,6 @@ package com.lookmum.view{
 					progressBar.width = tab.x - progressBar.x + tab.width * 0.5;
 				}
 			}
-			
 		}
 		private function updateBufferBar(value:Number):void{
 			if (vertical) {
