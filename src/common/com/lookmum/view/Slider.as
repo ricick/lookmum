@@ -137,7 +137,7 @@ package com.lookmum.view{
 			
 			this.dispatchEvent(new Event(Event.CHANGE));
 		}
-		private function updateProgressBar():void {
+		protected function updateProgressBar():void {
 			if (tab)
 			{
 				if (vertical) {
