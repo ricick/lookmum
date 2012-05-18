@@ -59,7 +59,7 @@ package com.lookmum.view
 		public function transitionOut():void 
 		{
 			reset();
-			if (!target.visible) return onOut.dispatch();
+			if (!target.visible) return onTransitionOut();
 			transitioning = true;
 			//enabled = false;
 			//mouseEnabled = false;

@@ -49,7 +49,7 @@ package com.lookmum.view
 		override public function transitionOut():void 
 		{
 			reset();
-			if (!target.visible) return onOut.dispatch();
+			if (!target.visible) return onTransitionOut();
 			transitioning = true;
 			//enabled = false;
 			//mouseEnabled = false;
@@ -78,6 +78,8 @@ package com.lookmum.view
 		override protected function onTransitionIn():void 
 		{
 			reset();
+			_isTranstionedIn = true;
+			_isTranstionedOut = false;
 			onIn.dispatch();
 		}
 		
@@ -85,6 +87,8 @@ package com.lookmum.view
 		{
 			reset();
 			target.visible = false;
+			_isTranstionedIn = false;
+			_isTranstionedOut = true;
 			onOut.dispatch();
 		}
 		
