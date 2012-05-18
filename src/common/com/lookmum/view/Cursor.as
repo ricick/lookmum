@@ -14,13 +14,13 @@ package com.lookmum.view
 
 	public class Cursor extends Component
 	{
-		private static const DEFAULT:String = 'default';
-		private static const HAND_OPEN:String = 'handOpen';
-		private static const HAND_CLOSED:String = 'handClosed';
+		public static const DEFAULT:String = 'default';
+		public static const HAND_OPEN:String = 'handOpen';
+		public static const HAND_CLOSED:String = 'handClosed';
 		private var _enabled:Boolean = true;
-		private var dragging:Boolean;
-		private var customCursorByEvent:Dictionary;
-		private var currentCursor:String;
+		protected var dragging:Boolean;
+		protected var customCursorByEvent:Dictionary;
+		protected var currentCursor:String;
 		public function Cursor(target:MovieClip) 
 		{
 			super(target);
@@ -47,7 +47,7 @@ package com.lookmum.view
 			stage.addEventListener(MouseEvent.MOUSE_UP, onClick);
 		}
 		
-		private function onClick(e:MouseEvent):void 
+		protected function onClick(e:MouseEvent):void 
 		{
 			if (currentCursor != HAND_OPEN) setCursor(DEFAULT);
 		}

@@ -89,6 +89,11 @@ package com.lookmum.view
 			textField.tabIndex = value;
 		}
 		
+		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void 
+		{
+			textField.addEventListener(type, listener, useCapture, priority, useWeakReference);
+		}
+		
 		/**
 		 * When set to true and the text field is not in focus, Flash Player highlights the selection in the text field in gray.
 		 */
