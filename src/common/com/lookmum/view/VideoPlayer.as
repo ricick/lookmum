@@ -96,11 +96,8 @@ package com.lookmum.view
 				loadIcon.visible = false;
 			}
 			textFieldTime = getTextFieldTime();
-
+			
 		}
-		
-		
-		
 		
 		protected function onBufferFull(e:MediaPlayerEvent):void 
 		{
@@ -112,7 +109,7 @@ package com.lookmum.view
 		
 		protected function onBufferEmpty(e:MediaPlayerEvent):void 
 		{
-			if (loadIcon){
+			if (loadIcon && videoSlider.level < (1 - (1/duration))) {
 				loadIcon.visible = true;
 			}
 		}
