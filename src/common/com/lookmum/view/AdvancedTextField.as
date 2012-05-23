@@ -15,26 +15,10 @@ package com.lookmum.view
 	public class AdvancedTextField extends TextField
 	{
 		protected var textField:TextField;
-		private var lineCount:int;
 		private var orphans:int = 2;
-		private var spaceReplacement:RegExp;
-		private var _spaceReplacement:RegExp;
-		private var lineNum:int;
-		private var replaceIndices:Array;
-		private var currentline:String;
-		private var previousLine:String;
-		private var numOfWords:int;
-		private var words:Array;
-		private var wordToFind:String;
-		private var regExpMatch:RegExp;
-		private var matchResult:Array;
-		private var changeText:String;
-		private var breaklimit: int = 100;
-		private var lineBreaker: String = "";
-		private var regExp: RegExp;
+		private var cacheHtmlText:String;
 		
 		public var lines: Array = new Array();
-		public var newText:String;
 		
 		override public function AdvancedTextField(target:TextField) 
 		{
@@ -235,6 +219,7 @@ package com.lookmum.view
 			return textField.htmlText;
 		}
 		override public function set htmlText (value:String) : void {
+			cacheHtmlText = value;
 			textField.text = value;
 			processOrphan();
 			
@@ -383,6 +368,7 @@ package com.lookmum.view
 			return textField.text;
 		}
 		override public function set text (value:String) : void {
+			cacheHtmlText = text;
 			textField.text = value;
 			processOrphan();
 		}
@@ -613,207 +599,141 @@ package com.lookmum.view
 		protected function processOrphan():void 
 		{
 			// orphan code
-			breaklimit = textField.width;
-			createBreaker(breaklimit);
-			newText = textField.text;
+			var findXMLSpaceExp:RegExp = new RegExp("&nbsp;", 'g');
+			var findXMLSpaceAndSpaceExp:RegExp = new RegExp("&nbsp; ", 'g');
+			var findSpaceExp:RegExp = new RegExp(" ", 'g');
 			
-			spaceReplacement = new RegExp("&nbsp;", 'g');
-			_spaceReplacement = new RegExp("&nbsp; ", 'g');
-			newText = newText.replace(spaceReplacement, "&nbsp; ");
-			regExpMatch = new RegExp(" ", 'g');
+			var tempText:String = cacheHtmlText.replace(findSpaceExp, "&nbsp; ");
 			
-			textField.htmlText = textField.text;
-			lineNum = textField.numLines;
-			replaceIndices = [];
-			lineCount = 0;
+			// set textField for processing
+			textField.htmlText = cacheHtmlText;
 			
-			for (var q: int = 0; q < lineNum; q++)
+			var numLines:Number = textField.numLines;
+			var lines:Array = [];
+			for (var i: int = 0;  i < numLines; i++)
 			{
-				lines[q] = textField.getLineText(q);
-					
+				var line:String = textField.getLineText(i);
+				lines[i] = line;
 			}	
-			for (var i:int = 1; i < lineNum; i++ )
-			{
 			
-				currentline = lines[i];
-				previousLine =  lines[i - 1];
-				lineCount += previousLine.length;
-				numOfWords = getNumberOfWords(currentline);
-				var nullCounter: int = 0;
-				if (currentline.length >= 2)
+			var htmlIndices:Array = [];
+			var breakLines:Array = [];
+			var textIndex:int = 0;
+			
+			for (i = 1; i < numLines; i++)
+			{
+				var currentline:String = lines[i];
+				var previousLine:String = lines[i - 1];
+				if (currentline.charCodeAt(0) != 10) // ignore blank lines
 				{
+					var numOfWords:int = getNumberOfWords(currentline);
 					if (numOfWords < orphans)
 					{
-						words = previousLine.split(" ");
-						for (var w:int = 0; w <= words.length; w++ )
-						{
-							if (words[words.length - 1] == "")
-							{
-								words.length = words.length -1;
-								nullCounter++;
-							} else
-							{
-								break;
-								
-							}	
-						}
-						if (previousLine)
-						{
-							var wordIndex:int = findWord(words, currentline);
-							if (wordIndex == 0) continue;
-								
-							wordToFind = words[wordIndex];
-							var str: String = '';
-							if (wordToFind)
-							{
-								var instanceCounter: int = 0;
-								var lastwords: Array = new Array();
-								for (var t:int = lineNum - 1; t >= i - 1; t-- ) 
-								{
-									if (t == i - 1)
-									{
-										for (var j: int = 0; j < (words.length - wordIndex); j++ )
-										{
-											lastwords[j] = words[wordIndex + j];				
-										}
-										lastwords.length = lastwords.length + nullCounter;
-										str = lastwords.join(" ");
-										
-									} else
-									{
-										str = lines[t];	
-									}
-		
-									matchResult = str.match(regExpMatch);
-									if (matchResult)
-										{
-											instanceCounter += matchResult.length;
-										}
-								}
-								
-								var lastIndex:int = newText.length - 1;
-								var currentIndex:int = 0;
-
-								var bracketCounter: Boolean = false;
-								for (var s:int = lastIndex; s >= 0; s-- )
-								{
-									if (bracketCounter)
-									{
-										if (newText.charAt(s) == "<")
-										{
-											bracketCounter = false;
-										}
-
-									}else if (newText.charAt(s) == " ")
-									{
-										instanceCounter--;
-										currentIndex = s;
-										if (instanceCounter < 0)
-										{
-											break;
-										}
-									}else if (newText.charAt(s) == ">")
-									{
-										bracketCounter = true;
-									}			
-								}
-								var replaceIndex:int = currentIndex;
-								replaceIndices.push(replaceIndex);
-							}	
-						}
+						var htmlIndex:int = getIndexFromSpacesIgnoreHTML(getSpacesFromIndex(textIndex + findIndexOfLastWord(previousLine), textField.text), tempText);
+						htmlIndices.push(htmlIndex);
+						breakLines.push(i);
 					}
 				}
+				textIndex += previousLine.length;
 			}
 			
-			changeText = '';
+			var orphanText:String = '';
 			var startIndex: int = 0;
-			for each (var index:int in replaceIndices)
+			for (i = 0; i < htmlIndices.length; i++)
 			{
-				var strTemp: String = newText.substring(startIndex, index) + lineBreaker;
-				changeText += strTemp;
+				var index:int = htmlIndices[i];
+				orphanText += tempText.substring(startIndex, index) + "<br/>";
 				startIndex = index;
 			}
-			changeText += newText.substr(startIndex);
-			changeText = changeText.replace(_spaceReplacement, "&nbsp;");
-			textField.htmlText = changeText;	
+			orphanText += tempText.substr(startIndex);
+			orphanText = orphanText.replace(findXMLSpaceAndSpaceExp, " ");
+			textField.htmlText = orphanText;	
 		}
 		
-		private function findWord(words: Array, lastLine: String ):int 
+		private function getSpacesFromIndex(index:int, text:String):int
 		{
-			var firstString: int = 0;
-			var secondString: int = 0;
-			var wordposition: int = words.length - (orphans - numOfWords);
-			wordToFind = words[words.length - (orphans - numOfWords)];
-			var LineBefore:String = words.join(" ");
-			if (LineBefore.length > lastLine.length)
+			var isChar:Boolean = false;
+			var spaceCount:int = 0;
+			for (var i:int = 0; i < index; i++)
 			{
-				for (var r: int = 0; r < wordposition; r++ )
+				if (text.charAt(i) == ' ')
 				{
-					if (words[r] == '')
-					{
-						firstString++;
-					}else
-					{
-						firstString += words[r].length;
-					}
-					
+					if (isChar || i == 0)
+						spaceCount++;
+					isChar = false;
 				}
-				firstString = firstString + wordposition +1;
-				
-				for (var m: int = wordposition; m < words.length; m++ )
+				else
 				{
-					if (words[m] == '')
-					{
-						firstString++;
-					}else
-					{
-						secondString += words[m].length;
-					}
+					isChar = true;
 				}
-				secondString = secondString + lastLine.length + (words.length - wordposition -1);
-				
-				for (var q: int = wordposition; q < words.length; q++ )
-				{
-					if (firstString >= secondString)
-					{
-						wordposition = q;
-						break;
-					}else if (q == words.length - 1 && firstString < secondString)
-					{
-						wordposition = 0;
-						break;
-						
-					}else
-					{
-						firstString =  firstString + words[q].length + 1;
-						secondString = secondString - words[q].length - 1;
-					}
-					
-				}	
-			} else
-			{
-				wordposition = 0;
 			}
-			return wordposition;
+			return spaceCount;
+		}
+		
+		private function getIndexFromSpacesIgnoreHTML(spaceCount:int, text:String):int
+		{
+			var isChar:Boolean = false;
+			var bracketCount:int = 0;
+			for (var i:int = 0; i < text.length; i++)
+			{
+				if (text.charAt(i) == ">")
+					bracketCount++;
+				if (text.charAt(i) == "<")
+					bracketCount--;
+				if (bracketCount > 0) continue;
+				
+				if (text.charAt(i) == ' ')
+				{
+					isChar = false;
+				}
+				else
+				{
+					if (isChar == false)
+					{
+						spaceCount--;
+						if (spaceCount < 0)
+							break;
+					}
+					isChar = true;
+				}
+			}
+			return i;
+		}
+		
+		private function findIndexOfLastWord(line:String):int
+		{
+			var foundWord:Boolean = false;
+			var bracketCount:int = 0;
+			for (var i:int = line.length - 1; i >= 0; i--)
+			{
+				var c:String = line.charAt(i);
+				if (c == ">")
+					bracketCount++;
+				if (c == "<")
+					bracketCount--;
+				if (bracketCount > 0) continue;
+				if (!foundWord)
+				{
+					if (c == ' ')
+						foundWord = true;
+				}
+				else
+				{
+					if (c == ' ')
+						break;
+				}
+			}
+			return i + 1;
 		}
 
-		private function createBreaker(limit: int): void
+		private function createBreaker(limit: int): String
 		{
-			breaklimit = limit;
-			for (var b:int = 0; b < breaklimit; b++ ) 
+			var lineBreaker:String = "";
+			for (var b:int = 0; b < limit; b++ ) 
 			{
 				lineBreaker = lineBreaker + " ";
-			}	
-		}
-		
-		public function set orphanNumber(num:int): void
-		{
-			orphans = num;	
-		}
-		
-		public function get orphanNumber():int
-		{
-			return orphans;	
+			}
+			return lineBreaker;
 		}
 		
 		public function getNumberOfWords(value:String):int 
@@ -830,6 +750,16 @@ package com.lookmum.view
 				
 			}
 			return count;
+		}
+		
+		public function set orphanNumber(num:int): void
+		{
+			orphans = num;	
+		}
+		
+		public function get orphanNumber():int
+		{
+			return orphans;	
 		}
 	}
 

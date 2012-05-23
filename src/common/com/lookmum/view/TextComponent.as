@@ -43,7 +43,7 @@ package com.lookmum.view
 	public class TextComponent extends Component implements ITextComponent
 	{
 		private var _padding:Number = 0;
-		protected var textField:AdvancedTextField;
+		protected var textField:TextField;
 		protected var bg:MovieClip;
 		public var autosizeBackground:Boolean = false;
 		public function TextComponent(target:MovieClip) 
@@ -53,7 +53,8 @@ package com.lookmum.view
 		override protected function createChildren():void 
 		{
 			super.createChildren();
-			textField = new AdvancedTextField(getTextField());
+			//textField = new AdvancedTextField(getTextField());
+			textField = getTextField();
 			if (target.getChildByName("bg"))
 				bg = target.getChildByName("bg") as MovieClip;
 		}
