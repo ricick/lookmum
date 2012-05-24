@@ -644,18 +644,18 @@ package com.lookmum.view
 			arrangeComponents();
 		}
 		
-		public function get orphan():int 
+		/*public function get orphan():int 
 		{
 			return textField.orphanNumber;
-		}
+		}*/
 		
 		/**
 		 * Sets the number of words in the last line.
 		 */
-		public function set orphan(value:int):void 
+		/*public function set orphan(value:int):void 
 		{
 			textField.orphanNumber = value;
-		}
+		}*/
 		
 		//}
 		
