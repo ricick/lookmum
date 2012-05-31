@@ -212,7 +212,7 @@ package com.lookmum.view
 		
 		protected function onEnd(e:MediaPlayerEvent):void 
 		{
-			if (videoSlider.getIsDragging()) return;
+			if (videoSlider && videoSlider.getIsDragging()) return;
 			
 			isComplete = true;
 			if (buttonPlayPause) buttonPlayPause.toggle = true;
