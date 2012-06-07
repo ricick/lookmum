@@ -24,13 +24,13 @@ package com.lookmum.view{
 		}
 		protected function onClick(event:MouseEvent):void {
 			toggle = (!_toggle);
+			onMouseUp(event);
 		}
 		public function get toggle():Boolean{
 			return _toggle;
 		}
 		public function set toggle(toggle:Boolean):void {
 			_toggle = toggle;
-			onRollOut(new MouseEvent(MouseEvent.CLICK));
 		}
 		override protected function onMouseUp(e:MouseEvent):void 
 		{
