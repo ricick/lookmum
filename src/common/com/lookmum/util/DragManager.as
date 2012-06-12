@@ -130,7 +130,7 @@ package com.lookmum.util
 			}
 			if (dropLocation) {
 				//check if no existing item at location
-				if (!dragByDrop[dropLocation]) {
+				if (!dragByDrop[dropLocation] || dragByDrop[dropLocation] == dragItem) {
 					//drop to location
 					dropping = true;
 					moveDragItemToDropLocation(dragItem, dropLocation);
@@ -160,8 +160,10 @@ package com.lookmum.util
 		protected function getDistance(dropLocation:IComponent, dragItem:IDraggable):Number 
 		{
 			// todo: take into account the bounding rectangle of both objects
-			var dx:Number = (dropLocation.x - dragItem.x);
-			var dy:Number = (dropLocation.y - dragItem.y);
+			var p1:Point = dropLocation.localToGlobal(new Point());
+			var p2:Point = dragItem.localToGlobal(new Point());
+			var dx:Number = (p1.x - p2.x);
+			var dy:Number = (p1.y - p2.y);
 			return Math.sqrt(dx * dx + dy * dy);
 		}
 		

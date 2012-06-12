@@ -50,6 +50,7 @@ package com.lookmum.view
 		override protected function arrangeComponents():void 
 		{
 			super.arrangeComponents();
+			try {
 			if (stage) {
 				width = stage.stageWidth;
 				height = stage.stageHeight;
@@ -91,6 +92,9 @@ package com.lookmum.view
 				}
 				x = dX;
 				y = dY;
+			}
+			} catch (e:Error) {
+				trace(e);
 			}
 		}
 		public function update():void{
