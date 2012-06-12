@@ -14,9 +14,8 @@ package com.lookmum.view
 		protected var transitionComponents:Array;
 		private var _onIn:Signal = new Signal();
 		private var _onOut:Signal = new Signal();
+		protected var _isTransitionedIn:Boolean;
 		protected var _isTransitioning:Boolean = false;
-		protected var _isTranstionIn:Boolean = false;
-		protected var _isTranstionOut:Boolean = false;
 		public function TransitionerContainer(target:MovieClip) 
 		{
 			super(target);
@@ -83,7 +82,7 @@ package com.lookmum.view
 		{
 			for each (var item:ITransitioner in transitionComponents) 
 			{
-				if (!item.isTranstionIn) return;
+				if (!item.isTransitionedIn) return;
 			}
 			onTransitionIn();
 		}
@@ -91,7 +90,7 @@ package com.lookmum.view
 		{
 			for each (var item:ITransitioner in transitionComponents) 
 			{
-				if (!item.isTranstionOut) return;
+				if (item.isTransitionedIn) return;
 			}
 			onTransitionOut();
 		}
@@ -126,14 +125,12 @@ package com.lookmum.view
 				item.transitionOut();
 			}
 		}
-		
-		public function reset():void
+		protected function reset():void
 		{
 			if (isTransitioning)
 			{		
 				for each (var item:ITransitioner in transitionComponents) 
 				{
-					item.reset();
 					if (enabled)
 						item.onIn.remove(onItemTransitionIn);
 					else
@@ -150,8 +147,7 @@ package com.lookmum.view
 				item.onIn.remove(onItemTransitionIn);
 			}
 			_isTransitioning = false;
-			_isTranstionIn = true;
-			_isTranstionOut = false;
+			_isTransitionedIn = true;
 			onIn.dispatch();
 		}
 		
@@ -163,8 +159,7 @@ package com.lookmum.view
 			}
 			_isTransitioning = false;
 			if (visible) visible = false;
-			_isTranstionIn = false;
-			_isTranstionOut = true;
+			_isTransitionedIn = false;
 			onOut.dispatch();
 		}
 		
@@ -188,15 +183,11 @@ package com.lookmum.view
 			return _isTransitioning;
 		}
 		
-		public function get isTranstionIn():Boolean 
+		public function get isTransitionedIn():Boolean 
 		{
-			return _isTranstionIn;
+			return _isTransitionedIn;
 		}
 		
-		public function get isTranstionOut():Boolean
-		{
-			return _isTranstionOut;
-		}
 		
 	}
 

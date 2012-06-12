@@ -67,14 +67,11 @@ package com.lookmum.view
 			item.transitionOut();
 		}
 		
-		override public function reset():void
+		override protected function reset():void
 		{
 			if (isTransitioning)
 			{		
-				for each (var item:ITransitioner in transitionComponents) 
-				{
-					item.reset();
-				}
+				var item:ITransitioner;
 				
 				if (enabled)
 				{

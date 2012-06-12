@@ -78,8 +78,7 @@ package com.lookmum.view
 		override protected function onTransitionIn():void 
 		{
 			reset();
-			_isTranstionedIn = true;
-			_isTranstionedOut = false;
+			_isTransitionedIn = true;
 			onIn.dispatch();
 		}
 		
@@ -87,8 +86,7 @@ package com.lookmum.view
 		{
 			reset();
 			target.visible = false;
-			_isTranstionedIn = false;
-			_isTranstionedOut = true;
+			_isTransitionedIn = false;
 			onOut.dispatch();
 		}
 		
