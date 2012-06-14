@@ -36,7 +36,11 @@ package com.lookmum.view
 				}
 			}
 			item = transitionComponents[0];
-			item.transitionIn();
+			if (item) {
+				item.transitionIn();
+			}else {
+				onTransitionIn();
+			}
 		}
 		
 		override public function transitionOut():void
@@ -64,7 +68,11 @@ package com.lookmum.view
 				}
 			}
 			item = transitionComponents[transitionComponents.length - 1];
-			item.transitionOut();
+			if (item) {
+				item.transitionOut();
+			}else {
+				onTransitionOut();
+			}
 		}
 		
 		override protected function reset():void
