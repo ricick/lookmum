@@ -20,7 +20,10 @@ package com.lookmum.view
 			enabled = true;
 			mouseEnabled = true;
 			mouseChildren = true;
-			if (transitionComponents.length == 0) onTransitionIn();
+			if (transitionComponents.length == 0) {
+				onTransitionIn();
+				return;
+			}
 			for (var i:int = 0; i < transitionComponents.length; i++)
 			{
 				var item:ITransitioner = transitionComponents[i];
@@ -36,11 +39,7 @@ package com.lookmum.view
 				}
 			}
 			item = transitionComponents[0];
-			if (item) {
-				item.transitionIn();
-			}else {
-				onTransitionIn();
-			}
+			item.transitionIn();
 		}
 		
 		override public function transitionOut():void
@@ -52,7 +51,10 @@ package com.lookmum.view
 			enabled = false;
 			mouseEnabled = false;
 			mouseChildren = false;
-			if (transitionComponents.length == 0) onTransitionOut();
+			if (transitionComponents.length == 0) {
+				onTransitionOut();
+				return;
+			}
 			
 			for (var i:int = transitionComponents.length - 1; i >= 0; i--)
 			{
@@ -68,11 +70,7 @@ package com.lookmum.view
 				}
 			}
 			item = transitionComponents[transitionComponents.length - 1];
-			if (item) {
-				item.transitionOut();
-			}else {
-				onTransitionOut();
-			}
+			item.transitionOut();
 		}
 		
 		override protected function reset():void
