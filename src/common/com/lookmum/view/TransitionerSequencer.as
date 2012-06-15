@@ -1,5 +1,6 @@
 package com.lookmum.view 
 {
+	import caurina.transitions.Tweener;
 	import flash.display.MovieClip;
 	/**
 	 * ...
@@ -7,6 +8,9 @@ package com.lookmum.view
 	 */
 	public class TransitionerSequencer extends TransitionerContainer 
 	{
+		public var sequenceIn:Boolean = true;
+		public var sequenceOut:Boolean = true;
+		public var sequenceDelay:Number = -1;
 		public function TransitionerSequencer(target:MovieClip) 
 		{
 			super(target);
@@ -14,6 +18,10 @@ package com.lookmum.view
 		
 		override public function transitionIn():void
 		{
+			if (!sequenceIn) {
+				super.transitionIn();
+				return;
+			}
 			reset();
 			if (!visible) visible = true;
 			_isTransitioning = true;
@@ -28,22 +36,40 @@ package com.lookmum.view
 			{
 				var item:ITransitioner = transitionComponents[i];
 				item.visible = false;
-				if (i < transitionComponents.length - 1)
-				{
-					var nextItem:ITransitioner = transitionComponents[i + 1];
-					item.onIn.add(nextItem.transitionIn);
-				}
-				else
-				{
+				if(sequenceDelay < 0){
+					if (i < transitionComponents.length - 1)
+					{
+						var nextItem:ITransitioner = transitionComponents[i + 1];
+						item.onIn.add(nextItem.transitionIn);
+					}
+					else
+					{
+						item.onIn.add(onItemTransitionIn);
+					}
+				}else {
+					var delay:Number = sequenceDelay * i;
+					if(delay == 0){
+						item.transitionIn();
+					}else {
+						Tweener.addTween(item, {onComplete:function():void {
+							this.transitionIn()
+						}, delay:delay } );
+					}
 					item.onIn.add(onItemTransitionIn);
 				}
 			}
-			item = transitionComponents[0];
-			item.transitionIn();
+			if(sequenceDelay < 0){
+				item = transitionComponents[0];
+				item.transitionIn();
+			}
 		}
 		
 		override public function transitionOut():void
 		{
+			if (!sequenceOut) {
+				super.transitionOut();
+				return;
+			}
 			reset();
 			if (!visible) return onOut.dispatch();
 				
@@ -59,13 +85,25 @@ package com.lookmum.view
 			for (var i:int = transitionComponents.length - 1; i >= 0; i--)
 			{
 				var item:ITransitioner = transitionComponents[i];
-				if (i > 0)
-				{
-					var prevItem:ITransitioner = transitionComponents[i - 1];
-					item.onOut.add(prevItem.transitionOut);
-				}
-				else
-				{
+				if(sequenceDelay < 0){
+					if (i > 0)
+					{
+						var prevItem:ITransitioner = transitionComponents[i - 1];
+						item.onOut.add(prevItem.transitionOut);
+					}
+					else
+					{
+						item.onOut.add(onItemTransitionOut);
+					}
+				}else {
+					var delay:Number = sequenceDelay * i;
+					if(delay == 0){
+						item.transitionOut();
+					}else {
+						Tweener.addTween(item, {onComplete:function():void {
+							this.transitionOut()
+						}, delay:delay } );
+					}
 					item.onOut.add(onItemTransitionOut);
 				}
 			}
