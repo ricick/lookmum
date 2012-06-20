@@ -102,6 +102,30 @@ package com.lookmum.view
 			slideOutY = value;
 		}
 		
+		override public function get x():Number 
+		{
+			return super.x;
+		}
+		
+		override public function set x(value:Number):void 
+		{
+			if (!isTransitioning)
+				cacheX = value;
+			super.x = value;
+		}
+		
+		override public function get y():Number 
+		{
+			return super.y;
+		}
+		
+		override public function set y(value:Number):void 
+		{
+			if (!isTransitioning)
+				cacheY = value;
+			super.y = value;
+		}
+		
 	}
 
 }
