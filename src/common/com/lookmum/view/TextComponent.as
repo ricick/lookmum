@@ -53,8 +53,8 @@ package com.lookmum.view
 		override protected function createChildren():void 
 		{
 			super.createChildren();
-			//textField = new AdvancedTextField(getTextField());
 			textField = getTextField();
+			textField.mouseWheelEnabled = false;
 			if (target.getChildByName("bg"))
 				bg = target.getChildByName("bg") as MovieClip;
 		}
@@ -643,21 +643,6 @@ package com.lookmum.view
 			textField.setTextFormat(format, beginIndex, endIndex);
 			arrangeComponents();
 		}
-		
-		/*public function get orphan():int 
-		{
-			return textField.orphanNumber;
-		}*/
-		
-		/**
-		 * Sets the number of words in the last line.
-		 */
-		/*public function set orphan(value:int):void 
-		{
-			textField.orphanNumber = value;
-		}*/
-		
-		//}
 		
 	}
 

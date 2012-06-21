@@ -23,6 +23,7 @@ package com.lookmum.util {
 		}
 		public function associateTextFieldScroll(textField:TextField):void{
 			_textField = textField;
+			_textField.mouseWheelEnabled = true;
 			_textField.addEventListener(Event.CHANGE, onTextChange);
 			_textField.addEventListener(Event.SCROLL, onScrollInsideTextField);
 			_scrollBar.addEventListener(Event.SCROLL, onScrollTextField);
