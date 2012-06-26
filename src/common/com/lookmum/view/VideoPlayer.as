@@ -307,6 +307,7 @@ package com.lookmum.view
 		}
 		public function load(url:String, autoPlay:Boolean = true):void
 		{
+			bufferTime = 1;
 			isComplete = false;
 			if (videoSlider) videoSlider.level = (0);
 			if (loadIcon) loadIcon.visible = true;
