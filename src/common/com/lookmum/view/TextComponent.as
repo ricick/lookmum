@@ -54,7 +54,8 @@ package com.lookmum.view
 		{
 			super.createChildren();
 			textField = getTextField();
-			textField.mouseWheelEnabled = false;
+			if (textField)
+				textField.mouseWheelEnabled = false;
 			if (target.getChildByName("bg"))
 				bg = target.getChildByName("bg") as MovieClip;
 		}

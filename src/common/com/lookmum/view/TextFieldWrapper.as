@@ -14,6 +14,7 @@ package com.lookmum.view
 		{
 			super(new MovieClip);
 			this.textField = wrapTextField;
+			this.textField.mouseWheelEnabled = false;
 			if (wrapTextField.parent) {
 				wrapTextField.parent.addChild(this);
 			}
