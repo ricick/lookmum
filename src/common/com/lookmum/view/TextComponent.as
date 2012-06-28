@@ -6,6 +6,7 @@ package com.lookmum.view
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.TextEvent;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.text.StyleSheet;
 	import flash.text.TextField;
@@ -643,6 +644,68 @@ package com.lookmum.view
 		public function setTextFormat (format:TextFormat, beginIndex:int = -1, endIndex:int = -1) : void {
 			textField.setTextFormat(format, beginIndex, endIndex);
 			arrangeComponents();
+		}
+		
+		/**
+		 * return the rectangle of a selected word.
+		 */
+		public function getWordAtCoords(x:Number, y:Number):Rectangle 
+		{
+			var charIndex: int = textField.getCharIndexAtPoint(x, y);
+			var firstLetterIndex: int = firstLetter(textField, charIndex);
+			if (firstLetterIndex < 0) return null;
+			var lastLetterIndex: int = lastLetter(textField, charIndex);
+			if (lastLetterIndex < 0) return null;
+			if (firstLetterIndex > lastLetterIndex) return null;
+			var firstLetterBounds:Rectangle = textField.getCharBoundaries(firstLetterIndex);
+			var wordWidth:Number = textField.getCharBoundaries(lastLetterIndex).right - firstLetterBounds.x;
+			return new Rectangle(firstLetterBounds.x, firstLetterBounds.y, wordWidth, firstLetterBounds.height);
+		}
+		
+		/**
+		 * return the index of the first letter of a selected word.
+		 */
+		private function firstLetter(textField: TextField, index:int):int 
+		{
+			if (index < 0) return index;
+			while (index >= 0)
+			{
+				var currentLetter: String = textField.text.substr(index, 1);
+				var isNotSpace:Boolean = currentLetter != " " && currentLetter.charCodeAt(0) != 13;
+				if (isNotSpace) {
+					if (index == 0)
+					{
+						return index;
+					}else {
+						index--;
+					}
+					
+				} else {
+					break;
+				}
+			}
+			return index+1;
+			
+		}
+		
+		/**
+		 * return the index of the last letter of a selected word.
+		 */
+		private function lastLetter(textField: TextField, index:int):int 
+		{
+			if (index < 0) return index;
+			
+			while (index >= 0)
+			{
+				var currentLetter: String = textField.text.substr(index, 1);
+				var isNotSpace:Boolean = currentLetter != " " && currentLetter.charCodeAt(0) != 13 && index <= textField.length -1;
+				if (isNotSpace) {
+					index++;
+				} else {
+					break;
+				}
+			}
+			return index -1;	
 		}
 		
 	}
