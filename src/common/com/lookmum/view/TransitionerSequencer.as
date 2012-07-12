@@ -67,6 +67,10 @@ package com.lookmum.view
 		override public function transitionOut():void
 		{
 			if (!sequenceOut) {
+				// remove any transitions on items that may be delayed
+				for each (var item:ITransitioner in transitionComponents) {
+					Tweener.removeTweens(item);
+				}
 				super.transitionOut();
 				return;
 			}
@@ -84,7 +88,7 @@ package com.lookmum.view
 			
 			for (var i:int = transitionComponents.length - 1; i >= 0; i--)
 			{
-				var item:ITransitioner = transitionComponents[i];
+				item = transitionComponents[i];
 				if(sequenceDelay < 0){
 					if (i > 0)
 					{
