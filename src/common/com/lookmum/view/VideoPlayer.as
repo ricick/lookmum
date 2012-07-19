@@ -109,7 +109,7 @@ package com.lookmum.view
 		
 		protected function onBufferEmpty(e:MediaPlayerEvent):void 
 		{
-			if (loadIcon && videoSlider && videoSlider.level < (1 - (1/duration))) {
+			if (loadIcon && duration - time > 1) {
 				loadIcon.visible = true;
 			}
 		}
