@@ -20,8 +20,7 @@ package com.lookmum.view{
 		protected var bufferBar:Component;
 		private var _dragging:Boolean = false;
 		private var _vertical:Boolean;
-		private var tabStartX:Number;
-		private var tabStartY:Number;
+		private var _loadLevel:Number;
 		public function Slider (target:MovieClip)
 		{
 			super (target);
@@ -31,21 +30,16 @@ package com.lookmum.view{
 			super.createChildren();
 			this.track = createTrack();
 			this.tab = createTab();
-			if (this.tab)
-			{
-				tabStartX = tab.x;
-				tabStartY = tab.y;
-				this.tab.dragBounds = getDragBounds();
-				
-				this.tab.addEventListener(DragEvent.START, onStartDrag);
-				this.tab.addEventListener(DragEvent.DRAG, onDrag);
-				this.tab.addEventListener(DragEvent.STOP, onStopDrag);
-				
-				this.tab.tabEnabled = (false);
-				this.track.addEventListener(MouseEvent.MOUSE_UP, onReleaseTrack);
-				this.track.tabEnabled = (false);
-				addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
-			}
+			this.tab.dragBounds = getDragBounds();
+			
+			this.tab.addEventListener(DragEvent.START, onStartDrag);
+			this.tab.addEventListener(DragEvent.DRAG, onDrag);
+			this.tab.addEventListener(DragEvent.STOP, onStopDrag);
+			
+			this.tab.tabEnabled = (false);
+			this.track.addEventListener(MouseEvent.MOUSE_UP, onReleaseTrack);
+			this.track.tabEnabled = (false);
+			addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
 			
 			progressBar = createProgessBar();
 			if (progressBar)
@@ -81,13 +75,10 @@ package com.lookmum.view{
 		
 		protected function getDragBounds():Rectangle
 		{
-			if (this.tab) 
-			{
-				if (vertical) {
-					return new Rectangle(this.tab.x, this.track.y, 0, this.track.height - this.tab.height);
-				}else{
-					return new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0);
-				}
+			if (vertical) {
+				return new Rectangle(this.tab.x, this.track.y, 0, this.track.height - this.tab.height);
+			}else{
+				return new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0);
 			}
 			
 			return null;
@@ -110,73 +101,51 @@ package com.lookmum.view{
 		protected function onMouseWheel(event:MouseEvent):void
 		{
 			var delta:int = event.delta;
-			if (this.tab)
-			{
-				if (vertical) {
-					var destY:Number = this.tab.y - delta;
-					if(destY < track.y) destY = track.y;
-					if(destY > track.y + track.height - tab.height)destY = track.y + track.height - tab.height;
-					this.tab.y = (destY);
-					
-					if (progressBar)
-					{
-						updateProgressBar();
-					}
-				}else{
-					var destX:Number = this.tab.x+delta
-					if(destX<track.x)destX = track.x;
-					if(destX > track.x + track.width - tab.width)destX = track.x + track.width - tab.width;
-					this.tab.x = (destX);
-					
-					if (progressBar)
-					{
-						updateProgressBar();
-					}
-				}
+			
+			if (vertical) {
+				var destY:Number = this.tab.y - delta;
+				if(destY < track.y) destY = track.y;
+				if(destY > track.y + track.height - tab.height)destY = track.y + track.height - tab.height;
+				this.tab.y = (destY);
+			}else{
+				var destX:Number = this.tab.x+delta
+				if(destX<track.x)destX = track.x;
+				if(destX > track.x + track.width - tab.width)destX = track.x + track.width - tab.width;
+				this.tab.x = (destX);
 			}
+			updateProgressBar();
 			
 			this.dispatchEvent(new Event(Event.CHANGE));
 		}
 		protected function updateProgressBar():void {
-			if (tab)
-			{
-				if (vertical) {
-					progressBar.y = tab.y;
-					progressBar.height = track.height - tab.y;
-				}else {
-					progressBar.width = tab.x - progressBar.x + tab.width * 0.5;
-				}
+			if (!progressBar) return;
+			if (vertical) {
+				progressBar.height = level * track.height;
+				progressBar.y = track.height - bufferBar.height;
+			}else {
+				progressBar.width = level * track.width;
 			}
 		}
-		private function updateBufferBar(value:Number):void{
+		private function updateBufferBar():void {
+			if (bufferBar) return;
 			if (vertical) {
-				bufferBar.height = value * track.height;
+				bufferBar.height = loadLevel * track.height;
 				bufferBar.y = track.height - bufferBar.height;
 			}else {
-				bufferBar.width = value * track.width;
+				bufferBar.width = loadLevel * track.width;
 			}
 		}
 		protected function onStartDrag(event:DragEvent):void
 		{
-			this.dispatchEvent(new DragEvent(DragEvent.START));
 			this._dragging = true;
+			this.dispatchEvent(new DragEvent(DragEvent.START));
 		}
 		
 		protected function onDrag(event:DragEvent):void
 		{
+			updateProgressBar();
 			this.dispatchEvent(new DragEvent(DragEvent.DRAG));
 			this.dispatchEvent(new Event(Event.CHANGE));
-			if (vertical) {
-				if (progressBar)
-				{
-					updateProgressBar();
-				}
-			}else{
-				if (progressBar)
-				{
-					updateProgressBar();
-				}
-			}
 		}
 		
 		protected function onStopDrag(event:DragEvent):void
@@ -191,15 +160,12 @@ package com.lookmum.view{
 				super.width = value;
 			}else{
 				this.track.width = (value);
-				if (this.tab)
-				{	
-					this.tab.dragBounds = getDragBounds();
-					
-					if (tab.x > this.track.width - this.tab.width) 
-					{
-						tab.x = this.track.width - this.tab.width;
-						this.dispatchEvent(new Event(Event.CHANGE));
-					}
+				this.tab.dragBounds = getDragBounds();
+				
+				if (tab.x > this.track.width - this.tab.width) 
+				{
+					tab.x = this.track.width - this.tab.width;
+					this.dispatchEvent(new Event(Event.CHANGE));
 				}
 				
 			}
@@ -213,14 +179,11 @@ package com.lookmum.view{
 			if (vertical) {
 				this.track.height = (value);
 				
-				if (this.tab)
+				this.tab.dragBounds = (new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0));
+				if (tab.y > this.track.height - this.tab.height) 
 				{
-					this.tab.dragBounds = (new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0));
-					if (tab.y > this.track.height - this.tab.height) 
-					{
-						tab.y = this.track.height - this.tab.height;
-						this.dispatchEvent(new Event(Event.CHANGE));
-					}
+					tab.y = this.track.height - this.tab.height;
+					this.dispatchEvent(new Event(Event.CHANGE));
 				}
 				
 			}else{
@@ -238,13 +201,13 @@ package com.lookmum.view{
 		{
 			if (value) 
 			{
-				if (this.tab) this.tab.enabled = true;
+				this.tab.enabled = true;
 				this.track.enabled = true;
 				this.track.tabEnabled = (false);
 			}
 			else 
 			{
-				if (this.tab) this.tab.enabled = false;
+				this.tab.enabled = false;
 				this.track.enabled = false;
 			}
 		}
@@ -252,7 +215,7 @@ package com.lookmum.view{
 		
 		override public function set useHandCursor(value:Boolean):void 
 		{
-			if (this.tab) this.tab.useHandCursor = (value);
+			this.tab.useHandCursor = (value);
 			this.track.useHandCursor = (value);
 		}
 		
@@ -263,94 +226,49 @@ package com.lookmum.view{
 		
 		public function set level(value:Number):void 
 		{
+			if(value>1)value = 1;
+			if (value < 0) value = 0;
 			if (vertical) {
-					
-				if (value > 1 ) value = 1;
-				if (value < 0) value = 0;
-				
-				if (this.tab)
-				{ 
-					this.tab.y = (this.track.y +(this.track.height-this.tab.height) * (1 - value));
-				}
-				if (progressBar)
-				{
-					updateProgressBar();
-				}
+				this.tab.y = (this.track.y +(this.track.height-this.tab.height) * (1 - value));
 			}else {
-				if(value>1)value = 1;
-				if (value < 0) value = 0;
-				
-				if (this.tab)
-				{
-					this.tab.x = (this.track.x +(this.track.width - this.tab.width) * value);
-				}
-								
-				if (progressBar)
-				{
-					updateProgressBar();
-				}	
+				this.tab.x = (this.track.x +(this.track.width - this.tab.width) * value);
 			}
+			updateProgressBar();
 		}
 		
 		public function get level():Number 
 		{
-				if (vertical) {
-					//trace( "this.tab.height : " + this.tab.height );
-					//trace( "this.track.height : " + this.track.height );
-					//trace( "this.track.y : " + this.track.y );
-					//trace( "this.tab.y : " + this.tab.y );
-					return 1 - ((this.tab.y - this.track.y) / (this.track.y + (this.track.height - this.tab.height)));
-				}else{
-					return (this.tab.x - this.track.x) / (this.track.x + (this.track.width - this.tab.width));
-				}				
+			if (vertical) {
+				return 1 - ((this.tab.y - this.track.y) / (this.track.height - this.tab.height));
+			}else{
+				return (this.tab.x - this.track.x) / (this.track.width - this.tab.width);
+			}				
 		}
 		
 		protected function onReleaseTrack(event:MouseEvent):void
 		{
 			if (vertical) {
-				if (this.tab)
-				{
-					this.tab.y = (mouseY + ( this.tab.height / 2 ));
-					
-					if (this.tab.y > this.tab.dragBounds.bottom) this.tab.y = (this.tab.dragBounds.bottom);
-					if (this.tab.y < this.tab.dragBounds.top) this.tab.y = (this.tab.dragBounds.top);
-				}
-								
-				if (progressBar)
-				{
-					updateProgressBar();
-				}
-			}else {
-				if (this.tab)
-				{
-					this.tab.x = (mouseX - (this.tab.width / 2));
-					if (this.tab.x < this.tab.dragBounds.left) this.tab.x = (this.tab.dragBounds.left);
-					if (this.tab.x > this.tab.dragBounds.right) this.tab.x = (this.tab.dragBounds.right);
-				}
+				this.tab.y = track.y + (track.mouseY + (this.tab.height / 2));
 				
-				if (progressBar)
-				{
-					updateProgressBar();
-				}
+				if (this.tab.y > this.tab.dragBounds.bottom) this.tab.y = (this.tab.dragBounds.bottom);
+				if (this.tab.y < this.tab.dragBounds.top) this.tab.y = (this.tab.dragBounds.top);
+			}else {
+				this.tab.x = track.x + (track.mouseX - (this.tab.width / 2));
+				
+				if (this.tab.x < this.tab.dragBounds.left) this.tab.x = (this.tab.dragBounds.left);
+				if (this.tab.x > this.tab.dragBounds.right) this.tab.x = (this.tab.dragBounds.right);
 			}
+			updateProgressBar();
 			this.dispatchEvent(new DragEvent(DragEvent.DRAG));
 			this.dispatchEvent(new DragEvent(DragEvent.STOP));
 			this.dispatchEvent(new Event(Event.CHANGE));
 			
 		}
 		override public function setFocus():void {
-			if (this.tab)
-			{
-				this.tab.setFocus();
-			}
-			
+			this.tab.setFocus();
 		}
 		override public function set doubleClickEnabled(value:Boolean):void {
-			if (this.tab)
-			{
-				this.tab.doubleClickEnabled =(value);
-			}
-			
+			this.tab.doubleClickEnabled =(value);
 		}
 		override public function get doubleClickEnabled():Boolean {
 			return this.tab.doubleClickEnabled;
@@ -364,29 +282,21 @@ package com.lookmum.view{
 		public function set vertical(value:Boolean):void 
 		{
 			_vertical = value;
-			if (this.tab)
-			{
-				tab.x = tabStartX;
-				tab.y = tabStartY;
-				this.tab.dragBounds = getDragBounds();
-			}			
+			this.tab.dragBounds = getDragBounds();		
 			level = this.level;
 		}
 		
 		override public function getIsFocus():Boolean {
-			if (this.tab)
-			{
-				return this.tab.getIsFocus();
-			} else {
-				return false;	
-			}	
+			return this.tab.getIsFocus();
+		}
+		
+		public function get loadLevel():Number {
+			return _loadLevel;
 		}
 		
 		public function set loadLevel(value:Number):void {
-			if (bufferBar)
-			{
-				updateBufferBar(value);
-			}
+			_loadLevel = value;
+			updateBufferBar();
 		}
 	}
 }
