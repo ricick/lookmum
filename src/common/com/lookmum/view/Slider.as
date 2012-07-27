@@ -121,13 +121,13 @@ package com.lookmum.view{
 			if (!progressBar) return;
 			if (vertical) {
 				progressBar.height = level * track.height;
-				progressBar.y = track.height - bufferBar.height;
+				progressBar.y = track.height - progressBar.height;
 			}else {
 				progressBar.width = level * track.width;
 			}
 		}
 		private function updateBufferBar():void {
-			if (bufferBar) return;
+			if (!bufferBar) return;
 			if (vertical) {
 				bufferBar.height = loadLevel * track.height;
 				bufferBar.y = track.height - bufferBar.height;
