@@ -34,7 +34,7 @@ package com.lookmum.view
 			}
 			for (var i:int = 0; i < transitionComponents.length; i++)
 			{
-				var item:ITransitioner = transitionComponents[i];
+				var item :ITransitioner = transitionComponents[i];
 				item.visible = false;
 				if(sequenceDelay < 0){
 					if (i < transitionComponents.length - 1)
@@ -49,28 +49,22 @@ package com.lookmum.view
 				}else {
 					var delay:Number = sequenceDelay * i;
 					if(delay == 0){
-						item.transitionIn();
+						//item.transitionIn();
 					}else {
 						Tweener.addTween(item, {onComplete:function():void {
-							this.transitionIn()
+							this.transitionIn();
 						}, delay:delay } );
 					}
 					item.onIn.add(onItemTransitionIn);
 				}
 			}
-			if(sequenceDelay < 0){
-				item = transitionComponents[0];
-				item.transitionIn();
-			}
+			item = transitionComponents[0];
+			item.transitionIn();
 		}
 		
 		override public function transitionOut():void
 		{
 			if (!sequenceOut) {
-				// remove any transitions on items that may be delayed
-				for each (var item:ITransitioner in transitionComponents) {
-					Tweener.removeTweens(item);
-				}
 				super.transitionOut();
 				return;
 			}
@@ -88,7 +82,7 @@ package com.lookmum.view
 			
 			for (var i:int = transitionComponents.length - 1; i >= 0; i--)
 			{
-				item = transitionComponents[i];
+				var item:ITransitioner = transitionComponents[i];
 				if(sequenceDelay < 0){
 					if (i > 0)
 					{
@@ -102,37 +96,49 @@ package com.lookmum.view
 				}else {
 					var delay:Number = sequenceDelay * i;
 					if(delay == 0){
-						item.transitionOut();
+						//item.transitionOut();
 					}else {
 						Tweener.addTween(item, {onComplete:function():void {
-							this.transitionOut()
+							this.transitionOut();
 						}, delay:delay } );
 					}
 					item.onOut.add(onItemTransitionOut);
 				}
 			}
-			item = transitionComponents[transitionComponents.length - 1];
-			item.transitionOut();
+			if (sequenceDelay < 0) {
+				item = transitionComponents[transitionComponents.length - 1];
+				item.transitionOut();
+			} else {
+				item = transitionComponents[0];
+				item.transitionOut();
+			}
 		}
 		
 		override protected function reset():void
 		{
+			// remove any transitions on items that may be delayed
+			for each (var item:ITransitioner in transitionComponents) {
+				Tweener.removeTweens(item);
+			}
+			
 			if (isTransitioning)
-			{		
-				var item:ITransitioner;
-				
+			{
 				if (enabled)
 				{
 					for (var i:int = 0; i < transitionComponents.length; i++)
 					{
 						item = transitionComponents[i];
-						if (i < transitionComponents.length - 1)
-						{
-							var nextItem:ITransitioner = transitionComponents[i + 1];
-							item.onIn.remove(nextItem.transitionIn);
-						}
-						else
-						{
+						if(sequenceDelay < 0){
+							if (i < transitionComponents.length - 1)
+							{
+								var nextItem:ITransitioner = transitionComponents[i + 1];
+								item.onIn.remove(nextItem.transitionIn);
+							}
+							else
+							{
+								item.onIn.remove(onItemTransitionIn);
+							}
+						} else {
 							item.onIn.remove(onItemTransitionIn);
 						}
 					}
@@ -142,13 +148,17 @@ package com.lookmum.view
 					for (i = transitionComponents.length - 1; i >= 0; i--)
 					{
 						item = transitionComponents[i];
-						if (i > 0)
-						{
-							var prevItem:ITransitioner = transitionComponents[i - 1];
-							item.onOut.remove(prevItem.transitionOut);
-						}
-						else
-						{
+						if(sequenceDelay < 0){
+							if (i > 0)
+							{
+								var prevItem:ITransitioner = transitionComponents[i - 1];
+								item.onOut.remove(prevItem.transitionOut);
+							}
+							else
+							{
+								item.onOut.remove(onItemTransitionOut);
+							}
+						} else {
 							item.onOut.remove(onItemTransitionOut);
 						}
 					}
@@ -162,13 +172,17 @@ package com.lookmum.view
 			for (var i:int = 0; i < transitionComponents.length; i++)
 			{
 				var item:ITransitioner = transitionComponents[i];
-				if (i < transitionComponents.length - 1)
-				{
-					var nextItem:ITransitioner = transitionComponents[i + 1];
-					item.onIn.remove(nextItem.transitionIn);
-				}
-				else
-				{
+				if (sequenceDelay < 0) {
+					if (i < transitionComponents.length - 1)
+					{
+						var nextItem:ITransitioner = transitionComponents[i + 1];
+						item.onIn.remove(nextItem.transitionIn);
+					}
+					else
+					{
+						item.onIn.remove(onItemTransitionIn);
+					}
+				} else {
 					item.onIn.remove(onItemTransitionIn);
 				}
 			}
@@ -181,13 +195,17 @@ package com.lookmum.view
 			for (var i:int = transitionComponents.length - 1; i >= 0; i--)
 			{
 				var item:ITransitioner = transitionComponents[i];
-				if (i > 0)
-				{
-					var prevItem:ITransitioner = transitionComponents[i - 1];
-					item.onOut.remove(prevItem.transitionOut);
-				}
-				else
-				{
+				if (sequenceDelay < 0) {
+					if (i > 0)
+					{
+						var prevItem:ITransitioner = transitionComponents[i - 1];
+						item.onOut.remove(prevItem.transitionOut);
+					}
+					else
+					{
+						item.onOut.remove(onItemTransitionOut);
+					}
+				} else {
 					item.onOut.remove(onItemTransitionOut);
 				}
 			}
