@@ -187,6 +187,7 @@ package com.lookmum.view
 				}
 			}
 			_isTransitioning = false;
+			_isTransitionedIn = true;
 			onIn.dispatch();
 		}
 		
@@ -211,6 +212,7 @@ package com.lookmum.view
 			}
 			_isTransitioning = false;
 			if (visible) visible = false;
+			_isTransitionedIn = false;
 			onOut.dispatch();
 		}
 	}
