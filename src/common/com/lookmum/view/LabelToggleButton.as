@@ -35,6 +35,24 @@ package com.lookmum.view
 		}
 		public function set toggle(toggle:Boolean):void {
 			_toggle = toggle;
+			switch (target.currentFrameLabel) {
+				case FRAME_DISABLE:
+				case FRAME_DISABLE_TOGGLE:
+					target.gotoAndStop(toggle ? FRAME_DISABLE_TOGGLE : FRAME_DISABLE);
+					break;
+				case FRAME_PRESS:
+				case FRAME_PRESS_TOGGLE:
+					target.gotoAndStop(toggle ? FRAME_PRESS_TOGGLE : FRAME_PRESS);
+					break;
+				case FRAME_ROLL_OUT:
+				case FRAME_ROLL_OUT_TOGGLE:
+					target.gotoAndStop(toggle ? FRAME_ROLL_OUT_TOGGLE : FRAME_ROLL_OUT);
+					break;
+				case FRAME_ROLL_OVER:
+				case FRAME_ROLL_OVER_TOGGLE:
+					target.gotoAndStop(toggle ? FRAME_ROLL_OVER_TOGGLE : FRAME_ROLL_OVER);
+					break;
+			}
 		}
 		override protected function onMouseUp(e:MouseEvent):void 
 		{
