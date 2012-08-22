@@ -17,7 +17,7 @@ package com.lookmum.view {
 		protected var track:Button;
 		protected var bar:Component;
 		
-		private var _level:Number;
+		private var _level:Number = 0;
 		
 		private var _vertical:Boolean;
 		private var _dragging:Boolean;
@@ -190,7 +190,7 @@ package com.lookmum.view {
 		
 		protected function onTrackUp(event:MouseEvent):void
 		{
-			if (this.getBounds(stage).contains(stage.mouseX, stage.mouseY))
+			if (track.getBounds(stage).contains(stage.mouseX, stage.mouseY))
 				onTrackMove();
 			_dragging = false;
 			dispatchEvent(new DragEvent(DragEvent.STOP));
