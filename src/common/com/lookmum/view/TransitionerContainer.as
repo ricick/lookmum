@@ -82,7 +82,7 @@ package com.lookmum.view
 		{
 			for each (var item:ITransitioner in transitionComponents) 
 			{
-				if (!item.isTransitionedIn) return;
+				if (item.isTransitioning || !item.isTransitionedIn) return;
 			}
 			onTransitionIn();
 		}
@@ -90,7 +90,7 @@ package com.lookmum.view
 		{
 			for each (var item:ITransitioner in transitionComponents) 
 			{
-				if (item.isTransitionedIn) return;
+				if (item.isTransitioning || item.isTransitionedIn) return;
 			}
 			onTransitionOut();
 		}
