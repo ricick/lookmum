@@ -1,4 +1,4 @@
-package com.lookmum.view{
+package com.lookmum.view {
 	import com.lookmum.events.DragEvent;
 	import com.lookmum.view.Button;
 	import flash.display.MovieClip;
@@ -7,296 +7,193 @@ package com.lookmum.view{
 	import flash.geom.Rectangle;
 	
 	[Event(name = "change", type = "flash.events.Event")]
-	
 	[Event(name = "start", type = "com.lookmum.events.DragEvent")]
 	[Event(name = "stop", type = "com.lookmum.events.DragEvent")]
 	[Event(name = "drag", type = "com.lookmum.events.DragEvent")]
 	
 	public class Slider extends Component implements ILevelComponent
 	{
-		protected var tab:DragButton;
+		protected var tab:Button;
 		protected var track:Button;
-		protected var progressBar:Component;
-		protected var bufferBar:Component;
-		private var _dragging:Boolean = false;
+		protected var bar:Component;
+		
+		private var _level:Number;
+		
 		private var _vertical:Boolean;
-		private var _loadLevel:Number;
+		private var _dragging:Boolean;
+		
 		public function Slider (target:MovieClip)
 		{
 			super (target);
 		}
+		
 		override protected function createChildren():void 
 		{
 			super.createChildren();
-			this.track = createTrack();
-			this.tab = createTab();
-			this.tab.dragBounds = getDragBounds();
+			tab = createTab();
+			tab.mouseEnabled = false;
+			tab.mouseChildren = false;
+			tab.tabEnabled = false;
 			
-			this.tab.addEventListener(DragEvent.START, onStartDrag);
-			this.tab.addEventListener(DragEvent.DRAG, onDrag);
-			this.tab.addEventListener(DragEvent.STOP, onStopDrag);
+			track = createTrack();
+			track.addEventListener(MouseEvent.MOUSE_DOWN, onTrackDown);
+			track.addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
+			track.tabEnabled = false;
 			
-			this.tab.tabEnabled = (false);
-			this.track.addEventListener(MouseEvent.MOUSE_UP, onReleaseTrack);
-			this.track.tabEnabled = (false);
-			addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
-			
-			progressBar = createProgessBar();
-			if (progressBar)
-			{
-				progressBar.mouseEnabled = false;
+			bar = createBar();
+			if (bar) {
+				bar.mouseEnabled = false;
+				bar.mouseChildren = false;
 			}
 			
-			bufferBar = createBufferBar();
-			if (bufferBar)
-			{
-				bufferBar.mouseEnabled = false;
-			}
+			if (stage)
+				onAddedToStage();
+			else
+				addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
-		protected function createTrack():Button {
-			return new Button(target.getChildByName('track') as MovieClip);
+		
+		protected function onAddedToStage(e:Event = null):void 
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			
+			stage.addEventListener(MouseEvent.MOUSE_MOVE, onTrackMove);
+			stage.addEventListener(MouseEvent.MOUSE_UP, onTrackUp);
 		}
+
 		protected function createTab():DragButton {
 			if (!target.getChildByName('tab')) {
-				var emptyClip:MovieClip = new MovieClip();
-				emptyClip.mouseEnabled = false;
-				emptyClip.mouseChildren = false;
-				addChild(emptyClip);
-				return new DragButton(emptyClip);
+				return new DragButton(new MovieClip());
 			}
 			return new DragButton(target.getChildByName('tab') as MovieClip);
 		}
-		protected function createProgessBar():Component {
+		
+		protected function createTrack():Button {
+			return new Button(target.getChildByName('track') as MovieClip);
+		}
+		
+		protected function createBar():Component {
 			return target.bar ? new Component(target.bar) : null;
 		}
-		protected function createBufferBar():Component {
-			return target.bufferBar ? new Component(target.bufferBar) : null;
-		}
 		
-		protected function getDragBounds():Rectangle
-		{
-			if (vertical) {
-				return new Rectangle(this.tab.x, this.track.y, 0, this.track.height - this.tab.height);
-			}else{
-				return new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0);
-			}
-			
-			return null;
-		}
+		public function getTrack():Button { return track; }
 		
-		public function getTrack():Button {
-			return track;
-		}
+		public function getTab():Button { return tab; }
 		
-		public function getTab():DragButton {
-			if (tab) return tab;
-			else return null;
-		}
+		public function getIsDragging():Boolean { return _dragging; }
 		
-		public function getIsDragging():Boolean
-		{
-			return this._dragging;
-		}
-		
-		protected function onMouseWheel(event:MouseEvent):void
-		{
-			var delta:int = event.delta;
-			
-			if (vertical) {
-				var destY:Number = this.tab.y - delta;
-				if(destY < track.y) destY = track.y;
-				if(destY > track.y + track.height - tab.height)destY = track.y + track.height - tab.height;
-				this.tab.y = (destY);
-			}else{
-				var destX:Number = this.tab.x+delta
-				if(destX<track.x)destX = track.x;
-				if(destX > track.x + track.width - tab.width)destX = track.x + track.width - tab.width;
-				this.tab.x = (destX);
-			}
-			updateProgressBar();
-			
-			this.dispatchEvent(new Event(Event.CHANGE));
-		}
-		protected function updateProgressBar():void {
-			if (!progressBar) return;
-			if (vertical) {
-				progressBar.height = level * track.height;
-				progressBar.y = track.height - progressBar.height;
-			}else {
-				progressBar.width = level * track.width;
-			}
-		}
-		private function updateBufferBar():void {
-			if (!bufferBar) return;
-			if (vertical) {
-				bufferBar.height = loadLevel * track.height;
-				bufferBar.y = track.height - bufferBar.height;
-			}else {
-				bufferBar.width = loadLevel * track.width;
-			}
-		}
-		protected function onStartDrag(event:DragEvent):void
-		{
-			this._dragging = true;
-			this.dispatchEvent(new DragEvent(DragEvent.START));
-		}
-		
-		protected function onDrag(event:DragEvent):void
-		{
-			updateProgressBar();
-			this.dispatchEvent(new DragEvent(DragEvent.DRAG));
-			this.dispatchEvent(new Event(Event.CHANGE));
-		}
-		
-		protected function onStopDrag(event:DragEvent):void
-		{
-			this.dispatchEvent(new DragEvent(DragEvent.STOP));
-			this._dragging = false;
-		}
-		
+		override public function get width():Number { return track.width; }
 		override public function set width(value:Number):void
 		{
 			if (vertical) {
 				super.width = value;
 			}else{
-				this.track.width = (value);
-				this.tab.dragBounds = getDragBounds();
-				
-				if (tab.x > this.track.width - this.tab.width) 
-				{
-					tab.x = this.track.width - this.tab.width;
-					this.dispatchEvent(new Event(Event.CHANGE));
-				}
-				
+				track.width = (value);
+				this.level = level;
 			}
 		}
-		override public function get width():Number
-		{
-			return track.width;
-		}
+		
+		override public function get height():Number { return track.height; }
 		override public function set height(value:Number):void 
 		{
 			if (vertical) {
-				this.track.height = (value);
-				
-				this.tab.dragBounds = (new Rectangle(this.track.x, this.tab.y, this.track.width - this.tab.width, 0));
-				if (tab.y > this.track.height - this.tab.height) 
-				{
-					tab.y = this.track.height - this.tab.height;
-					this.dispatchEvent(new Event(Event.CHANGE));
-				}
-				
+				track.height = value;
+				this.level = level;
 			}else{
 				super.height = value;
 			}
 		}
 		
-		override public function get height():Number 
-		{ 
-			return track.height;
-		}
-		
 		override public function get enabled():Boolean { return super.enabled; }
 		override public function set enabled(value:Boolean):void 
 		{
-			if (value) 
-			{
-				this.tab.enabled = true;
-				this.track.enabled = true;
-				this.track.tabEnabled = (false);
-			}
-			else 
-			{
-				this.tab.enabled = false;
-				this.track.enabled = false;
-			}
+			tab.enabled = value;
+			track.enabled = value;
+			track.tabEnabled = false;
 		}
-		override public function get useHandCursor():Boolean { return super.useHandCursor; }
 		
+		override public function get useHandCursor():Boolean { return super.useHandCursor; }
 		override public function set useHandCursor(value:Boolean):void 
 		{
-			this.tab.useHandCursor = (value);
-			this.track.useHandCursor = (value);
+			tab.useHandCursor = (value);
+			track.useHandCursor = (value);
+		}
+		
+		override public function get doubleClickEnabled():Boolean {	return tab.doubleClickEnabled;	}
+		override public function set doubleClickEnabled(value:Boolean):void {
+			tab.doubleClickEnabled =(value);
+		}
+		
+		public function get vertical():Boolean { return _vertical; }
+		public function set vertical(value:Boolean):void 
+		{
+			_vertical = value;
+			this.level = level;
+		}
+		
+		override public function getIsFocus():Boolean {	return tab.getIsFocus(); }
+		override public function setFocus():void {
+			tab.setFocus();
+		}
+		
+		public function get level():Number { return _level;	}
+		public function set level(value:Number):void 
+		{
+			if (value > 1) value = 1;
+			if (value < 0) value = 0;
+			_level = value;
+			if (vertical) {
+				tab.y = (track.y + (track.height - tab.height) * (1 - value));
+				if (bar) {
+					bar.height = value * track.height;
+					bar.y = track.height - bar.height;
+				}
+			}else {
+				tab.x = (track.x + (track.width - tab.width) * value);
+				if (bar) {
+					bar.width = value * track.width;
+				}
+			}
+			dispatchEvent(new Event(Event.CHANGE));
 		}
 		
 		public function setTrackUseHandCursor(value:Boolean):void 
 		{
-			this.track.useHandCursor = (value);
+			track.useHandCursor = (value);
 		}
 		
-		public function set level(value:Number):void 
+		protected function onMouseWheel(event:MouseEvent):void
 		{
-			if(value>1)value = 1;
-			if (value < 0) value = 0;
-			if (vertical) {
-				this.tab.y = (this.track.y +(this.track.height-this.tab.height) * (1 - value));
-			}else {
-				this.tab.x = (this.track.x +(this.track.width - this.tab.width) * value);
+			var delta:int = event.delta;
+			if (vertical)
+				level += delta / track.height;
+			else
+				level += delta / track.width;
+		}
+		
+		protected function onTrackDown(event:MouseEvent):void
+		{
+			_dragging = true;
+			dispatchEvent(new DragEvent(DragEvent.START));
+		}
+		
+		protected function onTrackMove(event:MouseEvent = null):void
+		{
+			if (_dragging) {
+				if (vertical) {
+					this.level = 1 - (track.mouseY / track.height);
+				} else {
+					this.level = track.mouseX / track.width;
+				}
+				dispatchEvent(new DragEvent(DragEvent.DRAG));
 			}
-			updateProgressBar();
 		}
 		
-		public function get level():Number 
+		protected function onTrackUp(event:MouseEvent):void
 		{
-			if (vertical) {
-				return 1 - ((this.tab.y - this.track.y) / (this.track.height - this.tab.height));
-			}else{
-				return (this.tab.x - this.track.x) / (this.track.width - this.tab.width);
-			}				
-		}
-		
-		protected function onReleaseTrack(event:MouseEvent):void
-		{
-			if (vertical) {
-				this.tab.y = track.y + (track.mouseY + (this.tab.height / 2));
-				
-				if (this.tab.y > this.tab.dragBounds.bottom) this.tab.y = (this.tab.dragBounds.bottom);
-				if (this.tab.y < this.tab.dragBounds.top) this.tab.y = (this.tab.dragBounds.top);
-			}else {
-				this.tab.x = track.x + (track.mouseX - (this.tab.width / 2));
-				
-				if (this.tab.x < this.tab.dragBounds.left) this.tab.x = (this.tab.dragBounds.left);
-				if (this.tab.x > this.tab.dragBounds.right) this.tab.x = (this.tab.dragBounds.right);
-			}
-			updateProgressBar();
-			this.dispatchEvent(new DragEvent(DragEvent.DRAG));
-			this.dispatchEvent(new DragEvent(DragEvent.STOP));
-			this.dispatchEvent(new Event(Event.CHANGE));
-			
-		}
-		override public function setFocus():void {
-			this.tab.setFocus();
-		}
-		override public function set doubleClickEnabled(value:Boolean):void {
-			this.tab.doubleClickEnabled =(value);
-		}
-		override public function get doubleClickEnabled():Boolean {
-			return this.tab.doubleClickEnabled;
-		}
-		
-		public function get vertical():Boolean 
-		{
-			return _vertical;
-		}
-		
-		public function set vertical(value:Boolean):void 
-		{
-			_vertical = value;
-			this.tab.dragBounds = getDragBounds();		
-			level = this.level;
-		}
-		
-		override public function getIsFocus():Boolean {
-			return this.tab.getIsFocus();
-		}
-		
-		public function get loadLevel():Number {
-			return _loadLevel;
-		}
-		
-		public function set loadLevel(value:Number):void {
-			_loadLevel = value;
-			updateBufferBar();
+			if (this.getBounds(stage).contains(stage.mouseX, stage.mouseY))
+				onTrackMove();
+			_dragging = false;
+			dispatchEvent(new DragEvent(DragEvent.STOP));
 		}
 	}
 }

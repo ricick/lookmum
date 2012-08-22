@@ -22,7 +22,7 @@ package com.lookmum.view
 	{
 		
 		protected var mediaPlayer:IMediaPlayer;
-		protected var videoSlider:Slider;
+		protected var videoSlider:VideoSlider;
 		protected var volumeSlider:VolumeSlider;
 		protected var buttonPlayPause:ToggleButton;
 		protected var buttonRewind:Button;
@@ -114,7 +114,7 @@ package com.lookmum.view
 			}
 		}
 		
-		private function onLoadProgress(e:MediaPlayerEvent):void 
+		protected function onLoadProgress(e:MediaPlayerEvent):void 
 		{
 			var loaded:Number = mediaPlayer.loadLevel;
 			if (!isNaN(loaded) && loaded <= 1 && videoSlider){
@@ -161,10 +161,10 @@ package com.lookmum.view
 			return new FLVPlayer(target.getChildByName('flvPlayer') as MovieClip);
 		}
 		
-		protected function getSlider():Slider
+		protected function getSlider():VideoSlider
 		{
 			if (!target.getChildByName('videoSlider')) return null;
-			return new Slider(target.getChildByName('videoSlider') as MovieClip);
+			return new VideoSlider(target.getChildByName('videoSlider') as MovieClip);
 		}
 		
 		protected function getButtonPlayPause():ToggleButton
