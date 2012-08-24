@@ -190,7 +190,7 @@ package com.lookmum.view {
 		
 		protected function onTrackUp(event:MouseEvent):void
 		{
-			if (track.getBounds(stage).contains(stage.mouseX, stage.mouseY))
+			if (track.getBounds(null).contains(track.mouseX, track.mouseY))
 				onTrackMove();
 			_dragging = false;
 			dispatchEvent(new DragEvent(DragEvent.STOP));
