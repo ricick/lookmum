@@ -101,7 +101,6 @@ package com.lookmum.view
 		
 		protected function onBufferFull(e:MediaPlayerEvent):void 
 		{
-			mediaPlayer.bufferTime *= 2
 			if (loadIcon){
 				loadIcon.visible = false;
 			}
@@ -109,6 +108,7 @@ package com.lookmum.view
 		
 		protected function onBufferEmpty(e:MediaPlayerEvent):void 
 		{
+			mediaPlayer.bufferTime *= 2
 			if (loadIcon && duration - time > 1) {
 				loadIcon.visible = true;
 			}

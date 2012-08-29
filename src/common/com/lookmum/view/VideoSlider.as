@@ -10,7 +10,7 @@ package com.lookmum.view
 	{
 		
 		protected var bufferBar:Component;
-		private var _loadLevel:Number;
+		private var _loadLevel:Number = 0;
 		
 		public function VideoSlider(target:MovieClip) 
 		{
