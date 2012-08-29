@@ -33,10 +33,10 @@ package com.lookmum.view
 			return target.getChildByName('controlPanel') as MovieClip;
 		}
 		
-		override protected function getSlider():Slider
+		override protected function getSlider():VideoSlider
 		{
 			if (!target.getChildByName('controlPanel') || !controlPanel.getChildByName('videoSlider') ) return null;
-			return new Slider(controlPanel.getChildByName('videoSlider') as MovieClip);
+			return new VideoSlider(controlPanel.getChildByName('videoSlider') as MovieClip);
 		}
 		
 		override protected function getButtonPlayPause():ToggleButton
