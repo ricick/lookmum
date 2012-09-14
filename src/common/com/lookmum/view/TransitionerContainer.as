@@ -26,6 +26,7 @@ package com.lookmum.view
 			super.createChildren();
 		}
 		public function addTransitionItem(item:MovieClip):void {
+			trace( "TransitionerContainer.addTransitionItem > item : " + item );
 			var transitioner:ITransitioner;
 			if (item is ITransitioner) {
 				transitioner = item as ITransitioner;
@@ -40,26 +41,25 @@ package com.lookmum.view
 		}
 		public function removeTransitionItem(item:MovieClip):void {
 			var transitioner:ITransitioner;
+			if (transitionComponents.indexOf(item) > -1) {
+				transitionComponents.splice(transitionComponents.indexOf(item), 1);
+				//item is in list so remove
+				return;
+			}; 
+			//try to find it as a decorator
 			for each (var itemCheck:ITransitioner in transitionComponents) 
 			{
-				if (itemCheck is TransitionerDecorator) {
+				if (itemCheck is TransitionerDecorator ) {
 					var itemCheckCast:TransitionerDecorator = itemCheck as TransitionerDecorator;
 					if (item == itemCheckCast.target) {
 						transitioner = itemCheckCast;
-						break;
-					}
-				}else {
-					if (item == itemCheck) {
-						transitioner = itemCheck;
 						break;
 					}
 				}
 			}
 			if (transitioner) {
 				if (transitionComponents.indexOf(transitioner) > -1) return;
-				
-				
-				transitionComponents.splice(transitionComponents.indexOf(transitioner),1);
+				transitionComponents.splice(transitionComponents.indexOf(transitioner), 1);
 			}
 		}
 		public function getTransitioner(item:MovieClip):ITransitioner{
