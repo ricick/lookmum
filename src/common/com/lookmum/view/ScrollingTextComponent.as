@@ -2,6 +2,8 @@ package com.lookmum.view
 {
 	import com.lookmum.util.ScrollBarManager;
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
+	import flash.geom.Rectangle;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	
@@ -16,6 +18,7 @@ package com.lookmum.view
 		private var maskClip:MovieClip;
 		protected var content:MovieClip;
 		private var manager:ScrollBarManager;
+		private var hitspot:Sprite;
 		public function ScrollingTextComponent(target:MovieClip) 
 		{
 			super(target);
@@ -25,11 +28,18 @@ package com.lookmum.view
 		{
 			content = target.content;
 			super.createChildren();
-			maskClip = target.maskClip;
+			maskClip = getMask();
+			content.mask = maskClip;
 			scrollBar = getScrollBar();
 			manager = new ScrollBarManager(scrollBar);
 			manager.associateDisplayObjectY(content, maskClip);
 		}
+		
+		private function getMask():MovieClip
+		{
+			return target.maskClip;
+		}
+		
 		protected function getScrollBar():ScrollBar {
 			return new ScrollBar(target.scrollBar);
 		}
@@ -58,6 +68,16 @@ package com.lookmum.view
 			super.text = value;
 			manager.calculateScroll();
 			scrollBar.visible = scrollBar.maxScroll > 1;
+		}
+		
+		override protected function arrangeComponents():void 
+		{
+			super.arrangeComponents();
+			scrollBar.graphics.clear();
+			var bounds:Rectangle = getBounds(scrollBar);
+			scrollBar.graphics.beginFill(1, 0);
+			scrollBar.graphics.drawRect(bounds.x - scrollBar.x, bounds.y - scrollBar.y, bounds.width, bounds.height);
+			scrollBar.graphics.endFill();
 		}
 		
 	}
