@@ -31,10 +31,10 @@ package com.lookmum.view
 			super(target);
 			hitArea = getHitspot();
 			buttonMode = true;
-			addEventListener(MouseEvent.ROLL_OVER, onRollOver);
-			addEventListener(MouseEvent.ROLL_OUT, onRollOut);
-			addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
-			addEventListener(MouseEvent.MOUSE_UP, onMouseUp );
+			hitArea.addEventListener(MouseEvent.ROLL_OVER, onRollOver);
+			hitArea.addEventListener(MouseEvent.ROLL_OUT, onRollOut);
+			hitArea.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+			hitArea.addEventListener(MouseEvent.MOUSE_UP, onMouseUp );
 			doEnable();
 		}
 		protected function getHitspot():MovieClip
