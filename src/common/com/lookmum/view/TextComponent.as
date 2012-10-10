@@ -45,6 +45,7 @@ package com.lookmum.view
 	{
 		private var _padding:Number = 0;
 		protected var textField:TextField;
+		
 		protected var bg:MovieClip;
 		public var autosizeBackground:Boolean = false;
 		public function TextComponent(target:MovieClip) 
