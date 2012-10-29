@@ -26,7 +26,7 @@ package com.lookmum.view
 			super.createChildren();
 		}
 		public function addTransitionItem(item:MovieClip):void {
-			trace( "TransitionerContainer.addTransitionItem > item : " + item );
+			//trace( "TransitionerContainer.addTransitionItem > item : " + item );
 			var transitioner:ITransitioner;
 			if (item is ITransitioner) {
 				transitioner = item as ITransitioner;
