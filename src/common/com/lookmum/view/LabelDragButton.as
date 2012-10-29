@@ -45,11 +45,15 @@ package com.lookmum.view
 			target.dispatchEvent(new DragEvent(DragEvent.ROLLOVER_DRAG, true));
 		}
 		private function doStartDrag(event:MouseEvent):void {
-			startDrag(_lockCenter, _dragBounds);
-			stage.addEventListener(MouseEvent.MOUSE_MOVE,onDrag);
-			dispatchEvent(new DragEvent(DragEvent.START));
-			//Bubble event for cursors
-			target.dispatchEvent(new DragEvent(DragEvent.START, true));
+			if (enabled)
+			{
+				startDrag(_lockCenter, _dragBounds);
+				stage.addEventListener(MouseEvent.MOUSE_MOVE,onDrag);
+				dispatchEvent(new DragEvent(DragEvent.START));
+				//Bubble event for cursors
+				target.dispatchEvent(new DragEvent(DragEvent.START, true));
+			}
+			
 		}
 		
 		private function doStopDrag(event:Event):void 
