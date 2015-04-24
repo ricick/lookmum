@@ -99,6 +99,10 @@ package com.lookmum.view
 			
 		}
 		
+		public function setSmoothing(value:Boolean):void {
+			FLVPlayer(mediaPlayer).setSmoothing(value);
+		}
+		
 		protected function onBufferFull(e:MediaPlayerEvent):void 
 		{
 			if (loadIcon){

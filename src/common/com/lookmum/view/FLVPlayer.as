@@ -76,6 +76,10 @@ package com.lookmum.view{
 			onLoadProgress(new Event(Event.ENTER_FRAME));
 		}
 		
+		public function setSmoothing(value:Boolean):void {
+			videoArea.smoothing = value;
+		}
+		
 		/*public function getVideoWidth():int {
 			return videoArea.videoWidth;
 		}
@@ -323,9 +327,9 @@ package com.lookmum.view{
 		public function get creationdate():Date {
 			return _metaData.creationDate;
 		}
-		public function get metaData():VideoMetaData{
+		/*public function get metaData():VideoMetaData{
 			return _metaData;
-		}
+		}*/
 		public function get duration():Number
 		{
 			if (!_metaData) return 0;

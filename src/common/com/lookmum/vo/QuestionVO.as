@@ -18,10 +18,12 @@ package com.lookmum.vo
 		public var feedbackIncorrect:String;
 		public var feedbackIncorrectHeading:String;
 		
-		public var options:Array;
+		public var optionVOs:Array;
+		
 		public static function fromXML(xml:XML):QuestionVO 
 		{
 			var value:QuestionVO = new QuestionVO();
+			
 			value.type = xml.@type;
 			value.text = TextManager.getText(xml.@text);
 			
@@ -33,10 +35,10 @@ package com.lookmum.vo
 			value.feedbackIncorrect = TextManager.getText(xml.@feedbackIncorrect);
 			if (xml.@feedbackIncorrectHeading != undefined) value.feedbackIncorrectHeading = TextManager.getText(xml.@feedbackIncorrectHeading);
 			
-			value.options = new Array();
+			value.optionVOs = new Array();
 			for each (var optionXML:XML in xml.options.option) 
 			{
-				value.options.push(QuestionOptionVO.fromXML(optionXML));
+				value.optionVOs.push(QuestionOptionVO.fromXML(optionXML));
 			}
 			return value;
 		}

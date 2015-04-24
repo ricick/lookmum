@@ -108,7 +108,7 @@ package com.lookmum.util {
 			
 		}
 		
-		private function progressHandler(e:ProgressEvent):void {
+		protected function progressHandler(e:ProgressEvent):void {
 			//trace( "SoundPlayer.progressHandler > e : " + e );
 			
 		}
